@@ -34,35 +34,5 @@ ITEM LIST:
 - Scimitar +2: Accelerator
 - Sling +2: Accelerator
 
-Item Locations: link  
-Item Descriptions: link
-
-
-CREDITS:
-
-Coding, Testing: Dan_P
-
-Tools and Resources used:  
-- WeiDU v247 https://github.com/WeiDUorg/weidu  
-- NearInfinity v2.2-20210501 https://github.com/Argent77/NearInfinity  
-- Notepad++ https://notepad-plus-plus.org/  
-- Git Bash https://git-scm.com/downloads  
-- Infinity Auto Packager https://github.com/InfinityTools/InfinityAutoPackager  
-- IESDP https://gibberlings3.github.io/iesdp/index.htm
-
-This mod makes use of names, images, and modified text from various FromSoftware games, including the Dark Souls trilogy and Demon's Souls. Play these games if you haven't. They are, along with Bloodborne, some of the best rpgs released over the past decade (with Bloodborne being the best period).
-
-Source images for the BAM icons are taken from wikidot.com or Fandom.com, and are licensed under CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0/>.
-
-
-COPYRIGHT NOTICE:
-
-"D2-WEAPON - A Souls-inspired Weapon Pack" is licensed under Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) <https://creativecommons.org/licenses/by-sa/3.0/>.
-
-Anyone is free to re-distribute or re-use any part of this mod for their own projects.
-
-
-VERSION HISTORY:
-
-v1.0
--initial release
+Item Locations: https://github.com/D2-mods/D2-WEAPON/blob/main/d2-weapon/Item%20locations.txt  
+Item Descriptions: https://github.com/D2-mods/D2-WEAPON/blob/main/d2-weapon/Item%20descriptions.txt

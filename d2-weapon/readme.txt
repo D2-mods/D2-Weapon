@@ -34,8 +34,8 @@ ITEM LIST:
 - Scimitar +2: Accelerator
 - Sling +2: Accelerator
 
-Item Locations: link
-Item Descriptions: link
+Item Locations: https://github.com/D2-mods/D2-WEAPON/blob/main/d2-weapon/Item%20locations.txt
+Item Descriptions: https://github.com/D2-mods/D2-WEAPON/blob/main/d2-weapon/Item%20descriptions.txt
 
 
 CREDITS:
@@ -65,4 +65,4 @@ Anyone is free to re-distribute or re-use any part of this mod for their own pro
 VERSION HISTORY:
 
 v1.0
--initial release
+- initial release
