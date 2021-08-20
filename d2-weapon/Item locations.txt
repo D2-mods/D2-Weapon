@@ -1,0 +1,79 @@
+ITEM RESOURCE
+
+d2bow01 - Black Bow of Pharis
+d2bow02 - Dragonslayer Greatbow
+d2bow03 - White Birch Bow
+d2bow04 - Avelyn
+d2swd01 - Greatsword
+d2swd02 - Fume Ultra Greatsword
+d2swd03 - Chaos Rapier
+d2swd04 - Drakeblood Greatsword
+d2swd05 - Bewitched Alonne Sword
+d2swd06 - Stone Greatsword
+d2swd07 - Scimitar +2: Accelerator
+d2dag01 - Aquamarine Dagger
+d2hal01 - Unbalanced Halberd
+d2ham01 - Club +4: Frenzy
+d2eff01b - Sling +2: Accelerator (experimental)
+
+
+ITEM LOCATIONS
+
+BG1 STORES
+
+Candlekeep (INN2616)
+- Unbalanced Halberd
+
+Friendly Arm Inn (FRIEND)
+- Unbalanced Halberd
+
+BG2 STORES
+
+Deidre (WMART2)
+- Avelyn
+- Greatsword
+- Drakeblood Greatsword
+- Chaos Rapier
+- Aquamarine Dagger
+- Sling +2: Accelerator
+
+Joluv (WMART1)
+- Black Bow of Pharis
+- White Birch Bow
+- Fume Ultra Greatsword
+- Stone Greatsword
+- Unbalanced Halberd
+- Club +4: Frenzy
+
+Ribald (RIBALD3) - from chapter 6
+- Dragonslayer Greatbow
+- Bewitched Alonne Sword
+- Scimitar +2: Accelerator
+
+IWD STORES
+
+Pomab (EHPOMAB)
+- Unbalanced Halberd
+
+Conlan (KUSMITH)
+- Black Bow of Pharis
+- Greatsword
+- Unbalanced Halberd
+- Sling +2: Accelerator
+
+Lehland (SHLEHLAN)
+- White Birch Bow
+- Stone Greatsword
+- Drakeblood Greatsword
+- Aquamarine Dagger
+
+Nym (LDD_NYM)
+- Avelyn
+- Fume Ultra Greatsword
+- Chaos Rapier
+- Scimitar +2: Accelerator
+
+Kieran Nye (KIERAN2)
+- Dragonslayer Greatbow
+- Club +4: Frenzy
+- Bewitched Alonne Sword

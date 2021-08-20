@@ -1,0 +1,230 @@
+ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN				// BG1 stores
+
+COPY_EXISTING ~FRIEND.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2hal01
+  position = ~LAST~
+  END
+  
+COPY_EXISTING ~INN2616.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2hal01
+  position = ~LAST~
+  END
+  
+END
+  
+
+ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
+
+COPY_EXISTING ~WMART2.STO~ ~override~				// Deidre
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2bow02
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  charge2 = 3
+  item_name = d2bow04
+  position = ~LAST~
+  END
+
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2swd01
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2swd04
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2swd03
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  charge2 = 3
+  item_name = d2dag01
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2eff01b
+  position = ~LAST~
+  END
+  
+COPY_EXISTING ~WMART1.STO~ ~override~				// Joluv
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2bow01
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2bow03
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2swd02
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  charge2 = 1
+  item_name = d2swd06
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  charge2 = 1
+  item_name = d2swd05
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2hal01
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  charge2 = 3
+  item_name = d2ham01
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2swd07
+  position = ~LAST~
+  END
+  
+END
+  
+  
+ACTION_IF (GAME_INCLUDES ~iwd~) BEGIN				// IWD stores
+
+COPY_EXISTING ~EHPOMAB.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2hal01
+  position = ~LAST~
+  END
+
+COPY_EXISTING ~KUSMITH.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2bow01
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2swd01
+  position = ~LAST~
+  END
+
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2hal01
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2eff01b
+  position = ~LAST~
+  END
+  
+COPY_EXISTING ~SHLEHLAN.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2bow03
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  charge2 = 1
+  item_name = d2swd06
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2swd04
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  charge2 = 3
+  item_name = d2dag01
+  position = ~LAST~
+  END
+  
+COPY_EXISTING ~LDD_NYM.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  charge2 = 3
+  item_name = d2bow04
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2swd02
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2swd03
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2swd07
+  position = ~LAST~
+  END
+  
+COPY_EXISTING ~KIERAN2.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+  STR_VAR
+  item_name = d2bow02
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  charge2 = 3
+  item_name = d2ham01
+  position = ~LAST~
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  charge2 = 1
+  item_name = d2swd05
+  position = ~LAST~
+  END
+  
+END

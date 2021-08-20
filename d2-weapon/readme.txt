@@ -1,6 +1,6 @@
-# D2-WEAPON - A Souls-inspired Weapon Pack
-GitHub: https://github.com/D2-mods/D2-WEAPON  
-Forum:  
+D2-WEAPON - A Souls-inspired Weapon Pack
+GitHub: https://github.com/D2-mods/D2-WEAPON
+Forum: 
 Game version: BG:EE, BG2:EE, IWD:EE, untested with non-EE versions
 
 
@@ -34,7 +34,7 @@ ITEM LIST:
 - Scimitar +2: Accelerator
 - Sling +2: Accelerator
 
-Item Locations: link  
+Item Locations: link
 Item Descriptions: link
 
 
