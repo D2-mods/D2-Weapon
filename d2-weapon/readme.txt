@@ -1,6 +1,7 @@
 D2-WEAPON - A Souls-inspired Weapon Pack
 GitHub: https://github.com/D2-mods/D2-WEAPON
-Forum: 
+Forum: https://forums.beamdog.com/discussion/82719/d2-weapon-a-souls-inspired-weapon-pack-a-mod-for-bg-ee-bg2-ee-and-iwd-ee/
+https://www.gibberlings3.net/forums/topic/33091-d2-weapon-a-souls-inspired-weapon-pack-a-mod-for-bgee-bg2ee-and-iwdee/
 Game version: BG:EE, BG2:EE, IWD:EE, untested with non-EE versions
 
 
@@ -34,8 +35,8 @@ ITEM LIST:
 - Scimitar +2: Accelerator
 - Sling +2: Accelerator
 
-Item Locations: https://github.com/D2-mods/D2-WEAPON/blob/main/d2-weapon/Item%20locations.txt
-Item Descriptions: https://github.com/D2-mods/D2-WEAPON/blob/main/d2-weapon/Item%20descriptions.txt
+Item Locations: https://raw.githubusercontent.com/D2-mods/D2-WEAPON/main/d2-weapon/Item%20locations.txt
+Item Descriptions: https://raw.githubusercontent.com/D2-mods/D2-WEAPON/main/d2-weapon/Item%20descriptions.txt
 
 
 CREDITS:
@@ -55,7 +56,7 @@ This mod makes use of names, images, and modified text from various FromSoftware
 
 COPYRIGHT NOTICE:
 
-"D2-WEAPON" is licensed under Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) <https://creativecommons.org/licenses/by-sa/3.0/>. It uses modified images for the icon BAMs, taken from wikidot.com or Fandom.com, and which are shared under this license.
+"D2-WEAPON" is licensed under Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0). It uses modified images for the icon BAMs, taken from wikidot.com or Fandom.com, and which are shared under this license. https://creativecommons.org/licenses/by-sa/3.0/
 
 Anyone is free to re-distribute or re-use any part of this mod for their own projects.
 
