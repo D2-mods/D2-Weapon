@@ -2,7 +2,7 @@ D2-WEAPON - A Souls-inspired Weapon Pack
 GitHub: https://github.com/D2-mods/D2-WEAPON
 Forum: https://forums.beamdog.com/discussion/82719/d2-weapon-a-souls-inspired-weapon-pack-a-mod-for-bg-ee-bg2-ee-and-iwd-ee/
 https://www.gibberlings3.net/forums/topic/33091-d2-weapon-a-souls-inspired-weapon-pack-a-mod-for-bgee-bg2ee-and-iwdee/
-Game version: BG:EE, BG2:EE, IWD:EE, untested with non-EE versions
+Game version: BG:EE, BG2:EE, IWD:EE (tested on v2.5/v2.6)
 
 
 WHAT THIS MOD DOES:
@@ -62,6 +62,10 @@ Anyone is free to re-distribute or re-use any part of this mod for their own pro
 
 
 VERSION HISTORY:
+
+v1.1
+- Unbalanced Halberd effect chance corrected to 50/50 (was 51/49)
+- Aquamarine Dagger now scales to caster level 21 (for THAC0=0), instead of capping at level 20
 
 v1.0
 - initial release
