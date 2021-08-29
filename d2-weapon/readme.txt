@@ -2,7 +2,7 @@ D2-WEAPON - A Souls-inspired Weapon Pack
 GitHub: https://github.com/D2-mods/D2-WEAPON
 Forum: https://forums.beamdog.com/discussion/82719/d2-weapon-a-souls-inspired-weapon-pack-a-mod-for-bg-ee-bg2-ee-and-iwd-ee/
 https://www.gibberlings3.net/forums/topic/33091-d2-weapon-a-souls-inspired-weapon-pack-a-mod-for-bgee-bg2ee-and-iwdee/
-Game version: BG:EE, BG2:EE, IWD:EE (tested on v2.5/v2.6)
+Game version: BG:EE, BG2:EE, EET, IWD:EE (tested on v2.5/v2.6)
 
 
 WHAT THIS MOD DOES:
