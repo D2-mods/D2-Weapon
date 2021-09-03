@@ -1,6 +1,6 @@
 BACKUP ~d2-weapon\backup~
 AUTHOR ~Dan_P, check the readme for forum link~
-VERSION ~1.1~
+VERSION ~1.2~
 
 AUTO_TRA ~d2-weapon/tra/%s~
 LANGUAGE ~English~ ~english~ ~d2-weapon/tra/english/setup.tra~
@@ -9,5 +9,5 @@ LANGUAGE ~English~ ~english~ ~d2-weapon/tra/english/setup.tra~
 	 
 BEGIN ~D2-WEAPON - A Souls-inspired Weapon Pack~
 LABEL ~D2-WEAPON-SOULS~
-INCLUDE ~%MOD_FOLDER%/lib/install.tpa~
-INCLUDE ~%MOD_FOLDER%/lib/addtostore.tpa~
+INCLUDE ~%MOD_FOLDER%/install/install.tpa~
+INCLUDE ~%MOD_FOLDER%/install/addtostore.tpa~
