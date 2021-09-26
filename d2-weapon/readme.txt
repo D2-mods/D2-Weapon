@@ -64,7 +64,7 @@ Anyone is free to re-distribute or re-use any part of this mod for their own pro
 VERSION HISTORY:
 
 v1.2/1.3
-- just behind-the-hood changes, no changes to item abilities
+- just under-the-hood changes, no changes to item abilities
 
 v1.1
 - Unbalanced Halberd effect chance corrected to 50/50 (was 51/49)
