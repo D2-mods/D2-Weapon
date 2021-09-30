@@ -1,17 +1,26 @@
 ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN				// BG1 stores
-
-COPY_EXISTING ~FRIEND.STO~ ~override~
-  LPF ADD_STORE_ITEM_EX
-  STR_VAR
-  item_name = d2hal01
-  position = ~LAST~
-  END
   
 COPY_EXISTING ~INN2616.STO~ ~override~
   LPF ADD_STORE_ITEM_EX
   STR_VAR
   item_name = d2hal01
-  position = ~LAST~
+  position = ~BEFORE HALB01~
+  END
+
+COPY_EXISTING ~FRIEND.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  stack = 5
+  item_name = d2hal01
+  position = ~BEFORE HALB01~
+  END
+  
+COPY_EXISTING ~STO4908.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  stack = 3
+  item_name = d2hal01
+  position = ~BEFORE HAMM01~
   END
   
 END
@@ -86,6 +95,7 @@ COPY_EXISTING ~WMART1.STO~ ~override~				// Joluv
   
   LPF ADD_STORE_ITEM_EX
   STR_VAR
+  stack = 10
   item_name = d2hal01
   position = ~LAST~
   END
@@ -97,7 +107,7 @@ COPY_EXISTING ~WMART1.STO~ ~override~				// Joluv
   position = ~LAST~
   END
   
-COPY_EXISTING ~RIBALD3.STO~ ~override~				// Ribald
+COPY_EXISTING ~RIBALD3.STO~ ~override~				// Ribald (chapter 6)
   LPF ADD_STORE_ITEM_EX
   STR_VAR
   item_name = d2bow02
@@ -124,11 +134,20 @@ ACTION_IF (GAME_INCLUDES ~iwd~) BEGIN				// IWD stores
 
 COPY_EXISTING ~EHPOMAB.STO~ ~override~
   LPF ADD_STORE_ITEM_EX
-  STR_VAR
+  INT_VAR STR_VAR
+  stack = 3
   item_name = d2hal01
-  position = ~LAST~
+  position = ~AFTER BLUN01~
   END
 
+COPY_EXISTING ~KUGERTH.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+  INT_VAR STR_VAR
+  unlimited = 1
+  item_name = d2hal01
+  position = ~AFTER BLUN01~
+  END
+  
 COPY_EXISTING ~KUSMITH.STO~ ~override~
   LPF ADD_STORE_ITEM_EX
   STR_VAR
@@ -139,12 +158,6 @@ COPY_EXISTING ~KUSMITH.STO~ ~override~
   LPF ADD_STORE_ITEM_EX
   STR_VAR
   item_name = d2swd01
-  position = ~LAST~
-  END
-
-  LPF ADD_STORE_ITEM_EX
-  STR_VAR
-  item_name = d2hal01
   position = ~LAST~
   END
   

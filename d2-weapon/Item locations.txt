@@ -14,12 +14,12 @@ d2swd07 - Scimitar +2: Accelerator
 d2dag01 - Aquamarine Dagger
 d2hal01 - Unbalanced Halberd
 d2ham01 - Club +4: Frenzy
-d2eff01b - Sling +2: Accelerator (experimental)
+d2eff01b - Sling +2: Accelerator
 
 
 ITEM LOCATIONS
 
-BG1 STORES
+BG1 Stores:
 
 Candlekeep (INN2616)
 - Unbalanced Halberd
@@ -27,7 +27,10 @@ Candlekeep (INN2616)
 Friendly Arm Inn (FRIEND)
 - Unbalanced Halberd
 
-BG2 STORES
+Carnival merchant (STO4908.STO)
+- Unbalanced Halberd
+
+BG2 Stores:
 
 Deidre (WMART2)
 - Avelyn
@@ -50,15 +53,17 @@ Ribald (RIBALD3) - from chapter 6
 - Bewitched Alonne Sword
 - Scimitar +2: Accelerator
 
-IWD STORES
+IWD Stores:
 
 Pomab (EHPOMAB)
+- Unbalanced Halberd
+
+Gerth (KUGERTH)
 - Unbalanced Halberd
 
 Conlan (KUSMITH)
 - Black Bow of Pharis
 - Greatsword
-- Unbalanced Halberd
 - Sling +2: Accelerator
 
 Lehland (SHLEHLAN)
