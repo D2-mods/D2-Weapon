@@ -1,6 +1,7 @@
-COPY ~%MOD_FOLDER%/data~ ~override~				// copy files to override
+COPY ~%MOD_FOLDER%/data~ ~override~    // copy files to override
+COPY ~%MOD_FOLDER%/icon~ ~override~
 
-COPY_EXISTING ~d2bow01.ITM~ ~override~			// adding text to bows
+COPY_EXISTING ~d2bow01.ITM~ ~override~    // adding text to bows
   SAY NAME1 @100
   SAY NAME2 @100
   SAY DESC @200
@@ -15,8 +16,8 @@ COPY_EXISTING ~d2bow03.ITM~ ~override~
   SAY NAME2 @102
   SAY DESC @202
 
-COPY_EXISTING ~d2bow03e.SPL~ ~override~
-  LPF ALTER_EFFECT 								// this code patches op139 (dialogue string) to @#
+COPY_EXISTING ~d2bow03e.SPL~ ~override~    // this code patches op139 (display string) to @# in TRA file
+  LPF ALTER_EFFECT
   INT_VAR 
   match_opcode = 139 
   parameter1 = RESOLVE_STR_REF (@300)
@@ -45,7 +46,7 @@ COPY_EXISTING ~d2bow04e.ITM~ ~override~
   SAY NAME2 @103
   SAY DESC @203
 
-COPY_EXISTING ~d2swd01.ITM~ ~override~			// adding text to 2-handed swords
+COPY_EXISTING ~d2swd01.ITM~ ~override~    // adding text to 2-handed swords
   SAY NAME1 @104
   SAY NAME2 @104
   SAY DESC @204
@@ -75,7 +76,7 @@ COPY_EXISTING ~d2swd06e.SPL~ ~override~
 COPY_EXISTING ~d2swd06s.SPL~ ~override~
   SAY NAME1 @302
 
-COPY_EXISTING ~d2swd03.ITM~ ~override~			// adding text to 1-handed weapons
+COPY_EXISTING ~d2swd03.ITM~ ~override~    // adding text to 1-handed weapons
   SAY NAME1 @107
   SAY NAME2 @107
   SAY DESC @207
@@ -117,7 +118,7 @@ COPY_EXISTING ~d2dag01e.ITM~ ~override~
 COPY_EXISTING ~d2dag01e.SPL~ ~override~
   SAY NAME1 @306
 
-COPY_EXISTING ~d2hal01.ITM~ ~override~			// adding text to non-Souls weapons
+COPY_EXISTING ~d2hal01.ITM~ ~override~    // adding text to non-Souls weapons
   SAY NAME1 @111
   SAY NAME2 @111
   SAY DESC @211
@@ -153,7 +154,7 @@ COPY_EXISTING ~d2swd07.ITM~ ~override~
   SAY NAME2 @113
   SAY DESC @213
   
-COPY_EXISTING ~d2eff01a.ITM~ ~override~			// experimental (for testing EFF)
+COPY_EXISTING ~d2eff01a.ITM~ ~override~    // experimental (for testing EFF)
   SAY NAME1 @113
   SAY NAME2 @113
   SAY DESC @213

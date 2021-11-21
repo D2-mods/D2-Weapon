@@ -3,9 +3,9 @@ AUTHOR ~Dan_P, check the readme for forum link~
 VERSION ~1.4~
 
 LANGUAGE ~English~ ~english~ ~d2-weapon/tra/english/setup.tra~
-	 
+
 //Installing
-	 
+
 BEGIN ~D2-Weapon - A Souls-inspired Weapon Pack~
 LABEL ~D2-WEAPON-SOULS~
 INCLUDE ~%MOD_FOLDER%/install/install.tpa~

@@ -1,5 +1,4 @@
-//Spell Names and Dialogue Strings
-
+//Spell Names and Display Strings
 @300 = ~Invisible~
 @301 = ~Repeat Fire~
 @302 = ~Tranquil Walk of Peace~
@@ -14,8 +13,7 @@
 @311 = ~Halfling~
 
 
-// Bow Descriptions
-
+//Bow descriptions
 @100 = ~Black Bow of Pharis~
 @200 = ~A black longbow named after a hero of old, known for the unusual stance from which it is fired. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
 
@@ -107,8 +105,7 @@ Requires:
 Weight: 16~
 
 
-// 2-handed swords
-
+//2-handed swords
 @104 = ~Greatsword~
 @204 = ~A straight sword with a gigantic blade, one of the heaviest of its kind. Highly destructive if intolerably heavy. No human was intended to wield a sword of this weight or destructiveness.
 
@@ -183,8 +180,7 @@ Requires:
 Weight: 18~
 
 
-// 1-handed weapons
-
+//1-handed weapons
 @107 = ~Chaos Rapier~
 @207 = ~Rapier of darkness and chaos. Once, a brilliant young sorcerer cast away his earthly desires, devoting himself entirely to the Dark that bewitched him. Nebulous, inky and serene, the Dark holds an allure matched only by the fear it strikes in men's hearts.
 
@@ -293,8 +289,7 @@ Requires:
 Weight: 1~
 
 
-//Non-Souls weapons
-
+//non-Souls weapons
 @111 = ~Unbalanced Halberd~
 @211 = ~Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. Appears to be solidly built, though strangely, this weapon costs only a single gold piece and the weight feels odd in your hands, shifting forward or sideways of its own accord.
 
@@ -374,7 +369,6 @@ Weight: 0~
 
 
 //unidentified text (may delete, keep for now)
-
 @900 = ~Katana~
 @901 = ~The katana is a single-edged, slightly curved sword that ends with a chisel point. The katana is perhaps one of the finest swords ever made, the steps to its creation a long and secret process that is more art form than anything else. This blade is an important facet of Kara-Turan culture. To touch or wield a samurai's katana is to insult the samurai and to incite his wrath. For a gaijin, or foreigner, to own such a blade is a rare occurrence. Either the gaijin is a greatly honored friend of an important minister, or the gaijin has murdered a samurai.
 
