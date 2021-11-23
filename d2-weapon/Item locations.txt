@@ -1,5 +1,6 @@
+==================================================
 ITEM RESOURCE
-
+==================================================
 d2bow01 - Black Bow of Pharis
 d2bow02 - Dragonslayer Greatbow
 d2bow03 - White Birch Bow
@@ -16,9 +17,9 @@ d2hal01 - Unbalanced Halberd
 d2ham01 - Club +4: Frenzy
 d2eff01b - Sling +2: Accelerator
 
-
+==================================================
 ITEM LOCATIONS
-
+==================================================
 BG1 Stores:
 
 Candlekeep (INN2616)

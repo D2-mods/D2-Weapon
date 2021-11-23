@@ -1,5 +1,5 @@
-BACKUP ~d2-weapon\backup~
-AUTHOR ~Dan_P, check the readme for forum link~
+BACKUP ~d2-weapon/backup~
+AUTHOR ~Dan_P~
 VERSION ~1.4~
 
 LANGUAGE ~English~ ~english~ ~d2-weapon/tra/english/setup.tra~
