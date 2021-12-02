@@ -16,9 +16,9 @@ Extract to game folder and run the setup to install or uninstall. I'm not famili
 
 
 #### ITEM LIST:
-
+```
 - Black Bow of Pharis (longbow)
-- Dragonslayer Greatbow (longbow)
+- Dragonslayer Greatbow (composite longbow)
 - White Birch Bow (shortbow)
 - Avelyn (crossbow)
 - Greatsword (2-handed sword)
@@ -32,7 +32,7 @@ Extract to game folder and run the setup to install or uninstall. I'm not famili
 - Club +4: Frenzy
 - Scimitar +2: Accelerator
 - Sling +2: Accelerator
-
+```
 Item Locations: [Link](https://raw.githubusercontent.com/D2-mods/D2-Weapon/main/d2-weapon/Item%20locations.txt)  
 Item Descriptions: [Link](https://raw.githubusercontent.com/D2-mods/D2-Weapon/main/d2-weapon/Item%20descriptions.txt)
 

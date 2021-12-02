@@ -1,3 +1,8 @@
+//Setup
+@1 = ~D2-Weapon - A Souls-inspired Weapon Pack~
+@2 = ~Installs on BG:EE, BG2:EE, IWD:EE and EET~
+
+
 //Spell Names and Display Strings
 @300 = ~Invisible~
 @301 = ~Repeat Fire~

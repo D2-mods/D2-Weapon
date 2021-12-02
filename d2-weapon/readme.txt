@@ -21,7 +21,7 @@ Extract to game folder and run the setup to install or uninstall. I'm not famili
 ITEM LIST
 ==================================================
 - Black Bow of Pharis (longbow)
-- Dragonslayer Greatbow (longbow)
+- Dragonslayer Greatbow (composite longbow)
 - White Birch Bow (shortbow)
 - Avelyn (crossbow)
 - Greatsword (2-handed sword)
@@ -46,7 +46,7 @@ CREDITS
 Coding, Testing: Dan_P
 
 Tools and Resources used:  
-- WeiDU v247 https://github.com/WeiDUorg/weidu  
+- WeiDU v249 https://github.com/WeiDUorg/weidu  
 - NearInfinity v2.2-20210501 https://github.com/Argent77/NearInfinity  
 - Notepad++ https://notepad-plus-plus.org/  
 - Git Bash https://git-scm.com/downloads  
@@ -67,8 +67,10 @@ Anyone is free to re-distribute or re-use any part of this mod for their own pro
 ==================================================
 VERSION HISTORY
 ==================================================
-v1.5/v2.0
-- 
+v1.5
+- update WeiDU version to v249
+- update some things with the installation
+- no changes to items
 
 v1.4
 - increased quantities sold of Unbalanced Halberd

@@ -1,12 +1,13 @@
 BACKUP ~d2-weapon/backup~
 AUTHOR ~Dan_P~
-VERSION ~1.4~
+VERSION ~1.5~
 
 LANGUAGE ~English~ ~english~ ~d2-weapon/tra/english/setup.tra~
 
 //Installing
 
-BEGIN ~D2-Weapon - A Souls-inspired Weapon Pack~
+BEGIN @1    /* D2-Weapon - A Souls-inspired Weapon Pack */
+REQUIRE_PREDICATE GAME_IS ~bgee bg2ee iwdee eet~ @2
 LABEL ~D2-WEAPON-SOULS~
 INCLUDE ~%MOD_FOLDER%/install/install.tpa~
 INCLUDE ~%MOD_FOLDER%/install/addtostore.tpa~
