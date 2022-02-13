@@ -296,12 +296,12 @@ Weight: 1~
 
 //non-Souls weapons
 @111 = ~Unbalanced Halberd~
-@211 = ~Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. Appears to be solidly built, though strangely, this weapon costs only a single gold piece and the weight feels odd in your hands, shifting forward or sideways of its own accord.
+@211 = ~Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. The weapon appears to be solidly built, though strangely, it costs only a single gold piece and the weight feels odd in your hands, shifting forward or sideways of its own accord.
 
 STATISTICS:
 
 Equipped abilities:
-– Unbalanced: Each round, the wielder gains +1 or -1 to Strength and Dexterity for 3 rounds (effects are always the opposite for each attribute)
+– Each round, the wielder gains +1 or -1 to Strength and Dexterity for 3 rounds (effects are always the opposite for each attribute)
 
 Damage: 1d10 (piercing or slashing)
 Speed Factor: 9
@@ -353,7 +353,53 @@ Requires:
 Weight: 4~
 
 @114 = ~Sling +2: Accelerator~
-@214 = ~Magical slings are the hallmark of stout halfling warriors and adventurers. This sling has been magically enhanced, and seems to attack more rapidly with each stone flung from the pocket.
+@214 = ~Magical slings are the hallmark of stout halfling warriors and adventurers. Anyone can take this sling up and use it as a powerful magical weapon, but the full enchantment emerges when swung by a halfling. Power courses from sling to hand, and the wielder attacks more rapidly with each stone flung from the pocket.
+
+STATISTICS:
+
+Combat abilities:
+– Accelerator: Each hit gives the slinger a +0.5 bonus to attacks per round and a -1 THAC0 penalty for 9 seconds (Halflings only)
+
+THAC0: +2
+Damage: +2 (missile)
+Speed Factor: 4
+Proficiency Type: Sling
+Type: One-handed
+Requires:
+ 3 Strength
+
+Weight: 0~
+
+
+//other text (i.e. bag of holding)
+@500 = ~Weapon Sack~
+@501 = ~As with other magical bags, this one appears to be a common cloth sack of about 2 feet by 4 feet in size. The bag of holding opens into a nondimensional space, and its inside is larger than its outside dimensions. Regardless of what is put into this item, the bag always weighs a fixed amount.
+
+STATISTICS:
+
+Capacity: 20 items
+Weight: 5~
+
+
+//unidentified text
+@700 = ~Katana~
+@701 = ~The katana is a single-edged, slightly curved sword that ends with a chisel point. The katana is perhaps one of the finest swords ever made, the steps to its creation a long and secret process that is more art form than anything else. This blade is an important facet of Kara-Turan culture. To touch or wield a samurai's katana is to insult the samurai and to incite his wrath. For a gaijin, or foreigner, to own such a blade is a rare occurrence. Either the gaijin is a greatly honored friend of an important minister, or the gaijin has murdered a samurai.
+
+STATISTICS:
+
+Damage: 1d10 (slashing)
+Speed Factor: 4
+Proficiency Type: Katana
+Type: One-handed
+Requires:
+ 6 Strength
+
+Weight: 6~
+
+
+//alternate text
+@900 = ~Sling +2: Accelerator~
+@901 = ~Magical slings are the hallmark of stout halfling warriors and adventurers. This sling has been magically enhanced, and seems to attack more rapidly with each stone flung from the pocket.
 
 A small scrap of paper is found tied to the sling. It reads, "to be used only by halfling slingers - That's the Rules". Well! If that's the rules, then it should be followed. If your band counts a halfling among its number, then this sling could make a powerful tool against any of the foul creatures that you encounter on your journey.
 
@@ -371,22 +417,3 @@ Requires:
  3 Strength
 
 Weight: 0~
-
-
-//unidentified text (may delete, keep for now)
-@900 = ~Katana~
-@901 = ~The katana is a single-edged, slightly curved sword that ends with a chisel point. The katana is perhaps one of the finest swords ever made, the steps to its creation a long and secret process that is more art form than anything else. This blade is an important facet of Kara-Turan culture. To touch or wield a samurai's katana is to insult the samurai and to incite his wrath. For a gaijin, or foreigner, to own such a blade is a rare occurrence. Either the gaijin is a greatly honored friend of an important minister, or the gaijin has murdered a samurai.
-
-STATISTICS:
-
-Damage: 1d10 (slashing)
-Speed Factor: 4
-Proficiency Type: Katana
-Type: One-handed
-Requires:
- 6 Strength
-
-Weight: 6~
-
-
-//working

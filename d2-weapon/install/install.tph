@@ -3,18 +3,15 @@ COPY ~%MOD_FOLDER%/icon~ ~override~
 
 COPY_EXISTING ~d2bow01.ITM~ ~override~    // adding text to bows
   SAY NAME1 @100
-  SAY NAME2 @100
-  SAY DESC @200
+  SAY NAME2 @100 SAY DESC @200
 
 COPY_EXISTING ~d2bow02.ITM~ ~override~
   SAY NAME1 @101
-  SAY NAME2 @101
-  SAY DESC @201
+  SAY NAME2 @101 SAY DESC @201
 
 COPY_EXISTING ~d2bow03.ITM~ ~override~
   SAY NAME1 @102
-  SAY NAME2 @102
-  SAY DESC @202
+  SAY NAME2 @102 SAY DESC @202
 
 COPY_EXISTING ~d2bow03e.SPL~ ~override~    // this code patches op139 (display string) to @# in TRA file
   LPF ALTER_EFFECT
@@ -32,8 +29,8 @@ COPY_EXISTING ~d2bow03s.SPL~ ~override~
 
 COPY_EXISTING ~d2bow04.ITM~ ~override~
   SAY NAME1 @103
-  SAY NAME2 @103
-  SAY DESC @203
+  SAY NAME2 @103 SAY DESC @203
+  
   LPF ALTER_EFFECT 
   INT_VAR 
   header_type = 3
@@ -43,28 +40,23 @@ COPY_EXISTING ~d2bow04.ITM~ ~override~
 
 COPY_EXISTING ~d2bow04e.ITM~ ~override~
   SAY NAME1 @103
-  SAY NAME2 @103
-  SAY DESC @203
+  SAY NAME2 @103 SAY DESC @203
 
 COPY_EXISTING ~d2swd01.ITM~ ~override~    // adding text to 2-handed swords
   SAY NAME1 @104
-  SAY NAME2 @104
-  SAY DESC @204
+  SAY NAME2 @104 SAY DESC @204
 
 COPY_EXISTING ~d2swd02.ITM~ ~override~
   SAY NAME1 @105
-  SAY NAME2 @105
-  SAY DESC @205
+  SAY NAME2 @105 SAY DESC @205
 
 COPY_EXISTING ~d2swd06.ITM~ ~override~
   SAY NAME1 @106
-  SAY NAME2 @106
-  SAY DESC @206
+  SAY NAME2 @106 SAY DESC @206
 
 COPY_EXISTING ~d2swd06e.ITM~ ~override~
   SAY NAME1 @106
-  SAY NAME2 @106
-  SAY DESC @206
+  SAY NAME2 @106 SAY DESC @206
 
 COPY_EXISTING ~d2swd06e.SPL~ ~override~
   LPF ALTER_EFFECT 
@@ -78,19 +70,16 @@ COPY_EXISTING ~d2swd06s.SPL~ ~override~
 
 COPY_EXISTING ~d2swd03.ITM~ ~override~    // adding text to 1-handed weapons
   SAY NAME1 @107
-  SAY NAME2 @107
-  SAY DESC @207
+  SAY NAME2 @107 SAY DESC @207
 
 COPY_EXISTING ~d2swd04.ITM~ ~override~
   SAY NAME1 @108
-  SAY NAME2 @108
-  SAY DESC @208
+  SAY NAME2 @108 SAY DESC @208
 
 COPY_EXISTING ~d2swd05.ITM~ ~override~
-  SAY NAME1 @109
-  SAY NAME2 @109
-  SAY UNIDENTIFIED_DESC @901
-  SAY DESC @209
+  SAY NAME1 @109 SAY UNIDENTIFIED_DESC @701
+  SAY NAME2 @109 SAY DESC @209
+  
   LPF ALTER_EFFECT 
   INT_VAR 
   header_type = 3
@@ -107,26 +96,23 @@ COPY_EXISTING ~d2swd05e.SPL~ ~override~
 
 COPY_EXISTING ~d2dag01.ITM~ ~override~
   SAY NAME1 @110
-  SAY NAME2 @110
-  SAY DESC @210
+  SAY NAME2 @110 SAY DESC @210
 
 COPY_EXISTING ~d2dag01e.ITM~ ~override~
   SAY NAME1 @110
-  SAY NAME2 @110
-  SAY DESC @210
+  SAY NAME2 @110 SAY DESC @210
 
 COPY_EXISTING ~d2dag01e.SPL~ ~override~
   SAY NAME1 @306
 
 COPY_EXISTING ~d2hal01.ITM~ ~override~    // adding text to non-Souls weapons
   SAY NAME1 @111
-  SAY NAME2 @111
-  SAY DESC @211
+  SAY NAME2 @111 SAY DESC @211
 
 COPY_EXISTING ~d2ham01.ITM~ ~override~
   SAY NAME1 @112
-  SAY NAME2 @112
-  SAY DESC @212
+  SAY NAME2 @112 SAY DESC @212
+  
   LPF ALTER_EFFECT 
   INT_VAR 
   header_type = 1
@@ -136,6 +122,7 @@ COPY_EXISTING ~d2ham01.ITM~ ~override~
 
 COPY_EXISTING ~d2ham01a.SPL~ ~override~
   SAY NAME1 @307
+  
   LPF ALTER_EFFECT 
   INT_VAR 
   match_opcode = 139 
@@ -151,20 +138,25 @@ COPY_EXISTING ~d2ham01e.SPL~ ~override~
 
 COPY_EXISTING ~d2swd07.ITM~ ~override~
   SAY NAME1 @113
-  SAY NAME2 @113
-  SAY DESC @213
+  SAY NAME2 @113 SAY DESC @213
   
-COPY_EXISTING ~d2eff01a.ITM~ ~override~    // experimental (for testing EFF)
+COPY_EXISTING ~d2eff01a.ITM~ ~override~
   SAY NAME1 @113
-  SAY NAME2 @113
-  SAY DESC @213
+  SAY NAME2 @113 SAY DESC @213
   
 COPY_EXISTING ~d2eff01b.ITM~ ~override~
   SAY NAME1 @114
-  SAY NAME2 @114
-  SAY DESC @214
+  SAY NAME2 @114 SAY DESC @901
+  
   LPF ALTER_EFFECT 
   INT_VAR 
   match_opcode = 319 
   special = RESOLVE_STR_REF (@311)
   END
+
+
+
+/*
+
+
+*/

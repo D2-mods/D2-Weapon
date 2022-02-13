@@ -302,12 +302,12 @@ Weight: 1
 ==================================================
 Unbalanced Halberd (non-magical)
 ==================================================
-Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. Appears to be solidly built, though strangely, this weapon costs only a single gold piece and the weight feels odd in your hands, shifting forward or sideways of its own accord.
+Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. The weapon appears to be solidly built, though strangely, it costs only a single gold piece and the weight feels odd in your hands, shifting forward or sideways of its own accord.
 
 STATISTICS:
 
 Equipped abilities:
-– Unbalanced: Each round, the wielder gains +1 or -1 to Strength and Dexterity for 3 rounds (effects are always the opposite for each attribute)
+– Each round, the wielder gains +1 or -1 to Strength and Dexterity for 3 rounds (effects are always the opposite for each attribute)
 
 Damage: 1d10 (piercing or slashing)
 Speed Factor: 9
@@ -365,14 +365,12 @@ Weight: 4
 ==================================================
 Sling +2: Accelerator
 ==================================================
-Magical slings are the hallmark of stout halfling warriors and adventurers. This sling has been magically enhanced, and seems to attack more rapidly with each stone flung from the pocket.
-
-A small scrap of paper is found tied to the sling. It reads, "to be used only by halfling slingers - That's the Rules". Well! If that's the rules, then it should be followed. If your band counts a halfling among its number, then this sling could make a powerful tool against any of the foul creatures that you encounter on your journey.
+Magical slings are the hallmark of stout halfling warriors and adventurers. Anyone can take this sling up and use it as a powerful magical weapon, but the full enchantment emerges when swung by a halfling. Power courses from sling to hand, and the wielder attacks more rapidly with each stone flung from the pocket.
 
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the slinger a +0.5 bonus to attacks per round and a -1 THAC0 penalty for 9 seconds
+– Accelerator: Each hit gives the slinger a +0.5 bonus to attacks per round and a -1 THAC0 penalty for 9 seconds (Halflings only)
 
 THAC0: +2
 Damage: +2 (missile)
@@ -383,3 +381,4 @@ Requires:
  3 Strength
 
 Weight: 0
+

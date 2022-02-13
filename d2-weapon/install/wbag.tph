@@ -1,0 +1,142 @@
+//Use to add items to d2#wbag (empty by default)
+
+COPY_EXISTING ~d2#wbag.STO~ ~override~
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    charge2 = 3
+	overwrite = 1
+    STR_VAR
+    item_name = d2bow04
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    overwrite = 1
+    STR_VAR
+    item_name = d2swd01
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    overwrite = 1
+    STR_VAR
+    item_name = d2swd04
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    overwrite = 1
+    STR_VAR
+    item_name = d2swd03
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    charge2 = 3
+	overwrite = 1
+    STR_VAR
+    item_name = d2dag01
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    overwrite = 1
+    STR_VAR
+    item_name = d2eff01b
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    overwrite = 1
+    STR_VAR
+    item_name = d2bow01
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    overwrite = 1
+    STR_VAR
+    item_name = d2bow03
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    overwrite = 1
+    STR_VAR
+    item_name = d2swd02
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    charge2 = 1
+    overwrite = 1
+    STR_VAR
+    item_name = d2swd06
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    overwrite = 1
+    STR_VAR
+    item_name = d2hal01
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    charge2 = 3
+    overwrite = 1
+    STR_VAR
+    item_name = d2ham01
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    overwrite = 1
+    STR_VAR
+    item_name = d2bow02
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    charge2 = 1
+    overwrite = 1
+    STR_VAR
+    item_name = d2swd05
+    position = ~LAST~
+    flags = identified
+  END
+  
+  LPF ADD_STORE_ITEM_EX
+    INT_VAR
+    overwrite = 1
+    STR_VAR
+    item_name = d2swd07
+    position = ~LAST~
+    flags = identified
+  END

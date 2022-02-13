@@ -17,11 +17,13 @@ d2hal01 - Unbalanced Halberd
 d2ham01 - Club +4: Frenzy
 d2eff01b - Sling +2: Accelerator
 
+d2#wbag - bag containing all weapons (not obtainable through normal gameplay)
+
+
 ==================================================
 ITEM LOCATIONS
 ==================================================
 BG1 Stores:
-
 Candlekeep (INN2616)
 - Unbalanced Halberd
 
@@ -31,8 +33,8 @@ Friendly Arm Inn (FRIEND)
 Carnival merchant (STO4908.STO)
 - Unbalanced Halberd
 
-BG2 Stores:
 
+BG2 Stores:
 Deidre (WMART2)
 - Avelyn
 - Greatsword
@@ -54,8 +56,8 @@ Ribald (RIBALD3) - from chapter 6
 - Bewitched Alonne Sword
 - Scimitar +2: Accelerator
 
-IWD Stores:
 
+IWD Stores:
 Pomab (EHPOMAB)
 - Unbalanced Halberd
 

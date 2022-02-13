@@ -1,14 +1,14 @@
 D2-Weapon - A Souls-inspired Weapon Pack
 GitHub: https://github.com/D2-mods/D2-Weapon
-Game version: BG:EE, BG2:EE, EET, IWD:EE (tested on v2.5/v2.6)
+Game version: BG:EE, BG2:EE, IWD:EE, EET (tested on v2.5/v2.6)
 
 
 ==================================================
 WHAT THIS MOD DOES
 ==================================================
-This is a very small Souls-inspired weapon pack. It adds 11 weapons loosely based on weapons from FromSoft's Dark Souls trilogy, plus 4 others experimenting with various effects. All weapons are purchased, and get added to various shops. Some of these weapons have more "normal" abilities, while others have very extreme advantages and disadvantages. I tried to give these weapons some interesting abilities that set them apart from weapons in the base games.
+Adds 11 weapons loosely based on weapons from FromSoft's Dark Souls trilogy, plus 4 others experimenting with various effects. All items are purchased, and get added to various shops. Some of the weapons have more "normal" abilities, while others have very extreme advantages and disadvantages. I tried to give them some interesting abilities that set them apart from weapons in the base games.
 
-Note: For BG1, all weapons install, but only 1 (Unbalanced Halberd) gets added to stores. But if you want to powergame, I won't stop you from importing and using the stronger weapons.
+Note: For BG1, all items install, but only 1 (Unbalanced Halberd) gets added to stores.
 
 
 ==================================================
@@ -47,7 +47,7 @@ Coding, Testing: Dan_P
 
 Tools and Resources used:  
 - WeiDU v249 https://github.com/WeiDUorg/weidu  
-- NearInfinity v2.2-20210501 https://github.com/Argent77/NearInfinity  
+- NearInfinity v2.2-20211218 https://github.com/Argent77/NearInfinity  
 - Notepad++ https://notepad-plus-plus.org/  
 - Git Bash https://git-scm.com/downloads  
 - Infinity Auto Packager https://github.com/InfinityTools/InfinityAutoPackager  
@@ -67,6 +67,12 @@ Anyone is free to re-distribute or re-use any part of this mod for their own pro
 ==================================================
 VERSION HISTORY
 ==================================================
+v1.6
+- movement bonus from Frenzy status (Club +4: Frenzy) now uses the stacking percentage modifier
+- Stone Greatsword now uses a custom projectile, the slowdown effect hits slightly faster than before
+- revised Sling +2: Accelerator - usable by all races, but only halflings get Accelerator effect
+- d2#wbag.ITM: A bag of holding containing all weapons from this mod. It's not obtainable through normal gameplay. Use the console or an editor to add to game if you want to quickly test out the weapons.
+
 v1.5
 - update WeiDU version to v249
 - update some things with the installation

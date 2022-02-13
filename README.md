@@ -1,13 +1,13 @@
 # D2-Weapon - A Souls-inspired Weapon Pack
 Download: https://github.com/D2-mods/D2-Weapon/releases  
-Game version: BG:EE, BG2:EE, EET, IWD:EE (tested on v2.5/v2.6)
+Game version: BG:EE, BG2:EE, IWD:EE, EET (tested on v2.5/v2.6)
 
 
 #### WHAT THIS MOD DOES:
 
-This is a very small Souls-inspired weapon pack. It adds 11 weapons loosely based on weapons from FromSoft's Dark Souls trilogy, plus 4 others experimenting with various effects. All weapons are purchased, and get added to various shops. Some of these weapons have more "normal" abilities, while others have very extreme advantages and disadvantages. I tried to give these weapons some interesting abilities that set them apart from weapons in the base games.
+Adds 11 weapons loosely based on weapons from FromSoft's Dark Souls trilogy, plus 4 others experimenting with various effects. All items are purchased, and get added to various shops. Some of the weapons have more "normal" abilities, while others have very extreme advantages and disadvantages. I tried to give them some interesting abilities that set them apart from weapons in the base games.
 
-Note: For BG1, all weapons install, but only 1 (Unbalanced Halberd) gets added to stores. But if you want to powergame, I won't stop you from importing and using the stronger weapons.
+Note: For BG1, all items install, but only 1 (Unbalanced Halberd) gets added to stores.
 
 
 #### INSTALL INFO:
