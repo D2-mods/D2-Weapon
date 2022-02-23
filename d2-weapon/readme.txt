@@ -67,6 +67,9 @@ Anyone is free to re-distribute or re-use any part of this mod for their own pro
 ==================================================
 VERSION HISTORY
 ==================================================
+v1.6.1
+- small update to how d2#wbag.itm works; no changes to weapons
+
 v1.6
 - movement bonus from Frenzy status (Club +4: Frenzy) now uses the stacking percentage modifier
 - Stone Greatsword now uses a custom projectile, the slowdown effect hits slightly faster than before

@@ -373,11 +373,10 @@ Weight: 0~
 
 //other text (i.e. bag of holding)
 @500 = ~Weapon Sack~
-@501 = ~As with other magical bags, this one appears to be a common cloth sack of about 2 feet by 4 feet in size. The bag of holding opens into a nondimensional space, and its inside is larger than its outside dimensions. Regardless of what is put into this item, the bag always weighs a fixed amount.
+@501 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. It contains an assortment of weapons, and any or all can be taken out. However, a magical force prevents the party from placing items into the bag.
 
 STATISTICS:
 
-Capacity: 20 items
 Weight: 5~
 
 

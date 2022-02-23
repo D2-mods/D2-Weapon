@@ -4,7 +4,7 @@ COPY_EXISTING ~d2#wbag.STO~ ~override~
   LPF ADD_STORE_ITEM_EX
     INT_VAR
     charge2 = 3
-	overwrite = 1
+    overwrite = 1
     STR_VAR
     item_name = d2bow04
     position = ~LAST~
@@ -41,7 +41,7 @@ COPY_EXISTING ~d2#wbag.STO~ ~override~
   LPF ADD_STORE_ITEM_EX
     INT_VAR
     charge2 = 3
-	overwrite = 1
+    overwrite = 1
     STR_VAR
     item_name = d2dag01
     position = ~LAST~
@@ -140,3 +140,4 @@ COPY_EXISTING ~d2#wbag.STO~ ~override~
     position = ~LAST~
     flags = identified
   END
+BUT_ONLY

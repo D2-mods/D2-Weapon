@@ -28,7 +28,7 @@ COPY_EXISTING ~d2eff01b.ITM~ ~override~
   LPF ADD_ITEM_EFFECT 
     INT_VAR 
       opcode = 177 
-	  header = 1
+      header = 1
       type = 99    // can add to any header type
       target = 1 
       timing = 1 
@@ -48,7 +48,7 @@ ACTION_IF (GAME_IS ~bgee bg2ee eet~) BEGIN
 	
   COPY ~%MOD_FOLDER%/data2/d2hbee1.STO~ ~override/d2#wbag.STO~
     SAY 0xc @500  /* Weapon Sack */
-    WRITE_SHORT 0x22 20    // set to 20 capacity
+    LPF cannot_add_items END    // make it so items cannot be placed in the bag
 END
   
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
@@ -59,10 +59,10 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
 	
   COPY ~%MOD_FOLDER%/data2/d2hbee0.STO~ ~override/d2#wbag.STO~
     SAY 0xc @500  /* Weapon Sack */
-    WRITE_SHORT 0x22 20    // set to 20 capacity
+    LPF cannot_add_items END    // make it so items cannot be placed in the bag
 END
 
-ACTION_IF (NOT FILE_EXISTS_IN_GAME ~IHOLDING.BAM~) BEGIN
+ACTION_IF !(FILE_EXISTS_IN_GAME ~IHOLDING.BAM~) BEGIN
   COPY ~%MOD_FOLDER%/data2/IHOLDING.BAM~ ~override~
 END
 

@@ -1,6 +1,10 @@
 BACKUP ~d2-weapon/backup~
 AUTHOR ~Dan_P~
-VERSION ~1.6~
+VERSION ~1.6.1~
+
+ALWAYS
+  INCLUDE ~%MOD_FOLDER%/lib/d2_store_functions.tpa~
+END
 
 LANGUAGE ~English~
          ~english~
