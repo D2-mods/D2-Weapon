@@ -18,6 +18,7 @@
 @311 = ~Halfling~
 
 
+
 //Bow descriptions
 @100 = ~Black Bow of Pharis~
 @200 = ~A black longbow named after a hero of old, known for the unusual stance from which it is fired. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
@@ -110,6 +111,7 @@ Requires:
 Weight: 16~
 
 
+
 //2-handed swords
 @104 = ~Greatsword~
 @204 = ~A straight sword with a gigantic blade, one of the heaviest of its kind. Highly destructive if intolerably heavy. No human was intended to wield a sword of this weight or destructiveness.
@@ -183,6 +185,7 @@ Requires:
  14 Strength
 
 Weight: 18~
+
 
 
 //1-handed weapons
@@ -294,6 +297,7 @@ Requires:
 Weight: 1~
 
 
+
 //non-Souls weapons
 @111 = ~Unbalanced Halberd~
 @211 = ~Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. The weapon appears to be solidly built, though strangely, it costs only a single gold piece and the weight feels odd in your hands, shifting forward or sideways of its own accord.
@@ -371,6 +375,7 @@ Requires:
 Weight: 0~
 
 
+
 //other text (i.e. bag of holding)
 @500 = ~Weapon Sack~
 @501 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. It contains an assortment of weapons, and any or all can be taken out. However, a magical force prevents the party from placing items into the bag.
@@ -378,6 +383,7 @@ Weight: 0~
 STATISTICS:
 
 Weight: 5~
+
 
 
 //unidentified text
@@ -396,9 +402,84 @@ Requires:
 Weight: 6~
 
 
+
 //alternate text
-@900 = ~Sling +2: Accelerator~
-@901 = ~Magical slings are the hallmark of stout halfling warriors and adventurers. This sling has been magically enhanced, and seems to attack more rapidly with each stone flung from the pocket.
+
+//Black Bow of Pharis (IWDEE)
+@900 = ~A black longbow named after a hero of old, known for the unusual stance from which it is fired. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
+
+STATISTICS:
+
+Equipped abilities:
+– +5% chance to critical hit
+– Sets base attacks per round to 3
+
+THAC0: +5
+Damage: +2
+Speed Factor: 1
+Proficiency Type: Longbow
+Type: Two-handed
+Requires:
+ 6 Strength
+ 18 Dexterity
+ 
+Weight: 1~
+
+//White Birch Bow (IWDEE)
+@902 = ~A shortbow crafted with white birch. Endowed with light-manipulating magic. The bow is a relic from an ancient land of sorceries that was swallowed by the Abyss.
+
+STATISTICS:
+
+Equipped abilities:
+– Hidden Body: 15% chance each round the wielder becomes invisible for 3 rounds
+
+Combat abilities:
+– Hidden Weapon: 25% chance the wielder becomes invisible for 3 rounds after hitting a target
+
+THAC0: +3
+Damage: +3, +1 (magic)
+Speed Factor: 3
+Proficiency Type: Shortbow
+Type: Two-handed
+Requires:
+ 3 Strength
+
+Weight: 1~
+
+//Avelyn (IWDEE)
+@903 = ~An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism. Despite its use as a weapon, this crossbow is also a priceless work of art, and requires the use of both hands to operate at all times, inhibiting spellcasting. Unlike other crossbows, the Avelyn requires intelligence to operate proficiently.
+
+A small emblem of a circle containing a lightning bolt can be seen imprinted on the left side of the device. It appears that the inventor had this particular crossbow infused with the powers of lightning. Further inspection reveals an additional function. It is possible to fully unlock the repeating mechanism, and fire bolts of pure electrical energy at a frightening speed and accuracy. This mode can be activated even by classes that do not normally become proficient with crossbows, provided they have the requisite intelligence.
+
+STATISTICS:
+
+Equipped abilities:
+– -4 penalty to casting speed
+– Sets base attacks per round to 3
+
+Charge abilities:
+– Repeat Fire three times per day
+  Special: Sets attacks per round to 9, with a +10 bonus to THAC0, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
+  Duration: 1 round
+  Area of Effect: The user
+
+THAC0: +1
+Damage: +1, +2 (electrical)
+Speed Factor: 4
+Proficiency Type: Crossbow
+Type: Two-handed
+Requires:
+ 8 Strength
+ 18 Intelligence
+
+Weight: 16~
+
+
+
+//unused
+
+//Sling +2: Accelerator (old version)
+@914 = ~Magical slings are the hallmark of stout halfling warriors and adventurers. This sling has been magically enhanced, and seems to attack more rapidly with each stone flung from the pocket.
 
 A small scrap of paper is found tied to the sling. It reads, "to be used only by halfling slingers - That's the Rules". Well! If that's the rules, then it should be followed. If your band counts a halfling among its number, then this sling could make a powerful tool against any of the foul creatures that you encounter on your journey.
 

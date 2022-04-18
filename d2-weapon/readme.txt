@@ -67,6 +67,13 @@ Anyone is free to re-distribute or re-use any part of this mod for their own pro
 ==================================================
 VERSION HISTORY
 ==================================================
+v1.7
+- changed BAM icons for Unbalanced Halberd, Club +4: Frenzy, and Weapon Sack
+- IWDEE: added +2 damage bonus to Black Bow of Pharis and lowered THAC0 bonus to +5
+- IWDEE: added +3 damage bonus to White Birch Bow
+- IWDEE: added +1 damage bonus to Avelyn (not in Repeat Fire mode)
+- These bows were really weak in IWDEE, since bows in that game get full damage bonuses from enchantment. These changes just bring them in line with other magical bows.
+
 v1.6.1
 - small update to how d2#wbag.itm works; no changes to weapons
 
