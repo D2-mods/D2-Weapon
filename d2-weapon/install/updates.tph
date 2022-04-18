@@ -10,11 +10,14 @@ BUT_ONLY
 
 COPY_EXISTING ~d2ham01.ITM~ ~override~
   WRITE_ASCII 0x3a ~d2ham01i~ #8    // set inventory icon
+  WRITE_ASCII 0x76 ~d2ham01i~ #8    // set quickbar icon
+  WRITE_ASCII 0xae ~d2ham01i~ #8    // set ability icon
 BUT_ONLY
 
 //Unbalanced Halberd
 COPY_EXISTING ~d2hal01.ITM~ ~override~
   WRITE_ASCII 0x3a ~d2hal01i~ #8    // set inventory icon
+  WRITE_ASCII 0x76 ~d2hal01i~ #8    // set quickbar icon
 BUT_ONLY
 
 //Stone Greatsword
