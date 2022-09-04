@@ -1,6 +1,6 @@
-BACKUP ~d2-weapon/backup~
+BACKUP ~weidu_external/backup/d2-weapon~
 AUTHOR ~Dan_P~
-VERSION ~1.7~
+VERSION ~1.8~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/d2_store_functions.tpa~

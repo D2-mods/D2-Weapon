@@ -1,6 +1,6 @@
 D2-Weapon - A Souls-inspired Weapon Pack
 GitHub: https://github.com/D2-mods/D2-Weapon
-Game version: BG:EE, BG2:EE, IWD:EE, EET (tested on v2.5/v2.6)
+Installs on: BG:EE, BG2:EE, IWD:EE, EET (tested on v2.5/v2.6)
 
 
 ==================================================
@@ -43,15 +43,15 @@ Item Descriptions: https://raw.githubusercontent.com/D2-mods/D2-Weapon/main/d2-w
 ==================================================
 CREDITS
 ==================================================
-Coding, Testing: Dan_P
+Modder: Dan_P
 
 Tools and Resources used:  
-- WeiDU v249 https://github.com/WeiDUorg/weidu  
-- NearInfinity v2.2-20211218 https://github.com/Argent77/NearInfinity  
-- Notepad++ https://notepad-plus-plus.org/  
-- Git Bash https://git-scm.com/downloads  
-- Infinity Auto Packager https://github.com/InfinityTools/InfinityAutoPackager  
-- IESDP https://gibberlings3.github.io/iesdp/index.htm
+- WeiDU (https://github.com/WeiDUorg/weidu)
+- NearInfinity (https://github.com/Argent77/NearInfinity)
+- Notepad++ (https://notepad-plus-plus.org/)
+- Git Bash (https://git-scm.com/downloads)
+- Infinity Auto Packager (https://github.com/InfinityTools/InfinityAutoPackager)
+- IESDP (https://gibberlings3.github.io/iesdp/main.htm)
 
 This mod makes use of names, images, and modified text from various FromSoftware games, including the Dark Souls trilogy and Demon's Souls. Play these games if you haven't. They are, along with Bloodborne, some of the best rpgs released over the past decade (with Bloodborne being the best period).
 
@@ -67,6 +67,10 @@ Anyone is free to re-distribute or re-use any part of this mod for their own pro
 ==================================================
 VERSION HISTORY
 ==================================================
+v1.8
+- standardized prices of items into 3 tiers (8000, 15000, and 22000 gold)
+- changed backup folder to weidu_external
+
 v1.7
 - changed BAM icons for Unbalanced Halberd, Club +4: Frenzy, and Weapon Sack
 - IWDEE: added +2 damage bonus to Black Bow of Pharis and lowered THAC0 bonus to +5
