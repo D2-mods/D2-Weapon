@@ -1,6 +1,9 @@
 //Setup
-@1 = ~D2-Weapon - A Souls-inspired Weapon Pack~
-@2 = ~Installs on BG:EE, BG2:EE, IWD:EE and EET~
+@1 = ~D2 Weapon - A Souls-inspired Weapon Pack~
+@2 = ~Standardize prices of items (generally lower)~
+@3 = ~Add damage to bows (recommended for IWD:EE)~
+@4 = ~~
+@5 = ~~
 
 
 //Spell Names and Display Strings
@@ -16,6 +19,8 @@
 @309 = ~When the berserk state ends, the character will take 15 damage.~
 @310 = ~Confused~
 @311 = ~Halfling~
+@312 = ~~
+@313 = ~~
 
 
 
@@ -26,8 +31,8 @@
 STATISTICS:
 
 Equipped abilities:
-– +5% chance to critical hit
-– Sets base attacks per round to 3
+– +5% chance to score a critical hit
+– Sets base Attacks Per Round to 3
 
 THAC0: +7
 Speed Factor: 1
@@ -46,7 +51,7 @@ STATISTICS:
 
 Equipped abilities:
 – Anchored: -2 penalty to Armor Class
-– Sets attacks per round to 1 (max of 2 with Haste or Whirlwind effects)
+– Sets Attacks Per Round to 1 (max of 2 with Haste or Whirlwind effects)
 
 Combat abilities:
 – Target is knocked back and stunned for 3 seconds (no save)
@@ -91,11 +96,11 @@ STATISTICS:
 
 Equipped abilities:
 – -4 penalty to casting speed
-– Sets base attacks per round to 3
+– Sets base Attacks Per Round to 3
 
 Charge abilities:
 – Repeat Fire three times per day
-  Special: Sets attacks per round to 9, with a +10 bonus to THAC0, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
+  Special: Sets Attacks Per Round to 9, with a +10 bonus to THAC0, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
   Duration: 1 round
   Area of Effect: The user
 
@@ -112,7 +117,7 @@ Weight: 16~
 
 
 
-//2-handed swords
+//Souls weapons (2-handed)
 @104 = ~Greatsword~
 @204 = ~A straight sword with a gigantic blade, one of the heaviest of its kind. Highly destructive if intolerably heavy. No human was intended to wield a sword of this weight or destructiveness.
 
@@ -120,7 +125,7 @@ STATISTICS:
 
 Equipped abilities:
 – Heavy: -2 penalty to Dexterity
-– Sets attacks per round to 1 (max of 2 with Haste or Whirlwind effects)
+– Sets Attacks Per Round to 1 (max of 2 with Haste or Whirlwind effects)
 
 Combat abilities:
 – Heavy: +4d8 (crushing)
@@ -145,7 +150,7 @@ STATISTICS:
 Equipped abilities:
 – Shield: +4 bonus to AC vs. crushing, slashing, piercing, and missile
 – Heavy: -2 penalty to Dexterity
-– Sets attacks per round to 1 (max of 2 with Haste or Whirlwind effects)
+– Sets Attacks Per Round to 1 (max of 2 with Haste or Whirlwind effects)
 
 Combat abilities:
 – Heavy: +4d8 (crushing)
@@ -172,7 +177,7 @@ Equipped abilities:
 
 Charge abilities:
 – Tranquil Walk of Peace once per day
-  Special: When activated, and at 5 second intervals, all creatures in a 15 ft. radius, including the wielder, have their movement rate halved for 1 round (no save). The wielder also gains a +4 bonus to Armor Class. This spell bypasses Free Action, and cancels any Haste or Slow effects.
+  Special: Once per round, all enemies in a 15 ft. radius have their movement slowed by half and suffer a -4 penalty to Armor Class for 2 rounds (no save); the sword is held in the hand and pulses with blue light for the duration or until dispelled
   Duration: 1 turn
   Area of Effect: 15 ft. radius centered on the wielder
 
@@ -188,7 +193,7 @@ Weight: 18~
 
 
 
-//1-handed weapons
+//Souls weapons (1-handed)
 @107 = ~Chaos Rapier~
 @207 = ~Rapier of darkness and chaos. Once, a brilliant young sorcerer cast away his earthly desires, devoting himself entirely to the Dark that bewitched him. Nebulous, inky and serene, the Dark holds an allure matched only by the fear it strikes in men's hearts.
 
@@ -198,7 +203,7 @@ STATISTICS:
 
 Equipped abilities:
 – Dark: +3 bonus to Intelligence and Wisdom, -1 penalty to Constitution and Charisma
-– Scion of Flame: +50% increase to all sources of fire damage
+– Scion of Flame: +40% increase to all sources of fire damage
 – Devotion: The wielder takes 3 points of magic damage when equipping this weapon, and an additional 1 point of magic damage every 18 seconds while holding it
 
 Combat abilities:
@@ -222,8 +227,8 @@ Weight: 2~
 STATISTICS:
 
 Equipped abilities:
+– Save vs. Death: -2
 – Fire Resistance: +20%
-– -2 penalty to Save vs. Death
 
 Combat abilities:
 – Magic: 55% chance of +1d6 magic damage
@@ -245,14 +250,14 @@ Weight: 7~
 STATISTICS:
 
 Equipped abilities:
-– +2 bonus to Save vs. Spell
+– Save vs. Spell: +2
 
 Combat abilities:
 – 33% chance target suffers a bleeding wound, taking 5 slashing damage instantly, and an additional 5 damage per round for 5 rounds (no save)
 
 Charge abilities:
 – Harakiri once per day
-  Special: Reverse the blade and plunge into oneself. The wielder takes 80 piercing damage and suffers a bleeding wound, yet attacks become quicker and each strike deadlier. Gains bonuses of +1 to attacks per round and +30% chance to critical hit with melee attacks.
+  Special: Reverse the blade and plunge into oneself. The wielder takes 80 piercing damage and suffers a bleeding wound, yet attacks become quicker and each strike deadlier. Gains bonuses of +1 Attacks Per Round and +30% chance to score a critical hit with melee attacks.
   Duration: 5 rounds
   Area of Effect: The user
   Note: Stoneskin and similar effects can halve the initial damage but all skins are shattered in the process
@@ -282,7 +287,7 @@ Combat abilities:
 
 Charge abilities:
 – Crystal Blade three times per day (costs one memorized spell)
-  Special: A blue blade extends from the hilt, striking as a +4 weapon, with a +4 bonus to hit, and dealing 1d4+2 piercing damage, plus an additional 3d6 magic damage. The weapon sets base attacks per round to 3, and THAC0 becomes that of a Fighter of the same level as the caster. Proficiency bonuses apply as normal.
+  Special: A blue blade extends from the hilt, striking as a +4 weapon, with a +4 bonus to hit, and dealing 1d4+2 piercing damage, plus an additional 3d6 magic damage. The weapon sets base Attacks Per Round to 3, and THAC0 becomes that of a Fighter of the same level as the caster. Proficiency bonuses apply as normal.
   Duration: 3 rounds
   Area of Effect: The user
 
@@ -300,12 +305,12 @@ Weight: 1~
 
 //non-Souls weapons
 @111 = ~Unbalanced Halberd~
-@211 = ~Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. The weapon appears to be solidly built, though strangely, it costs only a single gold piece and the weight feels odd in your hands, shifting forward or sideways of its own accord.
+@211 = ~Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. The weapon appears to be solidly built, though the weight feels odd in your hands, shifting forward or sideways of its own accord.
 
 STATISTICS:
 
 Equipped abilities:
-– Each round, the wielder gains +1 or -1 to Strength and Dexterity for 3 rounds (effects are always the opposite for each attribute)
+– Once each round, the wielder gains +1 or -1 to damage, THAC0, and Armor Class for 3 rounds
 
 Damage: 1d10 (piercing or slashing)
 Speed Factor: 9
@@ -326,7 +331,7 @@ Combat abilities:
 – May Enrage as a Berserker three times per day (duration: 1 turn)
 – Becomes winded after berserking (5 rounds): -2 penalty to THAC0, damage, and Armor Class
 
-FRENZY: The wielder does not have full control over the weapon-induced rage. While berserking, there is a 15% chance per round to enter a frenzied state, attacking friend and foe alike. While frenzied, the wielder gains +2 to hit and damage, an extra attack per round, doubled movement speed, and a +30% chance to critical hit. Frenzy always lasts for a full turn and the bonuses are in addition to the bonuses from Enrage.
+FRENZY: The wielder does not have full control over the weapon-induced rage. While berserking, there is a 15% chance per round to enter a frenzied state, attacking friend and foe alike. While frenzied, the wielder gains +2 to hit and damage, an extra attack per round, doubled movement speed, and a +30% chance to score a critical hit. Frenzy always lasts for a full turn and the bonuses are in addition to the bonuses from Enrage.
 
 THAC0: +4
 Damage: 1d6+4 (crushing)
@@ -344,7 +349,7 @@ Weight: 3~
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the wielder a +0.5 bonus to attacks per round and a -1 THAC0 penalty for 9 seconds
+– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
 
 THAC0: +2
 Damage: 1d8+2 (slashing)
@@ -362,7 +367,7 @@ Weight: 4~
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the slinger a +0.5 bonus to attacks per round and a -1 THAC0 penalty for 9 seconds (Halflings only)
+– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls (Halflings only)
 
 THAC0: +2
 Damage: +2 (missile)
@@ -378,7 +383,7 @@ Weight: 0~
 
 //other text (i.e. bag of holding)
 @500 = ~Weapon Sack~
-@501 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. It contains an assortment of weapons, and any or all can be taken out. However, a magical force prevents the party from placing items into the bag.
+@501 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.
 
 STATISTICS:
 
@@ -403,7 +408,7 @@ Weight: 6~
 
 
 
-//alternate text
+//alternate text (bow damage)
 
 //Black Bow of Pharis (IWDEE)
 @900 = ~A black longbow named after a hero of old, known for the unusual stance from which it is fired. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
@@ -411,11 +416,11 @@ Weight: 6~
 STATISTICS:
 
 Equipped abilities:
-– +5% chance to critical hit
-– Sets base attacks per round to 3
+– +5% chance to score a critical hit
+– Sets base Attacks Per Round to 3
 
 THAC0: +5
-Damage: +2
+Damage: +2 (missile)
 Speed Factor: 1
 Proficiency Type: Longbow
 Type: Two-handed
@@ -437,7 +442,7 @@ Combat abilities:
 – Hidden Weapon: 25% chance the wielder becomes invisible for 3 rounds after hitting a target
 
 THAC0: +3
-Damage: +3, +1 (magic)
+Damage: +3 (missile), +1 (magic)
 Speed Factor: 3
 Proficiency Type: Shortbow
 Type: Two-handed
@@ -455,16 +460,16 @@ STATISTICS:
 
 Equipped abilities:
 – -4 penalty to casting speed
-– Sets base attacks per round to 3
+– Sets base Attacks Per Round to 3
 
 Charge abilities:
 – Repeat Fire three times per day
-  Special: Sets attacks per round to 9, with a +10 bonus to THAC0, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
+  Special: Sets Attacks Per Round to 9, with a +10 bonus to THAC0, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
   Duration: 1 round
   Area of Effect: The user
 
 THAC0: +1
-Damage: +1, +2 (electrical)
+Damage: +1 (missile), +2 (electrical)
 Speed Factor: 4
 Proficiency Type: Crossbow
 Type: Two-handed
@@ -486,7 +491,7 @@ A small scrap of paper is found tied to the sling. It reads, "to be used only by
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the slinger a +0.5 bonus to attacks per round and a -1 THAC0 penalty for 9 seconds
+– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
 
 THAC0: +2
 Damage: +2 (missile)
@@ -497,3 +502,7 @@ Requires:
  3 Strength
 
 Weight: 0~
+
+
+/*
+*/

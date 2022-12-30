@@ -1,3 +1,30 @@
+//Ranged weapons
+Black Bow of Pharis
+Dragonslayer Greatbow
+White Birch Bow
+Avelyn
+
+//2-handed weapons
+Greatsword
+Fume Ultra Greatsword
+Chaos Rapier
+
+//1-handed weapons
+Drakeblood Greatsword
+Bewitched Alonne Sword
+Stone Greatsword
+Aquamarine Dagger
+
+//non-Souls weapons
+Unbalanced Halberd
+Club +4: Frenzy
+Scimitar +2: Accelerator
+Sling +2: Accelerator
+
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
 ==================================================
 Black Bow of Pharis
 ==================================================
@@ -6,8 +33,8 @@ A black longbow named after a hero of old, known for the unusual stance from whi
 STATISTICS:
 
 Equipped abilities:
-– +5% chance to critical hit
-– Sets base attacks per round to 3
+– +5% chance to score a critical hit
+– Sets base Attacks Per Round to 3
 
 THAC0: +7
 Speed Factor: 1
@@ -28,7 +55,7 @@ STATISTICS:
 
 Equipped abilities:
 – Anchored: -2 penalty to Armor Class
-– Sets attacks per round to 1 (max of 2 with Haste or Whirlwind effects)
+– Sets Attacks Per Round to 1 (max of 2 with Haste or Whirlwind effects)
 
 Combat abilities:
 – Target is knocked back and stunned for 3 seconds (no save)
@@ -77,11 +104,11 @@ STATISTICS:
 
 Equipped abilities:
 – -4 penalty to casting speed
-– Sets base attacks per round to 3
+– Sets base Attacks Per Round to 3
 
 Charge abilities:
 – Repeat Fire three times per day
-  Special: Sets attacks per round to 9, with a +10 bonus to THAC0, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
+  Special: Sets Attacks Per Round to 9, with a +10 bonus to THAC0, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
   Duration: 1 round
   Area of Effect: The user
   
@@ -108,7 +135,7 @@ STATISTICS:
 
 Equipped abilities:
 – Heavy: -2 penalty to Dexterity
-– Sets attacks per round to 1 (max of 2 with Haste or Whirlwind effects)
+– Sets Attacks Per Round to 1 (max of 2 with Haste or Whirlwind effects)
 
 Combat abilities:
 – Heavy: +4d8 (crushing)
@@ -135,7 +162,7 @@ STATISTICS:
 Equipped abilities:
 – Shield: +4 bonus to AC vs. crushing, slashing, piercing, and missile
 – Heavy: -2 penalty to Dexterity
-– Sets attacks per round to 1 (max of 2 with Haste or Whirlwind effects)
+– Sets Attacks Per Round to 1 (max of 2 with Haste or Whirlwind effects)
 
 Combat abilities:
 – Heavy: +4d8 (crushing)
@@ -164,7 +191,7 @@ Equipped abilities:
 
 Charge abilities:
 – Tranquil Walk of Peace once per day
-  Special: When activated, and at 5 second intervals, all creatures in a 15 ft. radius, including the wielder, have their movement rate halved for 1 round (no save). The wielder also gains a +4 bonus to Armor Class. This spell bypasses Free Action, and cancels any Haste or Slow effects.
+  Special: Once per round, all enemies in a 15 ft. radius have their movement slowed by half and suffer a -4 penalty to Armor Class for 2 rounds (no save); the sword is held in the hand and pulses with blue light for the duration or until dispelled
   Duration: 1 turn
   Area of Effect: 15 ft. radius centered on the wielder
 
@@ -192,7 +219,7 @@ STATISTICS:
 
 Equipped abilities:
 – Dark: +3 bonus to Intelligence and Wisdom, -1 penalty to Constitution and Charisma
-– Scion of Flame: +50% increase to all sources of fire damage
+– Scion of Flame: +40% increase to all sources of fire damage
 – Devotion: The wielder takes 3 points of magic damage when equipping this weapon, and an additional 1 point of magic damage every 18 seconds while holding it
 
 Combat abilities:
@@ -218,8 +245,8 @@ Greatsword wielded by the Drakeblood Knights, led by the honorable Sir Yorgh. Th
 STATISTICS:
 
 Equipped abilities:
+– Save vs. Death: -2
 – Fire Resistance: +20%
-– -2 penalty to Save vs. Death
 
 Combat abilities:
 – Magic: 55% chance of +1d6 magic damage
@@ -232,7 +259,7 @@ Proficiency Type: Bastard Sword
 Type: One-handed
 Requires:
  11 Strength
- 
+
 Weight: 7
 
 ==================================================
@@ -243,14 +270,14 @@ A long-hilted katana once wielded by a warrior of certain esteem. The man came f
 STATISTICS:
 
 Equipped abilities:
-– +2 bonus to Save vs. Spell
+– Save vs. Spell: +2
 
 Combat abilities:
 – 33% chance target suffers a bleeding wound, taking 5 slashing damage instantly, and an additional 5 damage per round for 5 rounds (no save)
 
 Charge abilities:
 – Harakiri once per day
-  Special: Reverse the blade and plunge into oneself. The wielder takes 80 piercing damage and suffers a bleeding wound, yet attacks become quicker and each strike deadlier. Gains bonuses of +1 to attacks per round and +30% chance to critical hit with melee attacks.
+  Special: Reverse the blade and plunge into oneself. The wielder takes 80 piercing damage and suffers a bleeding wound, yet attacks become quicker and each strike deadlier. Gains bonuses of +1 Attacks Per Round and +30% chance to score a critical hit with melee attacks.
   Duration: 5 rounds
   Area of Effect: The user
   Note: Stoneskin and similar effects can halve the initial damage but all skins are shattered in the process
@@ -282,7 +309,7 @@ Combat abilities:
 
 Charge abilities:
 – Crystal Blade three times per day (costs one memorized spell)
-  Special: A blue blade extends from the hilt, striking as a +4 weapon, with a +4 bonus to hit, and dealing 1d4+2 piercing damage, plus an additional 3d6 magic damage. The weapon sets base attacks per round to 3, and THAC0 becomes that of a Fighter of the same level as the caster. Proficiency bonuses apply as normal.
+  Special: A blue blade extends from the hilt, striking as a +4 weapon, with a +4 bonus to hit, and dealing 1d4+2 piercing damage, plus an additional 3d6 magic damage. The weapon sets base Attacks Per Round to 3, and THAC0 becomes that of a Fighter of the same level as the caster. Proficiency bonuses apply as normal.
   Duration: 3 rounds
   Area of Effect: The user
 
@@ -302,12 +329,12 @@ Weight: 1
 ==================================================
 Unbalanced Halberd (non-magical)
 ==================================================
-Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. The weapon appears to be solidly built, though strangely, it costs only a single gold piece and the weight feels odd in your hands, shifting forward or sideways of its own accord.
+Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. The weapon appears to be solidly built, though the weight feels odd in your hands, shifting forward or sideways of its own accord.
 
 STATISTICS:
 
 Equipped abilities:
-– Each round, the wielder gains +1 or -1 to Strength and Dexterity for 3 rounds (effects are always the opposite for each attribute)
+– Once each round, the wielder gains +1 or -1 to damage, THAC0, and Armor Class for 3 rounds
 
 Damage: 1d10 (piercing or slashing)
 Speed Factor: 9
@@ -330,7 +357,7 @@ Combat abilities:
 – May Enrage as a Berserker three times per day (duration: 1 turn)
 – Becomes winded after berserking (5 rounds): -2 penalty to THAC0, damage, and Armor Class
 
-FRENZY: The wielder does not have full control over the weapon-induced rage. While berserking, there is a 15% chance per round to enter a frenzied state, attacking friend and foe alike. While frenzied, the wielder gains +2 to hit and damage, an extra attack per round, doubled movement speed, and a +30% chance to critical hit. Frenzy always lasts for a full turn and the bonuses are in addition to the bonuses from Enrage.
+FRENZY: The wielder does not have full control over the weapon-induced rage. While berserking, there is a 15% chance per round to enter a frenzied state, attacking friend and foe alike. While frenzied, the wielder gains +2 to hit and damage, an extra attack per round, doubled movement speed, and a +30% chance to score a critical hit. Frenzy always lasts for a full turn and the bonuses are in addition to the bonuses from Enrage.
 
 THAC0: +4
 Damage: 1d6+4 (crushing)
@@ -350,7 +377,7 @@ The scimitar is closely related to the saber, a single-edged curved sword with p
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the wielder a +0.5 bonus to attacks per round and a -1 THAC0 penalty for 9 seconds
+– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
 
 THAC0: +2
 Damage: 1d8+2 (slashing)
@@ -370,7 +397,7 @@ Magical slings are the hallmark of stout halfling warriors and adventurers. Anyo
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the slinger a +0.5 bonus to attacks per round and a -1 THAC0 penalty for 9 seconds (Halflings only)
+– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls (Halflings only)
 
 THAC0: +2
 Damage: +2 (missile)
@@ -382,3 +409,5 @@ Requires:
 
 Weight: 0
 
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------

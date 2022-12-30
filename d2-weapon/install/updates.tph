@@ -82,65 +82,8 @@ END
 
 COPY ~%MOD_FOLDER%/data2/d2#wbag.BAM~ ~override~
 INCLUDE ~%MOD_FOLDER%/install/wbag.tph~
-  
-  
-  
-//Add damage to bows for IWDEE
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-
-  COPY_EXISTING ~d2bow01.ITM~ ~override~  
-    WRITE_SHORT 0x86 5    // +5 THAC0 (was +7)
-    WRITE_SHORT 0x8c 2    // +2 damage (was +0)
-    SAY DESC @900
-  BUT_ONLY
-  
-  COPY_EXISTING ~d2bow03.ITM~ ~override~
-    WRITE_SHORT 0x8c 3    // +3 damage (was +0)
-    SAY DESC @902
-  BUT_ONLY
-  
-  COPY_EXISTING ~d2bow04.ITM~ ~override~
-    WRITE_SHORT 0x8c 1    // +1 damage (was +0)
-    SAY DESC @903
-  BUT_ONLY
-  
-END
-
-
-
-//Standardize prices of items
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2setprices BEGIN
-  d2hal01 => 1
-  d2bow03 => 8000
-  d2swd01 => 8000
-  d2swd07 => 8000
-  d2ham01 => 8000
-  d2eff01b => 8000
-  d2bow01 => 15000
-  d2bow02 => 15000
-  d2swd04 => 15000
-  d2swd06 => 15000
-  d2dag01 => 15000
-  d2bow04 => 22000
-  d2swd02 => 22000
-  d2swd03 => 22000
-  d2swd05 => 22000
-END
-
-ACTION_PHP_EACH d2setprices AS item => price BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
-    COPY_EXISTING ~%item%.itm~ ~override~
-      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
-        WRITE_LONG 0x34 price
-      END
-    BUT_ONLY
-  END
-END
-
 
 
 
 /*
-
-
 */
