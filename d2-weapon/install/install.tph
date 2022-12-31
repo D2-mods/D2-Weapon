@@ -2,10 +2,11 @@
 
 
 //copy files to override
-COPY ~%MOD_FOLDER%/data~ ~override~
+COPY ~%MOD_FOLDER%/items~ ~override~
+COPY ~%MOD_FOLDER%/effects~ ~override~
 COPY ~%MOD_FOLDER%/icon~ ~override~
 
-ACTION_BASH_FOR ~%MOD_FOLDER%/resource~  ~.*~ BEGIN
+ACTION_BASH_FOR ~%resource%~  ~.*~ BEGIN
   ACTION_IF !(FILE_EXISTS_IN_GAME ~%BASH_FOR_FILE%~) BEGIN    // check for missing files
     COPY ~%BASH_FOR_FILESPEC%~  ~override~
   END
@@ -45,7 +46,7 @@ COPY_EXISTING ~d2bow04e.ITM~ ~override~
   SAY NAME2 @103 SAY DESC @203
 
 
-//Greatswords
+//2-hand weapons
 COPY_EXISTING ~d2swd01.ITM~ ~override~    // Greatsword
   SAY NAME1 @104
   SAY NAME2 @104 SAY DESC @204
@@ -121,7 +122,7 @@ COPY_EXISTING ~d2ham01e.SPL~ ~override~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@308) END
 BUT_ONLY
 
-COPY_EXISTING ~d2swd07.ITM~ ~override~    // Scimitar +2: Accelerator
+COPY_EXISTING ~d2swd07.ITM~ ~override~     // Scimitar +2: Accelerator
   SAY NAME1 @113
   SAY NAME2 @113 SAY DESC @213
   
@@ -130,6 +131,25 @@ COPY_EXISTING ~d2eff01b.ITM~ ~override~    // Sling +2: Accelerator
   SAY NAME2 @114 SAY DESC @914
   LPF ALTER_EFFECT INT_VAR match_opcode=319 special=RESOLVE_STR_REF (@311) END
 BUT_ONLY
+
+
+
+//Variables for external use
+OUTER_TEXT_SPRINT blackbow     ~d2bow01~
+OUTER_TEXT_SPRINT greatbow     ~d2bow02~
+OUTER_TEXT_SPRINT whitebirch   ~d2bow03~
+OUTER_TEXT_SPRINT avelyn       ~d2bow04~
+OUTER_TEXT_SPRINT greatsword   ~d2swd01~
+OUTER_TEXT_SPRINT fumeultraGS  ~d2swd02~
+OUTER_TEXT_SPRINT chaosrapier  ~d2swd03~
+OUTER_TEXT_SPRINT drakeblood   ~d2swd04~
+OUTER_TEXT_SPRINT alonnesword  ~d2swd05~
+OUTER_TEXT_SPRINT stoneGS      ~d2swd06~
+OUTER_TEXT_SPRINT accelerator  ~d2swd07~
+OUTER_TEXT_SPRINT aquamarine   ~d2dag01~
+OUTER_TEXT_SPRINT uhalberd     ~d2hal01~
+OUTER_TEXT_SPRINT clubfrenzy   ~d2ham01~
+OUTER_TEXT_SPRINT slingaccel   ~d2eff01b~
 
 
 /*

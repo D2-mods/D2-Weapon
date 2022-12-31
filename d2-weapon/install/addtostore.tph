@@ -3,21 +3,21 @@ ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN
 
   COPY_EXISTING ~INN2616.STO~  ~override~
     LPF ADD_STORE_ITEM_EX 
-      STR_VAR item_name=d2hal01 position=~BEFORE HALB01~ flags=~identified~ 
+      STR_VAR item_name=%uhalberd% position=~BEFORE HALB01~ flags=~identified~ 
     END
   BUT_ONLY
 
   COPY_EXISTING ~FRIEND.STO~  ~override~
     LPF ADD_STORE_ITEM_EX 
       INT_VAR stack=5 
-      STR_VAR item_name=~d2hal01~ position=~BEFORE HALB01~ flags=~identified~ 
+      STR_VAR item_name=~%uhalberd%~ position=~BEFORE HALB01~ flags=~identified~ 
     END
   BUT_ONLY
 
   COPY_EXISTING ~STO4908.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
       INT_VAR stack=3
-      STR_VAR item_name=d2hal01 position=~BEFORE HAMM01~ flags=~identified~
+      STR_VAR item_name=%uhalberd% position=~BEFORE HAMM01~ flags=~identified~
     END
   BUT_ONLY
 
@@ -31,28 +31,28 @@ ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
   COPY_EXISTING ~WMART2.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=3
-      STR_VAR item_name=~d2bow04~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%avelyn%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2swd01~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%greatsword%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2swd04~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%drakeblood%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2swd03~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%chaosrapier%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=3
-      STR_VAR item_name=~d2dag01~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%aquamarine%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2eff01b~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%slingaccel%~ position=~LAST~ flags=~identified~
     END
   BUT_ONLY
   
@@ -60,29 +60,29 @@ ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
   // Joluv
   COPY_EXISTING ~WMART1.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2bow01~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%blackbow%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2bow03~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%whitebirch%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2swd02~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%fumeultraGS%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=1
-      STR_VAR item_name=~d2swd06~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%stoneGS%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR stack=10 item_name=~d2hal01~ position=~LAST~ flags=~identified~
+      STR_VAR stack=10 item_name=~%uhalberd%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=3
-      STR_VAR item_name=~d2ham01~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%clubfrenzy%~ position=~LAST~ flags=~identified~
     END
   BUT_ONLY
   
@@ -90,16 +90,16 @@ ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
   // Ribald (chapter 6)
   COPY_EXISTING ~RIBALD3.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2bow02~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%greatbow%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=1
-      STR_VAR item_name=~d2swd05~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%alonnesword%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2swd07~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%accelerator%~ position=~LAST~ flags=~identified~
     END
   BUT_ONLY
   
@@ -112,14 +112,14 @@ ACTION_IF (GAME_INCLUDES ~iwd~) BEGIN
   COPY_EXISTING ~EHPOMAB.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
       INT_VAR stack=3
-      STR_VAR item_name=~d2hal01~ position=~AFTER BLUN01~ flags=~identified~
+      STR_VAR item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~
     END
   BUT_ONLY
 
   COPY_EXISTING ~KUGERTH.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
       INT_VAR unlimited=1
-      STR_VAR item_name=~d2hal01~ position=~AFTER BLUN01~ flags=~identified~
+      STR_VAR item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~
     END
   BUT_ONLY
   
@@ -127,15 +127,15 @@ ACTION_IF (GAME_INCLUDES ~iwd~) BEGIN
   // Conlan
   COPY_EXISTING ~KUSMITH.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2bow01~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%blackbow%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2swd01~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%greatsword%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2eff01b~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%slingaccel%~ position=~LAST~ flags=~identified~
     END
   BUT_ONLY
   
@@ -143,21 +143,21 @@ ACTION_IF (GAME_INCLUDES ~iwd~) BEGIN
   // Lehland
   COPY_EXISTING ~SHLEHLAN.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2bow03~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%whitebirch%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=1
-      STR_VAR item_name=~d2swd06~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%stoneGS%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2swd04~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%drakeblood%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=3
-      STR_VAR item_name=~d2dag01~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%aquamarine%~ position=~LAST~ flags=~identified~
     END
   BUT_ONLY
   
@@ -166,19 +166,19 @@ ACTION_IF (GAME_INCLUDES ~iwd~) BEGIN
   COPY_EXISTING ~LDD_NYM.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=3
-      STR_VAR item_name=~d2bow04~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%avelyn%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2swd02~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%fumeultraGS%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2swd03~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%chaosrapier%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2swd07~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%accelerator%~ position=~LAST~ flags=~identified~
     END
   BUT_ONLY
   
@@ -186,17 +186,17 @@ ACTION_IF (GAME_INCLUDES ~iwd~) BEGIN
   // Kieran Nye (HoW)
   COPY_EXISTING ~KIERAN2.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
-      STR_VAR item_name=~d2bow02~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%greatbow%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=3
-      STR_VAR item_name=~d2ham01~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%clubfrenzy%~ position=~LAST~ flags=~identified~
     END
   
     LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=1
-      STR_VAR item_name=~d2swd05~ position=~LAST~ flags=~identified~
+      STR_VAR item_name=~%alonnesword%~ position=~LAST~ flags=~identified~
     END
   BUT_ONLY
   

@@ -1,18 +1,23 @@
 //Add damage to bows (recommended for IWD:EE)
 
-
+ACTION_IF (FILE_EXISTS ~override/d2bow01.ITM~) BEGIN
   COPY_EXISTING ~d2bow01.ITM~ ~override~  
     WRITE_SHORT 0x86 5    // +5 THAC0 (was +7)
     WRITE_SHORT 0x8c 2    // +2 damage (was +0)
     SAY DESC @900
   BUT_ONLY
+END
   
+ACTION_IF (FILE_EXISTS ~override/d2bow03.ITM~) BEGIN
   COPY_EXISTING ~d2bow03.ITM~ ~override~
     WRITE_SHORT 0x8c 3    // +3 damage (was +0)
     SAY DESC @902
   BUT_ONLY
+END
   
+ACTION_IF (FILE_EXISTS ~override/d2bow04.ITM~) BEGIN
   COPY_EXISTING ~d2bow04.ITM~ ~override~
     WRITE_SHORT 0x8c 1    // +1 damage (was +0)
     SAY DESC @903
   BUT_ONLY
+END

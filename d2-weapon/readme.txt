@@ -20,6 +20,11 @@ Components:
 1. D2 Weapon - A Souls-inspired Weapon Pack
 2. Standardize prices of items (generally lower)
 3. Add damage to bows (recommended for IWD:EE)
+4. Add NPC merchant to Throne of Bhaal or Heart of Winter?
+
+NPC merchant:
+- ToB: Gives access to Deidre's items, Joluv's items, and Ribald's special store.
+- HoW: Gives access to Conlan's store, Lehland's store, and Nym's store.
 
 
 ==================================================
@@ -71,11 +76,13 @@ COPYRIGHT NOTICE
 VERSION HISTORY
 ==================================================
 v2.0
-- Separated parts of main component into new components:
+- Added components:
 	- Standardize prices of items (generally lower)
 	- Add damage to bows (recommended for IWD:EE)
+	- Add NPC merchant to Throne of Bhaal or Heart of Winter?
 - BG2EE: Price component has 3 tiers (base price = 6000, 15000, or 20000 gold)
 - IWDEE: Some item prices are lowered to account for high store markups.
+- NPC merchant: Gives access to stores from pre-expansion areas with items from this mod.
 
 - Revised items:
 	- White Birch Bow: Invisibility will no longer attract Cowled Wizards.

@@ -21,7 +21,7 @@ COPY_EXISTING ~d2hal01.ITM~ ~override~
 BUT_ONLY
 
 //Stone Greatsword
-ADD_PROJECTILE ~%MOD_FOLDER%/data2/d2swd06.PRO~
+ADD_PROJECTILE ~%files%/d2swd06.PRO~
 COPY_EXISTING ~d2swd06e.SPL~ ~override~
   WRITE_SHORT 0x98 ~%d2swd06%~
 BUT_ONLY
@@ -30,7 +30,7 @@ BUT_ONLY
 COPY_EXISTING ~d2eff01b.ITM~ ~override~
   SAY NAME2 @114 SAY DESC @214
 
-  WRITE_LONG 0x1e (THIS BAND BNOT BIT23)    // racial usability flags
+  WRITE_LONG 0x1e (THIS BAND BNOT BIT23)              // racial usability flags
   WRITE_LONG 0x1e (THIS BAND BNOT BIT24)
   WRITE_LONG 0x1e (THIS BAND BNOT BIT25)
   WRITE_LONG 0x1e (THIS BAND BNOT BIT27)
@@ -48,9 +48,9 @@ COPY_EXISTING ~d2eff01b.ITM~ ~override~
       target = 1
       timing = 1
       parameter1 = IDS_OF_SYMBOL (race ~halfling~)    // effect is for halflings only
-      parameter2 = 4    // use race.ids for parameter1
+      parameter2 = 4                                  // use race.ids for parameter1
     STR_VAR
-      resource = ~d2swd07e~    // use same effect as scimitar Accelerator
+      resource = ~d2swd07e~                           // use same effect as scimitar Accelerator
   END
 BUT_ONLY
 
@@ -59,28 +59,28 @@ BUT_ONLY
 //add Bag of Holding with all weapons
 
 ACTION_IF (GAME_IS ~bgee bg2ee eet~) BEGIN
-  COPY ~%MOD_FOLDER%/data2/d2hbee1.ITM~ ~override/d2#wbag.ITM~
-    SAY NAME1 @500 SAY UNIDENTIFIED_DESC @501
-    SAY NAME2 @500
+  COPY ~%files%/d2hbee1.ITM~ ~override/d2#wbag.ITM~
+    SAY NAME1 @115 SAY UNIDENTIFIED_DESC @215
+    SAY NAME2 @115 SAY UNIDENTIFIED_DESC @215
     WRITE_ASCII 0x3a ~d2#wbag~ #8    // set inventory icon
 	
-  COPY ~%MOD_FOLDER%/data2/d2hbee1.STO~ ~override/d2#wbag.STO~
-    SAY 0xc @500  /* Weapon Sack */
-    LPF cannot_add_items END    // make it so items cannot be placed in the bag
+  COPY ~%files%/d2hbee1.STO~ ~override/d2#wbag.STO~
+    SAY 0xc @115  /* Weapon Sack */
+    LPF cannot_add_items END         // make it so items cannot be placed in the bag
 END
   
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  COPY ~%MOD_FOLDER%/data2/d2hbee0.ITM~ ~override/d2#wbag.ITM~
-    SAY NAME1 @500
-    SAY NAME2 @500 SAY DESC @501
+  COPY ~%files%/d2hbee0.ITM~ ~override/d2#wbag.ITM~
+    SAY NAME1 @115 SAY DESC @215
+    SAY NAME2 @115 SAY DESC @215
     WRITE_ASCII 0x3a ~d2#wbag~ #8    // set inventory icon
 	
-  COPY ~%MOD_FOLDER%/data2/d2hbee0.STO~ ~override/d2#wbag.STO~
-    SAY 0xc @500  /* Weapon Sack */
-    LPF cannot_add_items END    // make it so items cannot be placed in the bag
+  COPY ~%files%/d2hbee0.STO~ ~override/d2#wbag.STO~
+    SAY 0xc @115  /* Weapon Sack */
+    LPF cannot_add_items END         // make it so items cannot be placed in the bag
 END
 
-COPY ~%MOD_FOLDER%/data2/d2#wbag.BAM~ ~override~
+COPY ~%files%/d2#wbag.BAM~ ~override~
 INCLUDE ~%MOD_FOLDER%/install/wbag.tph~
 
 

@@ -46,11 +46,9 @@ END
 
 
 ACTION_PHP_EACH d2setprices AS item => price BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
     COPY_EXISTING ~%item%.itm~ ~override~
-      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
-        WRITE_LONG 0x34 price
-      END
+      WRITE_LONG 0x34 price
     BUT_ONLY
   END
 END

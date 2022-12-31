@@ -1,0 +1,142 @@
+/*
+BG2EE: Adds a merchant to ToB in the pocket plane.
+IWDEE: Adds a merchant to HoW in Lonelywood.
+Has shops from pre-expansion areas with items from this mod.
+*/
+
+
+//Create dialogue file
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  COPY - ~%files%/rakstoreiwd.d~  ~%workspace%/d2rakst2.d~        // IWDEE
+END
+ELSE BEGIN
+  ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
+    COPY - ~%files%/rakstorebg2.d~  ~%workspace%/d2rakst2.d~      // BG2EE
+  END
+  ELSE BEGIN
+    ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+      COPY - ~%files%/rakstorebg1.d~  ~%workspace%/d2rakst2.d~    // SoD
+    END
+  END
+END
+
+COMPILE ~%workspace%/d2rakst2.d~
+
+
+//Write script
+<<<<<<<< .../temp/d2rakst2
+IF
+	OnCreation()
+	!Global("d2rakst2","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("d2rakst2","GLOBAL",0)
+		Continue()
+END
+
+IF
+	!Global("d2facePC","LOCALS",1)
+	Range([PC],15)
+THEN
+	RESPONSE #100
+		SetGlobal("d2facePC","LOCALS",1)
+		FaceObject([PC])
+END
+
+IF
+	!Global("d2facePC","LOCALS",0)
+	!Detect([PC])
+THEN
+	RESPONSE #100
+		SetGlobal("d2facePC","LOCALS",0)
+END
+
+IF
+	AttackedBy([ANYONE],DEFAULT)
+	!StateCheck(Myself,STATE_INVISIBLE)
+THEN
+	RESPONSE #100
+		ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
+		ApplySpell(Myself,WIZARD_INVISIBILITY)
+END
+>>>>>>>>
+
+COPY - ~.../temp/d2rakst2~  ~%workspace%/d2rakst2.BAF~
+COMPILE ~%workspace%/d2rakst2.BAF~
+
+
+//Create creature file
+ACTION_IF (FILE_EXISTS_IN_GAME ~rakshasa.CRE~) BEGIN      // IWDEE
+  OUTER_TEXT_SPRINT merchant  ~rakshasa~
+END
+ELSE BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~ohbrak02.CRE~) BEGIN    // BG2EE
+    OUTER_TEXT_SPRINT merchant  ~ohbrak02~
+  END
+  ELSE BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~BPELAN.CRE~) BEGIN    // SoD
+      OUTER_TEXT_SPRINT merchant  ~BPELAN~
+    END
+  END
+END
+
+COPY ~%files%/rakscim.ITM~      ~override/d2rakst2.ITM~
+COPY_EXISTING ~%merchant%.CRE~  ~override/d2rakst2.CRE~
+  SAY NAME1 @2001  /* Mysterious Man */
+  SAY NAME2 @2001  /* Mysterious Man */
+  REPLACE_CRE_ITEM ~minhp1~ #0 #0 #0 ~unstealable&undroppable~ ~rring~
+  REPLACE_CRE_ITEM ~immune2~ #0 #0 #0 ~unstealable&undroppable~ ~amulet~
+  REPLACE_CRE_ITEM ~d2rakst2~ #0 #0 #0 ~unstealable&undroppable~ ~weapon1~
+
+  WRITE_ASCII 0x248 ~None~ #8         // set scripts
+  WRITE_ASCII 0x250 ~d2rakst2~ #8
+  WRITE_ASCII 0x258 ~None~ #8
+  WRITE_ASCII 0x260 ~None~ #8
+  WRITE_ASCII 0x268 ~None~ #8
+  WRITE_BYTE  0x270 128               // set Allegiance to Neutral
+  WRITE_ASCII 0x280 ~d2rakst2~ #32    // set script name
+  WRITE_ASCII 0x2cc ~d2rakst2~ #8     // set dialogue
+
+
+//Add merchant to maps
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  COPY_EXISTING ~AR9100.ARE~  ~override~      // add to Lonelywood
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = 1010
+        fj_loc_y          = 2110
+        fj_animation      = 0x7F10
+        fj_orientation    = 1    // SSW
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Mysterious Man
+        fj_cre_resref     = d2rakst2
+    END
+  BUT_ONLY
+END
+ELSE BEGIN
+  ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
+    COPY_EXISTING ~AR4500.ARE~  ~override~    // add to Pocket Plane
+      LPF fj_are_structure
+        INT_VAR
+          fj_loc_x          = 2249
+          fj_loc_y          = 1817
+          fj_animation      = 0x7F10
+          fj_orientation    = 7    // NNW
+        STR_VAR
+          fj_structure_type = actor
+          fj_name           = Mysterious Man
+          fj_cre_resref     = d2rakst2
+      END
+    BUT_ONLY
+  END
+  ELSE BEGIN
+    ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+      // nothing yet
+    END
+  END
+END
+
+
+/*
+*/

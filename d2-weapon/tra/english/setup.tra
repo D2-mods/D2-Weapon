@@ -2,7 +2,7 @@
 @1 = ~D2 Weapon - A Souls-inspired Weapon Pack~
 @2 = ~Standardize prices of items (generally lower)~
 @3 = ~Add damage to bows (recommended for IWD:EE)~
-@4 = ~~
+@4 = ~Add NPC merchant to Throne of Bhaal or Heart of Winter?~
 @5 = ~~
 
 
@@ -21,6 +21,30 @@
 @311 = ~Halfling~
 @312 = ~~
 @313 = ~~
+
+
+//Store text
+@2001 = ~Mysterious Man~
+@2002 = ~Rakshasa?~
+@2003 = ~Stranger~
+@2004 = ~~
+@2005 = ~~
+
+@2011 = ~The stranger watches as you approach...~
+@2012 = ~He motions towards his wares...~
+@2013 = ~The stranger motions towards his wares...~
+@2014 = ~~
+@2015 = ~Avoid eye contact...~
+
+@2021 = ~Ask to browse Deidre's items.~
+@2022 = ~Ask to browse Joluv's items.~
+@2023 = ~Ask to browse Ribald's special store.~
+
+@2031 = ~Ask to browse Conlan's items.~
+@2032 = ~Ask to browse Lehland's items.~
+@2033 = ~Ask to browse Nym's items.~
+@2034 = ~~
+@2035 = ~~
 
 
 
@@ -382,29 +406,12 @@ Weight: 0~
 
 
 //other text (i.e. bag of holding)
-@500 = ~Weapon Sack~
-@501 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.
+@115 = ~Weapon Sack~
+@215 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.
 
 STATISTICS:
 
 Weight: 5~
-
-
-
-//unidentified text
-@700 = ~Katana~
-@701 = ~The katana is a single-edged, slightly curved sword that ends with a chisel point. The katana is perhaps one of the finest swords ever made, the steps to its creation a long and secret process that is more art form than anything else. This blade is an important facet of Kara-Turan culture. To touch or wield a samurai's katana is to insult the samurai and to incite his wrath. For a gaijin, or foreigner, to own such a blade is a rare occurrence. Either the gaijin is a greatly honored friend of an important minister, or the gaijin has murdered a samurai.
-
-STATISTICS:
-
-Damage: 1d10 (slashing)
-Speed Factor: 4
-Proficiency Type: Katana
-Type: One-handed
-Requires:
- 6 Strength
-
-Weight: 6~
 
 
 
@@ -478,6 +485,23 @@ Requires:
  18 Intelligence
 
 Weight: 16~
+
+
+
+//unidentified text
+@700 = ~Katana~
+@701 = ~The katana is a single-edged, slightly curved sword that ends with a chisel point. The katana is perhaps one of the finest swords ever made, the steps to its creation a long and secret process that is more art form than anything else. This blade is an important facet of Kara-Turan culture. To touch or wield a samurai's katana is to insult the samurai and to incite his wrath. For a gaijin, or foreigner, to own such a blade is a rare occurrence. Either the gaijin is a greatly honored friend of an important minister, or the gaijin has murdered a samurai.
+
+STATISTICS:
+
+Damage: 1d10 (slashing)
+Speed Factor: 4
+Proficiency Type: Katana
+Type: One-handed
+Requires:
+ 6 Strength
+
+Weight: 6~
 
 
 
