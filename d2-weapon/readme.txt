@@ -6,7 +6,7 @@ Installs on: BG:EE, BG2:EE, IWD:EE, EET (tested on v2.5/v2.6)
 ==================================================
 WHAT THIS MOD DOES
 ==================================================
-Adds 11 weapons loosely based on weapons from FromSoft's Dark Souls trilogy, plus 4 others experimenting with various effects. All items are purchased. Some have more "normal" abilities, while others have very extreme advantages and disadvantages.
+Adds 15 weapons, many of them loosely based on weapons from FromSoft's Dark Souls trilogy. All items are purchased. Some have more "normal" abilities, while others have very extreme advantages and disadvantages.
 
 Note: For BG1, all items install, but only 1 (Unbalanced Halberd) gets added to stores.
 
@@ -17,7 +17,7 @@ INSTALL INFO
 Should be installed before any mods that make global changes to weapons, such as weapon usability tweaks.
 
 Components:
-1. D2 Weapon - A Souls-inspired Weapon Pack
+1. D2-Weapon - A Souls-inspired Weapon Pack
 2. Standardize prices of items (generally lower)
 3. Add damage to bows (recommended for IWD:EE)
 4. Add NPC merchant to Throne of Bhaal or Heart of Winter?
@@ -76,6 +76,7 @@ COPYRIGHT NOTICE
 VERSION HISTORY
 ==================================================
 v2.0
+- Rewrote most of the installer files. Should still be backwards compatible with older versions of the mod.
 - Added components:
 	- Standardize prices of items (generally lower)
 	- Add damage to bows (recommended for IWD:EE)
@@ -84,13 +85,19 @@ v2.0
 - IWDEE: Some item prices are lowered to account for high store markups.
 - NPC merchant: Gives access to stores from pre-expansion areas with items from this mod.
 
-- Revised items:
+- Fixes:
+	- Club +4: Frenzy: Immunities for Enrage/Frenzy will now block the correct display strings in IWDEE.
+
+- Changes:
 	- White Birch Bow: Invisibility will no longer attract Cowled Wizards.
 	- Unbalanced Halberd: Stat modifier is now +1/-1 to damage, THAC0, and AC each round (was previously to Str/Dex)
 	- Stone Greatsword: Tranquil Walk of Peace now affects only enemies. It slows movement by half and gives a -4 AC penalty. It no longer gives a +4 AC bonus to the wielder and no longer removes Haste/Slow effects. Added overlay effect on user while ability is active.
 	- Accelerators: THAC0 penalty is now a 50% chance, instead of every hit
 	- Bewitched Alonne Sword: Increased attack range to 2 feet
 	- Chaos Rapier: Reduced Fire damage bonus from +50% to +40%
+	- Fume Ultra Greatsword: Reduced Strength requirement from 20 to 19
+	- Avelyn: Reduced Intelligence requirement from 18 to 14
+
 
 v1.8
 - standardized prices of items into 3 tiers (base price = 8000, 15000, or 22000 gold)

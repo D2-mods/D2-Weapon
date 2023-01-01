@@ -6,11 +6,11 @@ IF ~!Global("d2rakst2","GLOBAL",1)~ THEN BEGIN a.0
 END
 
 IF ~~ THEN BEGIN a.1
-  SAY @2012 /* He motions towards his wares... */
+  SAY @2012 /* He motions to the odd sack on the ground... */
   IF ~~ THEN REPLY @2015 /* Avoid eye contact... */ EXIT
 END
 
 IF ~Global("d2rakst2","GLOBAL",1)~ THEN BEGIN b.0
-  SAY @2013 /* The stranger motions towards his wares... */
+  SAY @2013 /* The stranger motions to the odd sack on the ground... */
   IF ~~ THEN REPLY @2015 /* Avoid eye contact... */ EXIT
 END

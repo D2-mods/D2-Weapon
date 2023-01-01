@@ -1,11 +1,8 @@
-//This file installs all weapons (v1.0 versions)
+//
+//
 
 
-//copy files to override
-COPY ~%MOD_FOLDER%/items~ ~override~
-COPY ~%MOD_FOLDER%/effects~ ~override~
-COPY ~%MOD_FOLDER%/icon~ ~override~
-
+//check for missing game resources
 ACTION_BASH_FOR ~%resource%~  ~.*~ BEGIN
   ACTION_IF !(FILE_EXISTS_IN_GAME ~%BASH_FOR_FILE%~) BEGIN    // check for missing files
     COPY ~%BASH_FOR_FILESPEC%~  ~override~
@@ -15,126 +12,237 @@ END
 
 
 //Bows
-COPY_EXISTING ~d2bow01.ITM~ ~override~    // Black Bow of Pharis
+
+//Black Bow of Pharis (d2bow01)
+OUTER_TEXT_SPRINT itemid  ~d2bow01~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/blackbowc.BAM~  ~override/%cc%.BAM~
+COPY ~%icons%/blackbowi.BAM~  ~override/%ii%.BAM~
+COPY ~%items%/blackbow.ITM~   ~override/%itemid%.ITM~
   SAY NAME1 @100
   SAY NAME2 @100 SAY DESC @200
 
-COPY_EXISTING ~d2bow02.ITM~ ~override~    // Dragonslayer Greatbow
+
+//Dragonslayer Greatbow (d2bow02)
+OUTER_TEXT_SPRINT itemid  ~d2bow02~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/greatbowc.BAM~  ~override/%cc%.BAM~
+COPY ~%icons%/greatbowi.BAM~  ~override/%ii%.BAM~
+COPY ~%items%/greatbow.ITM~   ~override/%itemid%.ITM~
   SAY NAME1 @101
   SAY NAME2 @101 SAY DESC @201
 
-COPY_EXISTING ~d2bow03.ITM~ ~override~    // White Birch Bow
+
+//White Birch Bow (d2bow03)
+OUTER_TEXT_SPRINT itemid  ~d2bow03~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/whitebirchc.BAM~    ~override/%cc%.BAM~
+COPY ~%icons%/whitebirchi.BAM~    ~override/%ii%.BAM~
+COPY ~%items%/whitebirch.ITM~     ~override/%itemid%.ITM~
   SAY NAME1 @102
   SAY NAME2 @102 SAY DESC @202
 
-COPY_EXISTING ~d2bow03e.SPL~ ~override~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@300) END
-BUT_ONLY
+COPY ~%effects%/whitebirche.EFF~  ~override/%ee%.EFF~
+COPY ~%effects%/whitebirche.SPL~  ~override/%ee%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@300) END    // "Invisible"
 
-COPY_EXISTING ~d2bow03s.SPL~ ~override~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@300) END
-BUT_ONLY
+COPY ~%effects%/whitebirchs.EFF~  ~override/%ss%.EFF~
+COPY ~%effects%/whitebirchs.SPL~  ~override/%ss%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@300) END    // "Invisible"
 
-COPY_EXISTING ~d2bow04.ITM~ ~override~    // Avelyn
+
+//Avelyn (d2bow04)
+OUTER_TEXT_SPRINT itemid  ~d2bow04~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/avelync.BAM~    ~override/%cc%.BAM~
+COPY ~%icons%/avelyni.BAM~    ~override/%ii%.BAM~
+COPY ~%items%/avelyn.ITM~     ~override/%itemid%.ITM~
   SAY NAME1 @103
   SAY NAME2 @103 SAY DESC @203 
-  LPF ALTER_EFFECT INT_VAR header_type=3 match_opcode=139 parameter1=RESOLVE_STR_REF (@301) END
-BUT_ONLY
+  LPF ALTER_EFFECT INT_VAR header_type=3 match_opcode=139 parameter1=RESOLVE_STR_REF (@301) END    // "Repeat Fire"
 
-COPY_EXISTING ~d2bow04e.ITM~ ~override~
+COPY ~%effects%/avelyne.ITM~  ~override/%ee%.ITM~
   SAY NAME1 @103
   SAY NAME2 @103 SAY DESC @203
 
 
-//2-hand weapons
-COPY_EXISTING ~d2swd01.ITM~ ~override~    // Greatsword
+
+//2-handed weapons
+
+//Greatsword (d2swd01)
+OUTER_TEXT_SPRINT itemid  ~d2swd01~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/greatswordc.BAM~  ~override/%cc%.BAM~
+COPY ~%icons%/greatswordi.BAM~  ~override/%ii%.BAM~
+COPY ~%items%/greatsword.ITM~   ~override/%itemid%.ITM~
   SAY NAME1 @104
   SAY NAME2 @104 SAY DESC @204
 
-COPY_EXISTING ~d2swd02.ITM~ ~override~    // Fume Ultra Greatsword
+
+//Fume Ultra Greatsword (d2swd02)
+OUTER_TEXT_SPRINT itemid  ~d2swd02~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/fumeultraGSc.BAM~  ~override/%cc%.BAM~
+COPY ~%icons%/fumeultraGSi.BAM~  ~override/%ii%.BAM~
+COPY ~%items%/fumeultraGS.ITM~   ~override/%itemid%.ITM~
   SAY NAME1 @105
   SAY NAME2 @105 SAY DESC @205
 
-COPY_EXISTING ~d2swd06.ITM~ ~override~    // Stone Greatsword
+
+//Stone Greatsword (d2swd06)
+OUTER_TEXT_SPRINT itemid  ~d2swd06~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/stoneGSc.BAM~    ~override/%cc%.BAM~
+COPY ~%icons%/stoneGSi.BAM~    ~override/%ii%.BAM~
+COPY ~%items%/stoneGS.ITM~     ~override/%itemid%.ITM~
   SAY NAME1 @106
   SAY NAME2 @106 SAY DESC @206
 
-COPY_EXISTING ~d2swd06e.ITM~ ~override~
-  SAY NAME1 @106
-  SAY NAME2 @106 SAY DESC @206
-
-COPY_EXISTING ~d2swd06e.SPL~ ~override~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@303) END
-BUT_ONLY
-
-COPY_EXISTING ~d2swd06s.SPL~ ~override~
+COPY ~%effects%/stoneGSs.SPL~  ~override/%ss%.SPL~
   SAY NAME1 @302
+COPY ~%effects%/stoneGSe.ITM~  ~override/%ee%.ITM~
+  SAY NAME1 @106
+  SAY NAME2 @106 SAY DESC @206
+
+COPY - ~%effects%/stoneGSe.PRO~  ~%workspace%/%ee%.PRO~
+ADD_PROJECTILE ~%workspace%/%ee%.PRO~
+COPY ~%effects%/stoneGSe.EFF~  ~override/%ee%.EFF~
+COPY ~%effects%/stoneGSe.SPL~  ~override/%ee%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@303) END    // "Slowed"
+  WRITE_SHORT 0x98 ~%ee%~    // projectile
 
 
-//1-hand weapons
-COPY_EXISTING ~d2swd03.ITM~ ~override~    // Chaos Rapier
+
+//1-handed weapons
+
+//Chaos Rapier (d2swd03)
+OUTER_TEXT_SPRINT itemid  ~d2swd03~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/chaosrapierc.BAM~    ~override/%cc%.BAM~
+COPY ~%icons%/chaosrapieri.BAM~    ~override/%ii%.BAM~
+COPY ~%items%/chaosrapier.ITM~     ~override/%itemid%.ITM~
   SAY NAME1 @107
   SAY NAME2 @107 SAY DESC @207
+COPY ~%effects%/chaosrapiere.EFF~  ~override/%ee%.EFF~
+COPY ~%effects%/chaosrapiere.SPL~  ~override/%ee%.SPL~
 
-COPY_EXISTING ~d2swd04.ITM~ ~override~    // Drakeblood Greatsword
+
+//Drakeblood Greatsword (d2swd04)
+OUTER_TEXT_SPRINT itemid  ~d2swd04~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/drakebloodc.BAM~  ~override/%cc%.BAM~
+COPY ~%icons%/drakebloodi.BAM~  ~override/%ii%.BAM~
+COPY ~%items%/drakeblood.ITM~   ~override/%itemid%.ITM~
   SAY NAME1 @108
   SAY NAME2 @108 SAY DESC @208
 
-COPY_EXISTING ~d2swd05.ITM~ ~override~    // Bewitched Alonne Sword
+
+//Bewitched Alonne Sword (d2swd05)
+OUTER_TEXT_SPRINT itemid  ~d2swd05~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/alonneswordc.BAM~  ~override/%cc%.BAM~
+COPY ~%icons%/alonneswordi.BAM~  ~override/%ii%.BAM~
+COPY ~%items%/alonnesword.ITM~   ~override/%itemid%.ITM~
   SAY NAME1 @109 SAY UNIDENTIFIED_DESC @701
   SAY NAME2 @109 SAY DESC @209
-  LPF ALTER_EFFECT INT_VAR header_type=3 match_opcode=139 parameter1=RESOLVE_STR_REF (@304) END
-BUT_ONLY
+  LPF ALTER_EFFECT INT_VAR header_type=3 match_opcode=139 parameter1=RESOLVE_STR_REF (@304) END    // "Harakiri"
 
-COPY_EXISTING ~d2swd05e.SPL~ ~override~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END
-BUT_ONLY
+COPY ~%effects%/alonnesworde.EFF~  ~override/%ee%.EFF~
+COPY ~%effects%/alonnesworde.SPL~  ~override/%ee%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // "Blood Loss"
+COPY ~%effects%/alonneswordb.EFF~  ~override/%bb%.EFF~
+COPY ~%effects%/alonneswordb.SPL~  ~override/%bb%.SPL~    // Bleed damage
+COPY ~%effects%/alonneswordh.EFF~  ~override/%hh%.EFF~
+COPY ~%effects%/alonneswordh.SPL~  ~override/%hh%.SPL~    // Harakiri self-damage
+COPY ~%effects%/alonneswords.EFF~  ~override/%ss%.EFF~
+COPY ~%effects%/alonneswords.SPL~  ~override/%ss%.SPL~    // Harakiri buff
 
-COPY_EXISTING ~d2dag01.ITM~ ~override~    // Aquamarine Dagger
+
+//Aquamarine Dagger (d2dag01)
+OUTER_TEXT_SPRINT itemid  ~d2dag01~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/aquamarinec.BAM~    ~override/%cc%.BAM~
+COPY ~%icons%/aquamarinei.BAM~    ~override/%ii%.BAM~
+COPY ~%items%/aquamarine.ITM~     ~override/%itemid%.ITM~
   SAY NAME1 @110
   SAY NAME2 @110 SAY DESC @210
 
-COPY_EXISTING ~d2dag01e.ITM~ ~override~
-  SAY NAME1 @110
-  SAY NAME2 @110 SAY DESC @210
-
-COPY_EXISTING ~d2dag01e.SPL~ ~override~
+COPY ~%effects%/aquamarinee.SPL~  ~override/%ee%.SPL~
   SAY NAME1 @306
+COPY ~%effects%/aquamarinee.ITM~  ~override/%ee%.ITM~
+  SAY NAME1 @110
+  SAY NAME2 @110 SAY DESC @210
+
 
 
 //non-Souls weapons
-COPY_EXISTING ~d2hal01.ITM~ ~override~    // Unbalanced Halberd
+
+//Unbalanced Halberd (d2hal01)
+OUTER_TEXT_SPRINT itemid  ~d2hal01~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/uhalberdi.BAM~    ~override/%ii%.BAM~
+COPY ~%items%/uhalberd.ITM~     ~override/%itemid%.ITM~
   SAY NAME1 @111
   SAY NAME2 @111 SAY DESC @211
+  WRITE_ASCII 0x3a ~%ii%~ #8    // set inventory icon
+  WRITE_ASCII 0x76 ~%ii%~ #8    // set quickbar icon
+COPY ~%effects%/uhalberde.EFF~  ~override/%ee%.EFF~
+COPY ~%effects%/uhalberde.SPL~  ~override/%ee%.SPL~
 
-COPY_EXISTING ~d2ham01.ITM~ ~override~    // Club +4: Frenzy
+
+//Club +4: Frenzy (d2ham01)
+OUTER_TEXT_SPRINT itemid  ~d2ham01~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/clubfrenzyi.BAM~  ~override/%ii%.BAM~
+COPY ~%items%/clubfrenzy.ITM~   ~override/%itemid%.ITM~
   SAY NAME1 @112
   SAY NAME2 @112 SAY DESC @212
-  LPF ALTER_EFFECT INT_VAR header_type=1 match_opcode=139 parameter1=RESOLVE_STR_REF (@310) END
-BUT_ONLY
+  WRITE_ASCII 0x3a ~%ii%~ #8    // set inventory icon
+  WRITE_ASCII 0x76 ~%ii%~ #8    // set quickbar icon
+  WRITE_ASCII 0xae ~%ii%~ #8    // set ability icon
+  LPF ALTER_EFFECT INT_VAR header_type=1 match_opcode=139 parameter1=RESOLVE_STR_REF (@310) END    // "Confused"
 
-COPY_EXISTING ~d2ham01a.SPL~ ~override~
+COPY ~%effects%/clubfrenzys.SPL~  ~override/%ss%.SPL~    // main spell (for all below effects)
+COPY ~%effects%/clubfrenzya.SPL~  ~override/%aa%.SPL~    // Enrage
   SAY NAME1 @307
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@309) END
-BUT_ONLY
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@309) END    // Berserk state message
+  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
+    LPF d2_string_immunities END
+  END
+COPY ~%effects%/clubfrenzyc.SPL~  ~override/%cc%.SPL~    // winded
 
-COPY_EXISTING ~d2ham01e.SPL~ ~override~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@308) END
-BUT_ONLY
+COPY ~%effects%/clubfrenzye.EFF~  ~override/%ee%.EFF~    // 0-15 probability
+COPY ~%effects%/clubfrenzye.SPL~  ~override/%ee%.SPL~    // Frenzy
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@308) END    // "FRENZY!!!"
+COPY ~%effects%/clubfrenzyb.SPL~  ~override/%bb%.SPL~    // Enrage (no text)
+  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
+    LPF d2_string_immunities END
+  END
+COPY ~%effects%/clubfrenzyg.EFF~  ~override/%gg%.EFF~    // Color pulse
 
-COPY_EXISTING ~d2swd07.ITM~ ~override~     // Scimitar +2: Accelerator
+
+//Scimitar +2: Accelerator (d2swd07)
+OUTER_TEXT_SPRINT itemid  ~d2swd07~
+INCLUDE ~%install%/variables.tph~
+COPY ~%items%/accelerator.ITM~     ~override/%itemid%.ITM~
   SAY NAME1 @113
   SAY NAME2 @113 SAY DESC @213
+COPY ~%effects%/acceleratore.EFF~  ~override/%ee%.EFF~
+COPY ~%effects%/acceleratore.SPL~  ~override/%ee%.SPL~
   
-COPY_EXISTING ~d2eff01b.ITM~ ~override~    // Sling +2: Accelerator
+
+//Sling +2: Accelerator (d2eff01b)
+OUTER_TEXT_SPRINT itemid  ~d2eff01b~
+INCLUDE ~%install%/variables.tph~
+COPY ~%items%/slingaccel.ITM~  ~override/%itemid%.ITM~
   SAY NAME1 @114
-  SAY NAME2 @114 SAY DESC @914
-  LPF ALTER_EFFECT INT_VAR match_opcode=319 special=RESOLVE_STR_REF (@311) END
-BUT_ONLY
+  SAY NAME2 @114 SAY DESC @214
 
 
 
-//Variables for external use
+//Set variables for external use
 OUTER_TEXT_SPRINT blackbow     ~d2bow01~
 OUTER_TEXT_SPRINT greatbow     ~d2bow02~
 OUTER_TEXT_SPRINT whitebirch   ~d2bow03~

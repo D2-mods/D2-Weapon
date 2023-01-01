@@ -4,14 +4,19 @@ VERSION ~2.0~
 AUTO_EVAL_STRINGS
 
 ALWAYS
-  INCLUDE ~%MOD_FOLDER%/lib/d2_store_functions.tpa~
+  ACTION_BASH_FOR ~%MOD_FOLDER%/lib~ ~.*\.tpa~ BEGIN    // function list
+    INCLUDE ~%BASH_FOR_FILESPEC%~
+  END
 
   ACTION_IF !(DIRECTORY_EXISTS ~weidu_external/Workspace~) BEGIN    // external workspace
     MKDIR ~weidu_external/Workspace~
   END
 
   OUTER_TEXT_SPRINT install    ~%MOD_FOLDER%/install~    // folder variables
+  OUTER_TEXT_SPRINT effects    ~%MOD_FOLDER%/effects~
   OUTER_TEXT_SPRINT files      ~%MOD_FOLDER%/files~
+  OUTER_TEXT_SPRINT icons      ~%MOD_FOLDER%/icons~
+  OUTER_TEXT_SPRINT items      ~%MOD_FOLDER%/items~
   OUTER_TEXT_SPRINT resource   ~%MOD_FOLDER%/resource~
   OUTER_TEXT_SPRINT workspace  ~weidu_external/Workspace~
 
@@ -24,7 +29,7 @@ LANGUAGE ~English~
 
 
 /*
-D2 Weapon - A Souls-inspired Weapon Pack
+D2-Weapon - A Souls-inspired Weapon Pack
 */
 
 BEGIN @1
@@ -32,7 +37,7 @@ REQUIRE_PREDICATE (GAME_IS ~bgee bg2ee iwdee eet~) ~Game not supported~
 LABEL ~D2-WEAPON-SOULS~
 INCLUDE ~%install%/install.tph~
 INCLUDE ~%install%/addtostore.tph~
-INCLUDE ~%install%/updates.tph~    // v1.6+
+INCLUDE ~%install%/wbag.tph~
 
 
 /*

@@ -6,7 +6,7 @@ IF ~!Global("d2rakst2","GLOBAL",1)~ THEN BEGIN a.0
 END
 
 IF ~~ THEN BEGIN a.1
-  SAY @2012 /* He motions towards his wares... */
+  SAY @2012 /* He motions to the odd sack on the ground... */
   IF ~~ THEN REPLY @2021 /* Ask to browse Deidre's items. */ DO ~StartStore("wmart2",LastTalkedToBy)~ EXIT
   IF ~~ THEN REPLY @2022 /* Ask to browse Joluv's items. */ DO ~StartStore("wmart1",LastTalkedToBy)~ EXIT
   IF ~~ THEN REPLY @2023 /* Ask to browse Ribald's special store. */ DO ~StartStore("ribald3",LastTalkedToBy)~ EXIT
@@ -14,7 +14,7 @@ IF ~~ THEN BEGIN a.1
 END
 
 IF ~Global("d2rakst2","GLOBAL",1)~ THEN BEGIN b.0
-  SAY @2013 /* The stranger motions towards his wares... */
+  SAY @2013 /* The stranger motions to the odd sack on the ground... */
   IF ~~ THEN REPLY @2021 /* Ask to browse Deidre's items. */ DO ~StartStore("wmart2",LastTalkedToBy)~ EXIT
   IF ~~ THEN REPLY @2022 /* Ask to browse Joluv's items. */ DO ~StartStore("wmart1",LastTalkedToBy)~ EXIT
   IF ~~ THEN REPLY @2023 /* Ask to browse Ribald's special store. */ DO ~StartStore("ribald3",LastTalkedToBy)~ EXIT

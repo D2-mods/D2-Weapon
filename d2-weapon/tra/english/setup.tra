@@ -1,5 +1,5 @@
 //Setup
-@1 = ~D2 Weapon - A Souls-inspired Weapon Pack~
+@1 = ~D2-Weapon - A Souls-inspired Weapon Pack~
 @2 = ~Standardize prices of items (generally lower)~
 @3 = ~Add damage to bows (recommended for IWD:EE)~
 @4 = ~Add NPC merchant to Throne of Bhaal or Heart of Winter?~
@@ -31,8 +31,8 @@
 @2005 = ~~
 
 @2011 = ~The stranger watches as you approach...~
-@2012 = ~He motions towards his wares...~
-@2013 = ~The stranger motions towards his wares...~
+@2012 = ~He motions to the odd sack on the ground...~
+@2013 = ~The stranger motions to the odd sack on the ground...~
 @2014 = ~~
 @2015 = ~Avoid eye contact...~
 
@@ -135,9 +135,9 @@ Proficiency Type: Crossbow
 Type: Two-handed
 Requires:
  8 Strength
- 18 Intelligence
+ 14 Intelligence
 
-Weight: 16~
+Weight: 15~
 
 
 
@@ -187,7 +187,7 @@ Speed Factor: 10
 Proficiency Type: Two-handed Sword
 Type: Two-handed
 Requires:
- 20 Strength
+ 19 Strength
 
 Weight: 80~
 
@@ -334,7 +334,7 @@ Weight: 1~
 STATISTICS:
 
 Equipped abilities:
-– Once each round, the wielder gains +1 or -1 to damage, THAC0, and Armor Class for 3 rounds
+– Once each round, the wielder gains +1 or -1 to damage, THAC0, and Armor Class for 3 rounds (will never be all positive or all negative)
 
 Damage: 1d10 (piercing or slashing)
 Speed Factor: 9
@@ -373,7 +373,7 @@ Weight: 3~
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
+– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to THAC0
 
 THAC0: +2
 Damage: 1d8+2 (slashing)
@@ -391,7 +391,7 @@ Weight: 4~
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls (Halflings only)
+– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to THAC0 (Halflings only)
 
 THAC0: +2
 Damage: +2 (missile)
@@ -482,9 +482,9 @@ Proficiency Type: Crossbow
 Type: Two-handed
 Requires:
  8 Strength
- 18 Intelligence
+ 14 Intelligence
 
-Weight: 16~
+Weight: 15~
 
 
 
@@ -503,29 +503,6 @@ Requires:
 
 Weight: 6~
 
-
-
-//unused
-
-//Sling +2: Accelerator (old version)
-@914 = ~Magical slings are the hallmark of stout halfling warriors and adventurers. This sling has been magically enhanced, and seems to attack more rapidly with each stone flung from the pocket.
-
-A small scrap of paper is found tied to the sling. It reads, "to be used only by halfling slingers - That's the Rules". Well! If that's the rules, then it should be followed. If your band counts a halfling among its number, then this sling could make a powerful tool against any of the foul creatures that you encounter on your journey.
-
-STATISTICS:
-
-Combat abilities:
-– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
-
-THAC0: +2
-Damage: +2 (missile)
-Speed Factor: 4
-Proficiency Type: Sling
-Type: One-handed
-Requires:
- 3 Strength
-
-Weight: 0~
 
 
 /*

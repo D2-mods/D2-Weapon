@@ -111,7 +111,7 @@ Charge abilities:
   Special: Sets Attacks Per Round to 9, with a +10 bonus to THAC0, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
   Duration: 1 round
   Area of Effect: The user
-  
+
 THAC0: +1
 Damage: +2 (electrical)
 Speed Factor: 4
@@ -119,9 +119,9 @@ Proficiency Type: Crossbow
 Type: Two-handed
 Requires:
  8 Strength
- 18 Intelligence
- 
-Weight: 16
+ 14 Intelligence
+
+Weight: 15
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -175,7 +175,7 @@ Speed Factor: 10
 Proficiency Type: Two-handed Sword
 Type: Two-handed
 Requires:
- 20 Strength
+ 19 Strength
  
 Weight: 80
 
@@ -334,7 +334,7 @@ Like others of its type, this halberd consists of a cleaver-like axe blade mount
 STATISTICS:
 
 Equipped abilities:
-– Once each round, the wielder gains +1 or -1 to damage, THAC0, and Armor Class for 3 rounds
+– Once each round, the wielder gains +1 or -1 to damage, THAC0, and Armor Class for 3 rounds (will never be all positive or all negative)
 
 Damage: 1d10 (piercing or slashing)
 Speed Factor: 9
@@ -377,7 +377,7 @@ The scimitar is closely related to the saber, a single-edged curved sword with p
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
+– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to THAC0
 
 THAC0: +2
 Damage: 1d8+2 (slashing)
@@ -397,7 +397,7 @@ Magical slings are the hallmark of stout halfling warriors and adventurers. Anyo
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls (Halflings only)
+– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to THAC0 (Halflings only)
 
 THAC0: +2
 Damage: +2 (missile)
