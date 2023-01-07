@@ -1,6 +1,6 @@
 BACKUP ~weidu_external/backup/d2-weapon~
 AUTHOR ~Dan_P~
-VERSION ~2.0~
+VERSION ~2.1~
 AUTO_EVAL_STRINGS
 
 ALWAYS
@@ -69,6 +69,7 @@ Add NPC merchant to Throne of Bhaal or Heart of Winter?
 BEGIN @4
 DESIGNATED 50
 LABEL ~D2-WEAPON-NPCSTORE~
+INCLUDE ~%install%/npcpatch.tph~
 INCLUDE ~%install%/npcstore.tph~
 
 

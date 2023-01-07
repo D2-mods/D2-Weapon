@@ -5,6 +5,9 @@ Has shops from pre-expansion areas with items from this mod.
 */
 
 
+ACTION_IF !(FILE_EXISTS ~override/d2rakst2.CRE~) BEGIN
+
+
 //Create dialogue file
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   COPY - ~%files%/rakstoreiwd.d~  ~%workspace%/d2rakst2.d~        // IWDEE
@@ -24,7 +27,7 @@ COMPILE ~%workspace%/d2rakst2.d~
 
 
 //Write script
-<<<<<<<< .../temp/d2rakst2
+<<<<<<<< .../temp/d2rakst2.BAF
 IF
 	OnCreation()
 	!Global("d2rakst2","GLOBAL",0)
@@ -32,6 +35,25 @@ THEN
 	RESPONSE #100
 		SetGlobal("d2rakst2","GLOBAL",0)
 		Continue()
+END
+
+IF
+	!Global("SaveLocation","LOCALS",1)
+	NearSavedLocation(Myself,"StartPoint",0)
+THEN
+	RESPONSE #100
+		SetGlobal("SaveLocation","LOCALS",1)
+		SaveObjectLocation("LOCALS","StartPoint",Myself)
+END
+
+IF
+	!NearSavedLocation(Myself,"StartPoint",0)
+	!Detect([PC])
+	ActionListEmpty()
+THEN
+	RESPONSE #100
+		SetGlobal("SaveLocation","LOCALS",0)
+		MoveToSavedLocation("StartPoint","LOCALS")
 END
 
 IF
@@ -61,8 +83,7 @@ THEN
 END
 >>>>>>>>
 
-COPY - ~.../temp/d2rakst2~  ~%workspace%/d2rakst2.BAF~
-COMPILE ~%workspace%/d2rakst2.BAF~
+COMPILE ~.../temp/d2rakst2.BAF~
 
 
 //Create creature file
@@ -86,7 +107,7 @@ COPY_EXISTING ~%merchant%.CRE~  ~override/d2rakst2.CRE~
   SAY NAME2 @2001  /* Mysterious Man */
   REPLACE_CRE_ITEM ~minhp1~ #0 #0 #0 ~unstealable&undroppable~ ~rring~
   REPLACE_CRE_ITEM ~immune2~ #0 #0 #0 ~unstealable&undroppable~ ~amulet~
-  REPLACE_CRE_ITEM ~d2rakst2~ #0 #0 #0 ~unstealable&undroppable~ ~weapon1~
+  REPLACE_CRE_ITEM ~d2rakst2~ #0 #0 #0 ~unstealable&undroppable~ ~weapon1~ EQUIP
 
   WRITE_ASCII 0x248 ~None~ #8         // set scripts
   WRITE_ASCII 0x250 ~d2rakst2~ #8
@@ -135,6 +156,9 @@ ELSE BEGIN
       // nothing yet
     END
   END
+END
+
+
 END
 
 

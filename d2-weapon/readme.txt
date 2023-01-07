@@ -75,6 +75,12 @@ COPYRIGHT NOTICE
 ==================================================
 VERSION HISTORY
 ==================================================
+v2.1
+- Minor adjustments:
+	- NPC merchant
+	- Club +4: Frenzy
+	- Avelyn
+
 v2.0
 - Rewrote most of the installer files. Should still be backwards compatible with older versions of the mod.
 - Added components:

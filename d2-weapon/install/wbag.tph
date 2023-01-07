@@ -3,7 +3,7 @@
 ACTION_IF (GAME_IS ~bgee bg2ee eet~) BEGIN
   COPY ~%files%/d2hbee1.ITM~ ~override/d2#wbag.ITM~
     SAY NAME1 @115 SAY UNIDENTIFIED_DESC @215
-    SAY NAME2 @115 SAY UNIDENTIFIED_DESC @215
+    SAY NAME2 @115
     WRITE_ASCII 0x3a ~d2#wbag~ #8    // set inventory icon
 	
   COPY ~%files%/d2hbee1.STO~ ~override/d2#wbag.STO~
@@ -13,7 +13,7 @@ END
   
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
   COPY ~%files%/d2hbee0.ITM~ ~override/d2#wbag.ITM~
-    SAY NAME1 @115 SAY DESC @215
+    SAY NAME1 @115
     SAY NAME2 @115 SAY DESC @215
     WRITE_ASCII 0x3a ~d2#wbag~ #8    // set inventory icon
 	

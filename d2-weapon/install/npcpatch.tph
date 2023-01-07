@@ -1,0 +1,44 @@
+/*
+Patch NPC merchant if installed from another mod.
+Adds shops from pre-expansion areas with items from this mod.
+*/
+
+
+ACTION_IF (FILE_EXISTS ~override/d2rakst2.DLG~) BEGIN
+
+
+ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
+
+<<<<<<<< .../temp/d2rakst2.d
+EXTEND_BOTTOM ~D2RAKST2~ 1 2 
+  #1
+  IF ~~ REPLY @2021 /* Ask to browse Deidre's items. */ DO ~StartStore("wmart2",LastTalkedToBy)~ EXIT
+  IF ~~ REPLY @2022 /* Ask to browse Joluv's items. */ DO ~StartStore("wmart1",LastTalkedToBy)~ EXIT
+  IF ~~ REPLY @2023 /* Ask to browse Ribald's special store. */ DO ~StartStore("ribald3",LastTalkedToBy)~ EXIT
+END
+>>>>>>>>
+COMPILE ~.../temp/d2rakst2.d~
+
+END
+
+
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+
+<<<<<<<< .../temp/d2rakst2.d
+EXTEND_BOTTOM ~D2RAKST2~ 1 2 
+  #1
+  IF ~~ REPLY @2031 /* Ask to browse Conlan's items. */ DO ~StartStore("KUSMITH",LastTalkedToBy)~ EXIT
+  IF ~~ REPLY @2032 /* Ask to browse Lehland's items. */ DO ~StartStore("SHLEHLAN",LastTalkedToBy)~ EXIT
+  IF ~~ REPLY @2033 /* Ask to browse Nym's items. */ DO ~StartStore("LDD_NYM",LastTalkedToBy)~ EXIT
+END
+>>>>>>>>
+COMPILE ~.../temp/d2rakst2.d~
+
+END
+
+
+END
+
+
+/*
+*/

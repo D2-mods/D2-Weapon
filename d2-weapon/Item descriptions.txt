@@ -7,12 +7,12 @@ Avelyn
 //2-handed weapons
 Greatsword
 Fume Ultra Greatsword
-Chaos Rapier
+Stone Greatsword
 
 //1-handed weapons
+Chaos Rapier
 Drakeblood Greatsword
 Bewitched Alonne Sword
-Stone Greatsword
 Aquamarine Dagger
 
 //non-Souls weapons
