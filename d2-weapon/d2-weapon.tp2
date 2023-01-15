@@ -26,6 +26,7 @@ END
 LANGUAGE ~English~
          ~english~
          ~d2-weapon/tra/english/setup.tra~
+         ~d2-weapon/tra/english/main.tra~
 
 
 /*

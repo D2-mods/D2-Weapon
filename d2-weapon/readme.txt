@@ -76,10 +76,13 @@ COPYRIGHT NOTICE
 VERSION HISTORY
 ==================================================
 v2.1
-- Minor adjustments:
-	- NPC merchant
-	- Club +4: Frenzy
-	- Avelyn
+- Fixes:
+	- Fixed install on BGEE without SoD.
+	- Other adjustments to install files.
+- Changes:
+	- Bewitched Alonne Sword: Reduced Blood Loss duration from 5 rounds to 2 rounds, but it can be applied more often (every half round, instead of once per round). Increased Harakiri duration to 6 rounds. Added proper portrait icons.
+	- Aquamarine Dagger: Reduced casting speed bonus from +2 to +1.
+	- Club +4 Frenzy: Items or spells that prevent berserk will also prevent Frenzy (i.e. Exaltation). Spells can also remove the Frenzy (will also remove Enrage effects, but only if applied while Frenzy is active).
 
 v2.0
 - Rewrote most of the installer files. Should still be backwards compatible with older versions of the mod.

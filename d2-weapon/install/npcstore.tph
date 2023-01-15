@@ -17,7 +17,7 @@ ELSE BEGIN
     COPY - ~%files%/rakstorebg2.d~  ~%workspace%/d2rakst2.d~      // BG2EE
   END
   ELSE BEGIN
-    ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+    ACTION_IF (GAME_IS ~bgee~) BEGIN
       COPY - ~%files%/rakstorebg1.d~  ~%workspace%/d2rakst2.d~    // SoD
     END
   END

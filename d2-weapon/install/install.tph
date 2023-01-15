@@ -11,7 +11,7 @@ END
 
 
 
-//Bows
+//Ranged
 
 //Black Bow of Pharis (d2bow01)
 OUTER_TEXT_SPRINT itemid  ~d2bow01~
@@ -36,18 +36,20 @@ COPY ~%items%/greatbow.ITM~   ~override/%itemid%.ITM~
 //White Birch Bow (d2bow03)
 OUTER_TEXT_SPRINT itemid  ~d2bow03~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/whitebirchc.BAM~    ~override/%cc%.BAM~
-COPY ~%icons%/whitebirchi.BAM~    ~override/%ii%.BAM~
-COPY ~%items%/whitebirch.ITM~     ~override/%itemid%.ITM~
+COPY ~%icons%/whitebirchc.BAM~        ~override/%cc%.BAM~
+COPY ~%icons%/whitebirchi.BAM~        ~override/%ii%.BAM~
+COPY ~%items%/whitebirch.ITM~         ~override/%itemid%.ITM~
   SAY NAME1 @102
   SAY NAME2 @102 SAY DESC @202
 
-COPY ~%effects%/whitebirche.EFF~  ~override/%ee%.EFF~
-COPY ~%effects%/whitebirche.SPL~  ~override/%ee%.SPL~
+COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
+  WRITE_ASCII 0x30 ~%ee%~
+COPY ~%effects%/whitebirche.SPL~      ~override/%ee%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@300) END    // "Invisible"
 
-COPY ~%effects%/whitebirchs.EFF~  ~override/%ss%.EFF~
-COPY ~%effects%/whitebirchs.SPL~  ~override/%ss%.SPL~
+COPY ~%effects%/castspelltarget.EFF~  ~override/%ss%.EFF~
+  WRITE_ASCII 0x30 ~%ss%~
+COPY ~%effects%/whitebirchs.SPL~      ~override/%ss%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@300) END    // "Invisible"
 
 
@@ -92,22 +94,23 @@ COPY ~%items%/fumeultraGS.ITM~   ~override/%itemid%.ITM~
 //Stone Greatsword (d2swd06)
 OUTER_TEXT_SPRINT itemid  ~d2swd06~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/stoneGSc.BAM~    ~override/%cc%.BAM~
-COPY ~%icons%/stoneGSi.BAM~    ~override/%ii%.BAM~
-COPY ~%items%/stoneGS.ITM~     ~override/%itemid%.ITM~
+COPY ~%icons%/stoneGSc.BAM~           ~override/%cc%.BAM~
+COPY ~%icons%/stoneGSi.BAM~           ~override/%ii%.BAM~
+COPY ~%items%/stoneGS.ITM~            ~override/%itemid%.ITM~
   SAY NAME1 @106
   SAY NAME2 @106 SAY DESC @206
 
-COPY ~%effects%/stoneGSs.SPL~  ~override/%ss%.SPL~
+COPY ~%effects%/stoneGSs.SPL~         ~override/%ss%.SPL~
   SAY NAME1 @302
-COPY ~%effects%/stoneGSe.ITM~  ~override/%ee%.ITM~
+COPY ~%effects%/stoneGSe.ITM~         ~override/%ee%.ITM~
   SAY NAME1 @106
   SAY NAME2 @106 SAY DESC @206
 
-COPY - ~%effects%/stoneGSe.PRO~  ~%workspace%/%ee%.PRO~
+COPY - ~%effects%/stoneGSe.PRO~       ~%workspace%/%ee%.PRO~
 ADD_PROJECTILE ~%workspace%/%ee%.PRO~
-COPY ~%effects%/stoneGSe.EFF~  ~override/%ee%.EFF~
-COPY ~%effects%/stoneGSe.SPL~  ~override/%ee%.SPL~
+COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
+  WRITE_ASCII 0x30 ~%ee%~
+COPY ~%effects%/stoneGSe.SPL~         ~override/%ee%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@303) END    // "Slowed"
   WRITE_SHORT 0x98 ~%ee%~    // projectile
 
@@ -118,13 +121,14 @@ COPY ~%effects%/stoneGSe.SPL~  ~override/%ee%.SPL~
 //Chaos Rapier (d2swd03)
 OUTER_TEXT_SPRINT itemid  ~d2swd03~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/chaosrapierc.BAM~    ~override/%cc%.BAM~
-COPY ~%icons%/chaosrapieri.BAM~    ~override/%ii%.BAM~
-COPY ~%items%/chaosrapier.ITM~     ~override/%itemid%.ITM~
+COPY ~%icons%/chaosrapierc.BAM~       ~override/%cc%.BAM~
+COPY ~%icons%/chaosrapieri.BAM~       ~override/%ii%.BAM~
+COPY ~%items%/chaosrapier.ITM~        ~override/%itemid%.ITM~
   SAY NAME1 @107
   SAY NAME2 @107 SAY DESC @207
-COPY ~%effects%/chaosrapiere.EFF~  ~override/%ee%.EFF~
-COPY ~%effects%/chaosrapiere.SPL~  ~override/%ee%.SPL~
+COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
+  WRITE_ASCII 0x30 ~%ee%~
+COPY ~%effects%/chaosrapiere.SPL~     ~override/%ee%.SPL~
 
 
 //Drakeblood Greatsword (d2swd04)
@@ -140,22 +144,35 @@ COPY ~%items%/drakeblood.ITM~   ~override/%itemid%.ITM~
 //Bewitched Alonne Sword (d2swd05)
 OUTER_TEXT_SPRINT itemid  ~d2swd05~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/alonneswordc.BAM~  ~override/%cc%.BAM~
-COPY ~%icons%/alonneswordi.BAM~  ~override/%ii%.BAM~
-COPY ~%items%/alonnesword.ITM~   ~override/%itemid%.ITM~
+COPY ~%icons%/alonneswordc.BAM~       ~override/%cc%.BAM~
+COPY ~%icons%/alonneswordi.BAM~       ~override/%ii%.BAM~
+COPY ~%items%/alonnesword.ITM~        ~override/%itemid%.ITM~
   SAY NAME1 @109 SAY UNIDENTIFIED_DESC @701
   SAY NAME2 @109 SAY DESC @209
-  LPF ALTER_EFFECT INT_VAR header_type=3 match_opcode=139 parameter1=RESOLVE_STR_REF (@304) END    // "Harakiri"
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@304) END    // "Harakiri"
 
-COPY ~%effects%/alonnesworde.EFF~  ~override/%ee%.EFF~
-COPY ~%effects%/alonnesworde.SPL~  ~override/%ee%.SPL~
+COPY ~%icons%/bloodloss.BAM~          ~override/%ee%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@305) STR_VAR bam=~%ee%~ RET icon END
+COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
+  WRITE_ASCII 0x30 ~%ee%~
+COPY ~%effects%/alonnesworde.SPL~     ~override/%ee%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // "Blood Loss"
-COPY ~%effects%/alonneswordb.EFF~  ~override/%bb%.EFF~
-COPY ~%effects%/alonneswordb.SPL~  ~override/%bb%.SPL~    // Bleed damage
-COPY ~%effects%/alonneswordh.EFF~  ~override/%hh%.EFF~
-COPY ~%effects%/alonneswordh.SPL~  ~override/%hh%.SPL~    // Harakiri self-damage
-COPY ~%effects%/alonneswords.EFF~  ~override/%ss%.EFF~
-COPY ~%effects%/alonneswords.SPL~  ~override/%ss%.SPL~    // Harakiri buff
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+
+COPY ~%effects%/castspelltarget.EFF~  ~override/%bb%.EFF~
+  WRITE_ASCII 0x30 ~%bb%~
+COPY ~%effects%/alonneswordb.SPL~     ~override/%bb%.SPL~    // Bleed damage
+
+COPY ~%effects%/castspelltarget.EFF~  ~override/%hh%.EFF~
+  WRITE_ASCII 0x30 ~%hh%~
+COPY ~%effects%/alonneswordh.SPL~     ~override/%hh%.SPL~    // Harakiri self-damage
+
+COPY ~%icons%/harakiri.BAM~           ~override/%ss%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@304) STR_VAR bam=~%ss%~ RET icon END
+COPY ~%effects%/castspelltarget.EFF~  ~override/%ss%.EFF~
+  WRITE_ASCII 0x30 ~%ss%~
+COPY ~%effects%/alonneswords.SPL~     ~override/%ss%.SPL~    // Harakiri buff
+  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
 
 
 //Aquamarine Dagger (d2dag01)
@@ -180,21 +197,22 @@ COPY ~%effects%/aquamarinee.ITM~  ~override/%ee%.ITM~
 //Unbalanced Halberd (d2hal01)
 OUTER_TEXT_SPRINT itemid  ~d2hal01~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/uhalberdi.BAM~    ~override/%ii%.BAM~
-COPY ~%items%/uhalberd.ITM~     ~override/%itemid%.ITM~
+COPY ~%icons%/uhalberdi.BAM~          ~override/%ii%.BAM~
+COPY ~%items%/uhalberd.ITM~           ~override/%itemid%.ITM~
   SAY NAME1 @111
   SAY NAME2 @111 SAY DESC @211
   WRITE_ASCII 0x3a ~%ii%~ #8    // set inventory icon
   WRITE_ASCII 0x76 ~%ii%~ #8    // set quickbar icon
-COPY ~%effects%/uhalberde.EFF~  ~override/%ee%.EFF~
-COPY ~%effects%/uhalberde.SPL~  ~override/%ee%.SPL~
+COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
+  WRITE_ASCII 0x30 ~%ee%~
+COPY ~%effects%/uhalberde.SPL~        ~override/%ee%.SPL~
 
 
 //Club +4: Frenzy (d2ham01)
 OUTER_TEXT_SPRINT itemid  ~d2ham01~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/clubfrenzyi.BAM~  ~override/%ii%.BAM~
-COPY ~%items%/clubfrenzy.ITM~   ~override/%itemid%.ITM~
+COPY ~%icons%/clubfrenzyi.BAM~    ~override/%ii%.BAM~
+COPY ~%items%/clubfrenzy.ITM~     ~override/%itemid%.ITM~
   SAY NAME1 @112
   SAY NAME2 @112 SAY DESC @212
   WRITE_ASCII 0x3a ~%ii%~ #8    // set inventory icon
@@ -222,15 +240,49 @@ COPY ~%effects%/clubfrenzyb.SPL~  ~override/%bb%.SPL~    // Enrage (no text)
   END
 COPY ~%effects%/clubfrenzyg.EFF~  ~override/%gg%.EFF~    // Color pulse
 
+/*
+Patch spells to block or remove Frenzy
+Patch items to block Frenzy (not remove)
+*/
+
+ACTION_BASH_FOR ~override~  ~.*\.SPL~ BEGIN     // check override spells
+  COPY_EXISTING ~%BASH_FOR_FILE%~  ~override~
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=4 opcode=321 parameter2=0 STR_VAR resource=~%ee%~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=4 opcode=321 parameter2=0 STR_VAR resource=~%bb%~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=3 opcode=318 parameter2=0 STR_VAR resource=~%ee%~ END
+  BUT_ONLY
+END
+
+ACTION_FOR_EACH noberserk IN 
+  ~ohtyr1~ 
+  ~sppr321~ 
+  ~#cureber~ 
+BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%noberserk%.SPL~) BEGIN
+    ACTION_IF !(FILE_EXISTS ~override/%noberserk%.SPL~) BEGIN    // skip if already patched
+      COPY_EXISTING ~%noberserk%.SPL~  ~override~
+        LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=4 opcode=321 parameter2=0 STR_VAR resource=~%ee%~ END
+        LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=4 opcode=321 parameter2=0 STR_VAR resource=~%bb%~ END
+        LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=3 opcode=318 parameter2=0 STR_VAR resource=~%ee%~ END
+      BUT_ONLY
+    END
+  END
+END
+
+COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=3 opcode=318 parameter2=0 STR_VAR resource=~%ee%~ END
+BUT_ONLY
+
 
 //Scimitar +2: Accelerator (d2swd07)
 OUTER_TEXT_SPRINT itemid  ~d2swd07~
 INCLUDE ~%install%/variables.tph~
-COPY ~%items%/accelerator.ITM~     ~override/%itemid%.ITM~
+COPY ~%items%/accelerator.ITM~        ~override/%itemid%.ITM~
   SAY NAME1 @113
   SAY NAME2 @113 SAY DESC @213
-COPY ~%effects%/acceleratore.EFF~  ~override/%ee%.EFF~
-COPY ~%effects%/acceleratore.SPL~  ~override/%ee%.SPL~
+COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
+  WRITE_ASCII 0x30 ~%ee%~
+COPY ~%effects%/acceleratore.SPL~     ~override/%ee%.SPL~
   
 
 //Sling +2: Accelerator (d2eff01b)
