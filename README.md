@@ -337,14 +337,14 @@ Equipped abilities:
 - Save vs. Spell: +2
 
 Combat abilities:
-- 33% chance target suffers a bleeding wound, taking 5 slashing damage instantly, and an additional 5 damage per round for 5 rounds (no save)
+- 25% chance target takes an additional 5 points of slashing damage and suffers Blood Loss (5 damage per round for 2 rounds); Blood Loss can be applied once every half-round and the effects are cumulative
 
-Charge abilities:
+Charge abilities:  
 - Harakiri once per day  
-  Special: Reverse the blade and plunge into oneself. The wielder takes 80 piercing damage and suffers a bleeding wound, yet attacks become quicker and each strike deadlier. Gains bonuses of +1 Attacks Per Round and +30% chance to score a critical hit with melee attacks.  
-  Duration: 5 rounds  
+  Special: Reverse the blade and plunge into oneself. The wielder takes 80 points of piercing damage and suffers Blood Loss, yet attacks become quicker and each strike deadlier. Gains bonuses of +1 Attacks Per Round and +30% chance to score a critical hit with melee attacks.  
+  Duration: 6 rounds  
   Area of Effect: The user  
-  Note: Stoneskin and similar effects can halve the initial damage but all skins are shattered in the process
+  Note: Stoneskin effects can halve the initial damage but all skins are shattered in the process
 
 THAC0: +4  
 Damage: 1d10+4 (slashing)  
@@ -367,7 +367,7 @@ A skilled mage or sorcerer may induce the magic of the crystals, creating a flee
 STATISTICS:
 
 Equipped abilities:
-- +2 bonus to casting speed
+- +1 bonus to casting speed
 
 Combat abilities:
 - Magic: +1d6 magic damage
