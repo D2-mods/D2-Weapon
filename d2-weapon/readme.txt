@@ -8,7 +8,7 @@ WHAT THIS MOD DOES
 ==================================================
 Adds 15 weapons, many of them loosely based on weapons from FromSoft's Dark Souls trilogy. All items are purchased. Some have more "normal" abilities, while others have very extreme advantages and disadvantages.
 
-Note: For BG1, all items install, but only 1 (Unbalanced Halberd) gets added to stores.
+Note: For BGEE/SoD, all items install, but only 3 are obtainable (2 in SoD).
 
 
 ==================================================
@@ -18,9 +18,8 @@ Should be installed before any mods that make global changes to weapons, such as
 
 Components:
 1. D2-Weapon - A Souls-inspired Weapon Pack
-2. Standardize prices of items (generally lower)
-3. Add damage to bows (recommended for IWD:EE)
-4. Add NPC merchant to Throne of Bhaal or Heart of Winter?
+2. Add damage to bows (recommended for IWD:EE)
+3. Add NPC merchant to Throne of Bhaal or Heart of Winter?
 
 NPC merchant:
 - ToB: Gives access to Deidre's items, Joluv's items, and Ribald's special store.
@@ -46,9 +45,6 @@ ITEM LIST
 - Scimitar +2: Accelerator
 - Sling +2: Accelerator
 
-Item Locations: https://raw.githubusercontent.com/D2-mods/D2-Weapon/main/d2-weapon/Item%20locations.txt
-Item Descriptions: https://raw.githubusercontent.com/D2-mods/D2-Weapon/main/d2-weapon/Item%20descriptions.txt
-
 
 ==================================================
 CREDITS
@@ -63,18 +59,30 @@ Tools and Resources used:
 - Infinity Auto Packager (https://github.com/InfinityTools/InfinityAutoPackager)
 - IESDP (https://gibberlings3.github.io/iesdp/main.htm)
 
-This mod makes use of names, images, and modified text from various FromSoftware games, including the Dark Souls trilogy and Demon's Souls.
-
 
 ==================================================
 COPYRIGHT NOTICE
 ==================================================
 "D2-Weapon" is licensed under Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0). It uses modified images for the icon BAMs, taken from wikidot.com or Fandom.com, and which are shared under this license. https://creativecommons.org/licenses/by-sa/3.0/
 
+Note: Starting with v2.2, this mod no longer uses licensed images, edited or otherwise, except for files taken from Infinity Engine games.
+
 
 ==================================================
 VERSION HISTORY
 ==================================================
+v2.2
+- What's new:
+	- 2 items are now obtainable in SoD.
+- Fixes:
+	- BG1EE: Fixed Unbalanced Halberd not be added to 2 stores. Broke in the v2.0 update, due to a variable error.
+- Changes:
+	- Revised Chaos Rapier.
+	- Minor adjustments to a couple other weapons.
+	- Adjusted item prices again.
+	- Changed icons and description images for all weapons. This mod no longer uses licensed images, edited or otherwise, except for files taken from Infinity Engine games.
+	- Removed component: "Standardize item prices". Some items will be adjusted automatically for IWDEE.
+
 v2.1
 - Fixes:
 	- Fixed install on BGEE without SoD.

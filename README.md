@@ -8,7 +8,7 @@ Overview:
 
 Adds 15 weapons, many of them loosely based on weapons from FromSoft's Dark Souls trilogy. All items are purchased. Some have more "normal" abilities, while others have very extreme advantages and disadvantages.
 
-Note: For BG1, all items install, but only 1 (Unbalanced Halberd) gets added to stores.
+Note: For BGEE/SoD, all items install, but only 3 are obtainable (2 in SoD).
 
 
 Install info:
@@ -18,9 +18,8 @@ Should be installed before any mods that make global changes to weapons, such as
 
 **Components:**
 1. D2-Weapon - A Souls-inspired Weapon Pack
-2. Standardize prices of items (generally lower)
-3. Add damage to bows (recommended for IWD:EE)
-4. Add NPC merchant to Throne of Bhaal or Heart of Winter?
+2. Add damage to bows (recommended for IWD:EE)
+3. Add NPC merchant to Throne of Bhaal or Heart of Winter?
 
 **NPC merchant:**
 - ToB: Gives access to Deidre's items, Joluv's items, and Ribald's special store.
@@ -30,37 +29,36 @@ Should be installed before any mods that make global changes to weapons, such as
 Item List:
 -
 
-**Ranged weapons**
+**Ranged**
 - Black Bow of Pharis (longbow)
 - Dragonslayer Greatbow (longbow)
 - White Birch Bow (shortbow)
 - Avelyn (crossbow)
 
-**2-handed weapons**
+**2-handed**
 - Greatsword
 - Fume Ultra Greatsword
 - Stone Greatsword
 
-**1-handed weapons**
+**1-handed**
 - Chaos Rapier (long sword)
 - Drakeblood Greatsword (bastard sword)
 - Bewitched Alonne Sword (katana)
 - Aquamarine Dagger
 
-**non-Souls weapons**
+**non-Souls**
 - Unbalanced Halberd
 - Club +4: Frenzy
 - Scimitar +2: Accelerator
 - Sling +2: Accelerator
-
-Item Locations: [Link](https://raw.githubusercontent.com/D2-mods/D2-Weapon/main/d2-weapon/Item%20locations.txt)  
-Item Descriptions: [Link](https://raw.githubusercontent.com/D2-mods/D2-Weapon/main/d2-weapon/Item%20descriptions.txt)
 
 
 Copyright info:
 -
 
 "D2-Weapon" is licensed under Creative Commons Attribution-ShareAlike 3.0 Unported ([CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)). It uses modified images for the icon BAMs, taken from wikidot.com or Fandom.com, and which are shared under this license.
+
+Note: Starting with v2.2, this mod no longer uses licensed images, edited or otherwise, except for files taken from Infinity Engine games.
 
 ---
 ---
@@ -83,7 +81,7 @@ Equipped abilities:
 - +5% chance to score a critical hit
 - Sets base Attacks Per Round to 3
 
-THAC0: +7  
+THAC0: +5  
 Speed Factor: 1  
 Proficiency Type: Longbow  
 Type: Two-handed  
@@ -146,14 +144,12 @@ Weight: 1
 
 **Avelyn**
 
-An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism. Despite its use as a weapon, this crossbow is also a priceless work of art, and requires the use of both hands to operate at all times, inhibiting spellcasting. Unlike other crossbows, the Avelyn requires intelligence to operate proficiently.
-
-A small emblem of a circle containing a lightning bolt can be seen imprinted on the left side of the device. It appears that the inventor had this particular crossbow infused with the powers of lightning. Further inspection reveals an additional function. It is possible to fully unlock the repeating mechanism, and fire bolts of pure electrical energy at a frightening speed and accuracy. This mode can be activated even by classes that do not normally become proficient with crossbows, provided they have the requisite intelligence.
+An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism. Unlike other crossbows, the Avelyn requires intelligence to operate proficiently.
 
 STATISTICS:
 
 Equipped abilities:
-- -4 penalty to casting speed
+- -2 penalty to casting speed
 - Sets base Attacks Per Round to 3
 
 Charge abilities:
@@ -273,16 +269,13 @@ Weight: 18
 
 **Chaos Rapier**
 
-Rapier of darkness and chaos. Once, a brilliant young sorcerer cast away his earthly desires, devoting himself entirely to the Dark that bewitched him. Nebulous, inky and serene, the Dark holds an allure matched only by the fear it strikes in men's hearts.
-
-One must weigh the benefits of wielding such a weapon. It greatly strengthens fire damage, but exacts a heavy price. For shadow is born from light, and the brighter the flame, the deeper the shadow. And the Dark embraces, but which truth does the seeker seek?
+Rapier of darkness and chaos. Attuned to fire, but eats away at the owner's vitality. For shadow is born from light, and the brighter the flame, the deeper the shadow. Nebulous, inky and serene, the Dark holds an allure matched only by the fear it strikes in men's hearts.
 
 STATISTICS:
 
 Equipped abilities:
-- Dark: +3 bonus to Intelligence and Wisdom, -1 penalty to Constitution and Charisma
-- Scion of Flame: +40% increase to all sources of fire damage
-- Devotion: The wielder takes 3 points of magic damage when equipping this weapon, and an additional 1 point of magic damage every 18 seconds while holding it
+- Constitution: -2
+- All fire damage inflicted by the wielder is increased by 20%
 
 Combat abilities:
 - Flame: +1d6 fire damage and 10% chance of an additional +3d6 fire damage
@@ -404,7 +397,7 @@ Like others of its type, this halberd consists of a cleaver-like axe blade mount
 STATISTICS:
 
 Equipped abilities:
-- Once each round, the wielder gains +1 or -1 to damage, THAC0, and Armor Class for 3 rounds (will never be all positive or all negative)
+- Once per round, the wielder gains +1 or -1 each to damage, THAC0, and Armor Class for 3 rounds
 
 Damage: 1d10 (piercing or slashing)  
 Speed Factor: 9  
@@ -419,7 +412,7 @@ Weight: 15
 
 **Club +4: Frenzy**
 
-Most clubs are stout, hardwood sticks, narrow at the grip and wider at the end.  This simple weapon has been used since mankind first began using tools.  Anyone can find a good stout piece of wood and swing it; hence the club's widespread use. This club has been magically enhanced, and burns with a fierce rage, for things once lost and a destiny once stolen, which can never be sated.
+Most clubs are stout, hardwood sticks, narrow at the grip and wider at the end.  This simple weapon has been used since mankind first began using tools.  Anyone can find a good stout piece of wood and swing it; hence the club's widespread use. This club has been magically enhanced and burns with a fierce rage, for things once lost and a destiny once stolen, which can never be sated.
 
 STATISTICS:
 

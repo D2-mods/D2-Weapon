@@ -40,7 +40,7 @@
 
 
 
-//Bow descriptions
+//Ranged
 @100 = ~Black Bow of Pharis~
 @200 = ~A black longbow named after a hero of old, known for the unusual stance from which it is fired. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
 
@@ -50,7 +50,7 @@ Equipped abilities:
 – +5% chance to score a critical hit
 – Sets base Attacks Per Round to 3
 
-THAC0: +7
+THAC0: +5
 Speed Factor: 1
 Proficiency Type: Longbow
 Type: Two-handed
@@ -104,14 +104,12 @@ Requires:
 Weight: 1~
 
 @103 = ~Avelyn~
-@203 = ~An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism. Despite its use as a weapon, this crossbow is also a priceless work of art, and requires the use of both hands to operate at all times, inhibiting spellcasting. Unlike other crossbows, the Avelyn requires intelligence to operate proficiently.
-
-A small emblem of a circle containing a lightning bolt can be seen imprinted on the left side of the device. It appears that the inventor had this particular crossbow infused with the powers of lightning. Further inspection reveals an additional function. It is possible to fully unlock the repeating mechanism, and fire bolts of pure electrical energy at a frightening speed and accuracy. This mode can be activated even by classes that do not normally become proficient with crossbows, provided they have the requisite intelligence.
+@203 = ~An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism. Unlike other crossbows, the Avelyn requires intelligence to operate proficiently.
 
 STATISTICS:
 
 Equipped abilities:
-– -4 penalty to casting speed
+– -2 penalty to casting speed
 – Sets base Attacks Per Round to 3
 
 Charge abilities:
@@ -133,7 +131,7 @@ Weight: 15~
 
 
 
-//Souls weapons (2-handed)
+//2-handed
 @104 = ~Greatsword~
 @204 = ~A straight sword with a gigantic blade, one of the heaviest of its kind. Highly destructive if intolerably heavy. No human was intended to wield a sword of this weight or destructiveness.
 
@@ -209,18 +207,15 @@ Weight: 18~
 
 
 
-//Souls weapons (1-handed)
+//1-handed
 @107 = ~Chaos Rapier~
-@207 = ~Rapier of darkness and chaos. Once, a brilliant young sorcerer cast away his earthly desires, devoting himself entirely to the Dark that bewitched him. Nebulous, inky and serene, the Dark holds an allure matched only by the fear it strikes in men's hearts.
-
-One must weigh the benefits of wielding such a weapon. It greatly strengthens fire damage, but exacts a heavy price. For shadow is born from light, and the brighter the flame, the deeper the shadow. And the Dark embraces, but which truth does the seeker seek?
+@207 = ~Rapier of darkness and chaos. Attuned to fire, but eats away at the owner's vitality. For shadow is born from light, and the brighter the flame, the deeper the shadow. Nebulous, inky and serene, the Dark holds an allure matched only by the fear it strikes in men's hearts.
 
 STATISTICS:
 
 Equipped abilities:
-– Dark: +3 bonus to Intelligence and Wisdom, -1 penalty to Constitution and Charisma
-– Scion of Flame: +40% increase to all sources of fire damage
-– Devotion: The wielder takes 3 points of magic damage when equipping this weapon, and an additional 1 point of magic damage every 18 seconds while holding it
+– Constitution: -2
+– All fire damage inflicted by the wielder is increased by 20%
 
 Combat abilities:
 – Flame: +1d6 fire damage and 10% chance of an additional +3d6 fire damage
@@ -234,7 +229,7 @@ Requires:
  5 Strength
  13 Intelligence
  13 Wisdom
-
+ 
 Weight: 2~
 
 @108 = ~Drakeblood Greatsword~
@@ -326,7 +321,7 @@ Weight: 1~
 STATISTICS:
 
 Equipped abilities:
-– Once each round, the wielder gains +1 or -1 to damage, THAC0, and Armor Class for 3 rounds (will never be all positive or all negative)
+– Once per round, the wielder gains +1 or -1 each to damage, THAC0, and Armor Class for 3 rounds
 
 Damage: 1d10 (piercing or slashing)
 Speed Factor: 9
@@ -338,7 +333,7 @@ Requires:
 Weight: 15~
 
 @112 = ~Club +4: Frenzy~
-@212 = ~Most clubs are stout, hardwood sticks, narrow at the grip and wider at the end.  This simple weapon has been used since mankind first began using tools.  Anyone can find a good stout piece of wood and swing it; hence the club's widespread use. This club has been magically enhanced, and burns with a fierce rage, for things once lost and a destiny once stolen, which can never be sated.
+@212 = ~Most clubs are stout, hardwood sticks, narrow at the grip and wider at the end.  This simple weapon has been used since mankind first began using tools.  Anyone can find a good stout piece of wood and swing it; hence the club's widespread use. This club has been magically enhanced and burns with a fierce rage, for things once lost and a destiny once stolen, which can never be sated.
 
 STATISTICS:
 
@@ -397,6 +392,7 @@ Weight: 0~
 
 
 
+
 //other text (i.e. bag of holding)
 @115 = ~Weapon Sack~
 @215 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.
@@ -451,14 +447,12 @@ Requires:
 Weight: 1~
 
 //Avelyn (IWDEE)
-@903 = ~An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism. Despite its use as a weapon, this crossbow is also a priceless work of art, and requires the use of both hands to operate at all times, inhibiting spellcasting. Unlike other crossbows, the Avelyn requires intelligence to operate proficiently.
-
-A small emblem of a circle containing a lightning bolt can be seen imprinted on the left side of the device. It appears that the inventor had this particular crossbow infused with the powers of lightning. Further inspection reveals an additional function. It is possible to fully unlock the repeating mechanism, and fire bolts of pure electrical energy at a frightening speed and accuracy. This mode can be activated even by classes that do not normally become proficient with crossbows, provided they have the requisite intelligence.
+@903 = ~An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism. Unlike other crossbows, the Avelyn requires intelligence to operate proficiently.
 
 STATISTICS:
 
 Equipped abilities:
-– -4 penalty to casting speed
+– -2 penalty to casting speed
 – Sets base Attacks Per Round to 3
 
 Charge abilities:

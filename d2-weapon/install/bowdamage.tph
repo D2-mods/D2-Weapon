@@ -2,7 +2,6 @@
 
 ACTION_IF (FILE_EXISTS ~override/d2bow01.ITM~) BEGIN
   COPY_EXISTING ~d2bow01.ITM~ ~override~  
-    WRITE_SHORT 0x86 5    // +5 THAC0 (was +7)
     WRITE_SHORT 0x8c 2    // +2 damage (was +0)
     SAY DESC @900
   BUT_ONLY

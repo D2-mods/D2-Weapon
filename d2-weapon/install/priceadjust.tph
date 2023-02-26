@@ -1,47 +1,18 @@
-//Standardize prices of items (generally lower)
+//Reduce prices of items (for IWDEE)
+//some sellers (Lehland or Nym) have crazy high markups
 
 
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
 
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2setprices BEGIN    // for IWDEE
-  d2hal01 => 1        // Unbalanced Halberd
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2setprices BEGIN
   d2bow03 => 6000     // White Birch Bow
-  d2swd07 => 6000     // Scimitar +2: Accelerator
-  d2eff01b => 6000    // Sling +2: Accelerator
-  d2swd01 => 8000     // Greatsword
-  d2ham01 => 8000     // Club +4: Frenzy
-  d2swd04 => 12000    // Drakeblood Greatsword
-  d2swd06 => 12000    // Stone Greatsword
-  d2bow01 => 15000    // Black Bow of Pharis
-  d2bow02 => 15000    // Dragonslayer Greatbow
-  d2dag01 => 15000    // Aquamarine Dagger
-  d2swd02 => 18000    // Fume Ultra Greatsword
+  d2swd07 => 4000     // Scimitar +2: Accelerator
+  d2swd06 => 10000    // Stone Greatsword
+  d2swd04 => 13000    // Drakeblood Greatsword
+  d2dag01 => 16000    // Aquamarine Dagger
   d2swd03 => 18000    // Chaos Rapier
-  d2bow04 => 20000    // Avelyn
-  d2swd05 => 20000    // Bewitched Alonne Sword
-END
-
-END
-ELSE BEGIN
-
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2setprices BEGIN    // for BG games
-  d2hal01 => 1        // Unbalanced Halberd
-  d2bow03 => 6000     // White Birch Bow
-  d2swd01 => 6000     // Greatsword
-  d2swd07 => 6000     // Scimitar +2: Accelerator
-  d2ham01 => 6000     // Club +4: Frenzy
-  d2eff01b => 6000    // Sling +2: Accelerator
-  d2bow01 => 15000    // Black Bow of Pharis
-  d2bow02 => 15000    // Dragonslayer Greatbow
-  d2swd04 => 15000    // Drakeblood Greatsword
-  d2swd06 => 15000    // Stone Greatsword
-  d2dag01 => 15000    // Aquamarine Dagger
-  d2bow04 => 20000    // Avelyn
   d2swd02 => 20000    // Fume Ultra Greatsword
-  d2swd03 => 20000    // Chaos Rapier
-  d2swd05 => 20000    // Bewitched Alonne Sword
-END
-
+  d2bow04 => 20000    // Avelyn
 END
 
 
@@ -51,6 +22,8 @@ ACTION_PHP_EACH d2setprices AS item => price BEGIN
       WRITE_LONG 0x34 price
     BUT_ONLY
   END
+END
+
 END
 
 

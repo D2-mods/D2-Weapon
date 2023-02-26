@@ -23,18 +23,26 @@ d2#wbag - bag containing all weapons (not obtainable through normal gameplay)
 ==================================================
 ITEM LOCATIONS
 ==================================================
-BG1 Stores:
-Candlekeep (INN2616)
+BGEE:
+Unbalanced Halberd
+- Candlekeep (INN2616)
+- Friendly Arm Inn (FRIEND)
+- Carnival (STO4908)
+
+
+SoD:
+Belegarm (bdbelega)
+- Sling +2: Accelerator
+
+Waizahb (bdwaizah)
+- White Birch Bow
+
+
+
+BG2EE:
+Bernard (BERNARD, BERNARD2)
 - Unbalanced Halberd
 
-Friendly Arm Inn (FRIEND)
-- Unbalanced Halberd
-
-Carnival merchant (STO4908.STO)
-- Unbalanced Halberd
-
-
-BG2 Stores:
 Deidre (WMART2)
 - Avelyn
 - Greatsword
@@ -48,7 +56,6 @@ Joluv (WMART1)
 - White Birch Bow
 - Fume Ultra Greatsword
 - Stone Greatsword
-- Unbalanced Halberd
 - Club +4: Frenzy
 
 Ribald (RIBALD3) - from chapter 6
@@ -57,7 +64,8 @@ Ribald (RIBALD3) - from chapter 6
 - Scimitar +2: Accelerator
 
 
-IWD Stores:
+
+IWDEE:
 Pomab (EHPOMAB)
 - Unbalanced Halberd
 

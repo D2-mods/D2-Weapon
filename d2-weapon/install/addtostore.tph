@@ -3,29 +3,62 @@ ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN
 
   COPY_EXISTING ~INN2616.STO~  ~override~
     LPF ADD_STORE_ITEM_EX 
-      STR_VAR item_name=%uhalberd% position=~BEFORE HALB01~ flags=~identified~ 
+      INT_VAR stack=2
+      STR_VAR item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~ 
     END
   BUT_ONLY
 
   COPY_EXISTING ~FRIEND.STO~  ~override~
     LPF ADD_STORE_ITEM_EX 
-      INT_VAR stack=5 
-      STR_VAR item_name=~%uhalberd%~ position=~BEFORE HALB01~ flags=~identified~ 
+      INT_VAR stack=5
+      STR_VAR item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~ 
     END
   BUT_ONLY
 
   COPY_EXISTING ~STO4908.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
       INT_VAR stack=3
-      STR_VAR item_name=%uhalberd% position=~BEFORE HAMM01~ flags=~identified~
+      STR_VAR item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~
     END
   BUT_ONLY
 
 END
 
 
+ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+
+  COPY_EXISTING ~bdbelega.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX 
+      STR_VAR item_name=~%slingaccel%~ position=~AFTER SLNG02~ flags=~identified~ 
+    END
+  BUT_ONLY
+
+  COPY_EXISTING ~bdwaizah.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX 
+      STR_VAR item_name=~%whitebirch%~ position=~AFTER BOW18~ flags=~identified~ 
+    END
+  BUT_ONLY
+
+END
+
+
+
 //BG2 stores
 ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
+
+  // Copper Coronet
+  COPY_EXISTING ~BERNARD.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX
+      STR_VAR stack=3 item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~
+    END
+  BUT_ONLY
+
+  COPY_EXISTING ~BERNARD2.STO~  ~override~
+    LPF ADD_STORE_ITEM_EX
+      STR_VAR stack=3 item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~
+    END
+  BUT_ONLY
+
 
   // Deidre
   COPY_EXISTING ~WMART2.STO~  ~override~
@@ -77,10 +110,6 @@ ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
     END
   
     LPF ADD_STORE_ITEM_EX
-      STR_VAR stack=10 item_name=~%uhalberd%~ position=~LAST~ flags=~identified~
-    END
-  
-    LPF ADD_STORE_ITEM_EX
       INT_VAR charge2=3
       STR_VAR item_name=~%clubfrenzy%~ position=~LAST~ flags=~identified~
     END
@@ -106,6 +135,7 @@ ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
 END
   
   
+
 //IWD stores
 ACTION_IF (GAME_INCLUDES ~iwd~) BEGIN
 
