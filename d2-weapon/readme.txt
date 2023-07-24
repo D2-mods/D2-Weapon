@@ -6,7 +6,7 @@ Installs on: BG:EE, BG2:EE, IWD:EE, EET (tested on v2.5/v2.6)
 ==================================================
 WHAT THIS MOD DOES
 ==================================================
-Adds 15 weapons, many of them loosely based on weapons from FromSoft's Dark Souls trilogy. All items are purchased. Some have more "normal" abilities, while others have very extreme advantages and disadvantages.
+Adds 15 weapons, many of them loosely based on weapons from FromSoft's Dark Souls trilogy. All items are purchased. Some have more standard abilities, while others have very extreme advantages and disadvantages.
 
 Note: For BGEE/SoD, all items install, but only 3 are obtainable (2 in SoD).
 
@@ -75,7 +75,7 @@ v2.2
 - What's new:
 	- 2 items are now obtainable in SoD.
 - Fixes:
-	- BG1EE: Fixed Unbalanced Halberd not be added to 2 stores. Broke in the v2.0 update, due to a variable error.
+	- BG1EE: Fixed Unbalanced Halberd not being added to 2 stores. Broke in the v2.0 update, due to a variable error.
 - Changes:
 	- Revised Chaos Rapier.
 	- Minor adjustments to a couple other weapons.

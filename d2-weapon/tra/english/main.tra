@@ -42,7 +42,7 @@
 
 //Ranged
 @100 = ~Black Bow of Pharis~
-@200 = ~A black longbow named after a hero of old, known for the unusual stance from which it is fired. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
+@200 = ~A black longbow named after a hero of old. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
 
 STATISTICS:
 
@@ -157,7 +157,7 @@ Requires:
 Weight: 60~
 
 @105 = ~Fume Ultra Greatsword~
-@205 = ~A gigantic, twisted sword, resembling black slate, the heaviest of all ultra greatswords. This weapon, said to belong to a traitor from long ago, was so heavy that it found no owner, and became a forgotten relic of history. The great weight and size of this weapon can be used as a shield to defend against the blows of opponents, as well as to crush their bones with impunity.
+@205 = ~A gigantic, twisted sword, resembling black slate. This weapon, said to belong to a traitor from long ago, was so heavy that it found no owner, and became a forgotten relic of history.
 
 STATISTICS:
 
@@ -182,7 +182,7 @@ Requires:
 Weight: 80~
 
 @106 = ~Stone Greatsword~
-@206 = ~A moss-covered greatsword. It is said that these swords were wielded by the stone guardians of an enchanted forest, once the home of powerful sorceries, before the inhabitants awakened the Abyss. The sorcerers of this land were peerless in magics that could manipulate light and time, and though faded, this same magic is imbued in the sword.
+@206 = ~A moss-covered greatsword, wielded by the stone guardians of an enchanted forest—once the home of powerful sorceries, before the inhabitants awakened the Abyss. The sorcerers of this land were peerless in magics that could manipulate light and time, and though faded, this same magic is imbued in the sword.
 
 STATISTICS:
 
@@ -333,7 +333,7 @@ Requires:
 Weight: 15~
 
 @112 = ~Club +4: Frenzy~
-@212 = ~Most clubs are stout, hardwood sticks, narrow at the grip and wider at the end.  This simple weapon has been used since mankind first began using tools.  Anyone can find a good stout piece of wood and swing it; hence the club's widespread use. This club has been magically enhanced and burns with a fierce rage, for things once lost and a destiny once stolen, which can never be sated.
+@212 = ~Most clubs are stout, hardwood sticks, narrow at the grip and wider at the end. This simple weapon has been used since mankind first began using tools. Anyone can find a good stout piece of wood and swing it; hence the club's widespread use. This club has been magically enhanced and burns with a fierce rage, for things once lost and a destiny once stolen, which can never be sated.
 
 STATISTICS:
 
@@ -406,7 +406,7 @@ Weight: 5~
 //alternate text (bow damage)
 
 //Black Bow of Pharis (IWDEE)
-@900 = ~A black longbow named after a hero of old, known for the unusual stance from which it is fired. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
+@900 = ~A black longbow named after a hero of old. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
 
 STATISTICS:
 

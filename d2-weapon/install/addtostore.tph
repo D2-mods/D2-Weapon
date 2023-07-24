@@ -49,13 +49,15 @@ ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
   // Copper Coronet
   COPY_EXISTING ~BERNARD.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
-      STR_VAR stack=3 item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~
+      INT_VAR stack=3
+      STR_VAR item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~
     END
   BUT_ONLY
 
   COPY_EXISTING ~BERNARD2.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
-      STR_VAR stack=3 item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~
+      INT_VAR stack=3
+      STR_VAR item_name=~%uhalberd%~ position=~AFTER BLUN01~ flags=~identified~
     END
   BUT_ONLY
 
