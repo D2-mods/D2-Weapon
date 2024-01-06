@@ -71,6 +71,9 @@ Note: Starting with v2.2, this mod no longer uses licensed images, edited or oth
 ==================================================
 VERSION HISTORY
 ==================================================
+v2.3
+- IWDEE: item files no longer have description images (fixes visual glitch with Infinity UI++).
+
 v2.2
 - What's new:
 	- 2 items are now obtainable in SoD.

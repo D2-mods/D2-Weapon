@@ -1,6 +1,6 @@
 BACKUP ~weidu_external/backup/d2-weapon~
 AUTHOR ~Dan_P~
-VERSION ~2.2~
+VERSION ~2.3~
 AUTO_EVAL_STRINGS
 
 ALWAYS
@@ -40,6 +40,7 @@ INCLUDE ~%install%/install.tph~
 INCLUDE ~%install%/addtostore.tph~
 INCLUDE ~%install%/priceadjust.tph~    // for IWDEE
 INCLUDE ~%install%/wbag.tph~
+INCLUDE ~%install%/iwditempatch.tph~
 
 
 /*

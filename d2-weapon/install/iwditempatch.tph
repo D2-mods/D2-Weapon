@@ -1,0 +1,17 @@
+/*
+IWDEE item patch
+*/
+
+
+//Remove description images from items
+//prevents visual error with Infinity UI++
+
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+
+  ACTION_BASH_FOR ~override~ ~d2.*\.itm~ BEGIN
+    COPY ~%BASH_FOR_FILESPEC%~ ~override~
+      WRITE_ASCII 0x58 ~~ #8
+    BUT_ONLY
+  END
+
+END
