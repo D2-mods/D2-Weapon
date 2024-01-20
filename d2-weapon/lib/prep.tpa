@@ -1,0 +1,38 @@
+//
+//
+
+
+//make file with item array (can be used by other mods)
+<<<<<<<< .../inlined/d2weapon_variable_array
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_variable_array BEGIN
+  blackbow     => d2bow01
+  greatbow     => d2bow02
+  whitebirch   => d2bow03
+  avelyn       => d2bow04
+  greatsword   => d2swd01
+  fumeultraGS  => d2swd02
+  chaosrapier  => d2swd03
+  drakeblood   => d2swd04
+  alonnesword  => d2swd05
+  stoneGS      => d2swd06
+  accelerator  => d2swd07
+  aquamarine   => d2dag01
+  uhalberd     => d2hal01
+  clubfrenzy   => d2ham01
+  slingaccel   => d2eff01b
+END
+>>>>>>>>
+COPY ~.../inlined/d2weapon_variable_array~  ~override~
+
+INCLUDE ~override/d2weapon_variable_array~
+
+
+//
+//set variables
+ACTION_PHP_EACH d2weapon_variable_array AS var => res BEGIN
+  OUTER_TEXT_SPRINT  ~%var%~ ~%res%~
+END
+
+
+/*
+*/

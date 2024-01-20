@@ -4,6 +4,9 @@ VERSION ~2.3~
 AUTO_EVAL_STRINGS
 
 ALWAYS
+
+  CLEAR_INLINED
+
   ACTION_BASH_FOR ~%MOD_FOLDER%/lib~ ~.*\.tpa~ BEGIN    // function list
     INCLUDE ~%BASH_FOR_FILESPEC%~
   END
@@ -20,7 +23,6 @@ ALWAYS
   OUTER_TEXT_SPRINT resource   ~%MOD_FOLDER%/resource~
   OUTER_TEXT_SPRINT workspace  ~weidu_external/Workspace~
 
-  CLEAR_INLINED
 END
 
 LANGUAGE ~English~
@@ -35,21 +37,34 @@ D2-Weapon - A Souls-inspired Weapon Pack
 
 BEGIN @1
 REQUIRE_PREDICATE (GAME_IS ~bgee bg2ee iwdee eet~) ~Game not supported~
+SUBCOMPONENT @9999
 LABEL ~D2-WEAPON-SOULS~
+OUTER_SET  adjust = 10
 INCLUDE ~%install%/install.tph~
-INCLUDE ~%install%/addtostore.tph~
-INCLUDE ~%install%/priceadjust.tph~    // for IWDEE
-INCLUDE ~%install%/wbag.tph~
-INCLUDE ~%install%/iwditempatch.tph~
+
+BEGIN @2
+SUBCOMPONENT @9999
+LABEL ~D2-WEAPON-SOULS80~
+OUTER_SET  adjust = 8
+INCLUDE ~%install%/install.tph~
+
+BEGIN @3
+SUBCOMPONENT @9999
+LABEL ~D2-WEAPON-SOULS50~
+OUTER_SET  adjust = 5
+INCLUDE ~%install%/install.tph~
+
 
 
 /*
 Add damage to bows (recommended for IWD:EE)
 */
 
-BEGIN @3
+BEGIN @20
 DESIGNATED 20
-REQUIRE_COMPONENT ~d2-weapon.tp2~ 0 ~~
+REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~d2-weapon.tp2~ 0) OR 
+                   (MOD_IS_INSTALLED ~d2-weapon.tp2~ 1) OR
+                   (MOD_IS_INSTALLED ~d2-weapon.tp2~ 2)) ~~
 LABEL ~D2-WEAPON-BOWDAMAGE~
 INCLUDE ~%install%/bowdamage.tph~
 
@@ -58,7 +73,7 @@ INCLUDE ~%install%/bowdamage.tph~
 Add NPC merchant to Throne of Bhaal or Heart of Winter?
 */
 
-BEGIN @4
+BEGIN @50
 DESIGNATED 50
 LABEL ~D2-WEAPON-NPCSTORE~
 INCLUDE ~%install%/npcpatch.tph~

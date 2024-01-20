@@ -2,54 +2,57 @@ D2-Weapon - A Souls-inspired Weapon Pack
 GitHub: https://github.com/D2-mods/D2-Weapon
 Installs on: BG:EE, BG2:EE, IWD:EE, EET (tested on v2.5/v2.6)
 
+--
 
-==================================================
-WHAT THIS MOD DOES
-==================================================
-Adds 15 weapons, many of them loosely based on weapons from FromSoft's Dark Souls trilogy. All items are purchased. Some have more standard abilities, while others have very extreme advantages and disadvantages.
+Overview:
+This is a mod for Baldur's Gate: Enhanced Edition, Baldur's Gate 2: Enhanced Edition, and Icewind Dale: Enhanced Edition.
+
+Adds 15 weapons, many of them loosely based on weapons from FromSoft's Dark Souls trilogy. All items are purchased from various sellers. Some have more standard abilities, while others have more extreme advantages and disadvantages (though I've toned some of it down in updates).
 
 Note: For BGEE/SoD, all items install, but only 3 are obtainable (2 in SoD).
 
-
-==================================================
-INSTALL INFO
-==================================================
-Should be installed before any mods that make global changes to weapons, such as weapon usability tweaks.
+--
 
 Components:
 1. D2-Weapon - A Souls-inspired Weapon Pack
 2. Add damage to bows (recommended for IWD:EE)
 3. Add NPC merchant to Throne of Bhaal or Heart of Winter?
 
+Should be installed before any mods that make global changes to weapons, such as weapon usability tweaks.
+
+--
+
 NPC merchant:
 - ToB: Gives access to Deidre's items, Joluv's items, and Ribald's special store.
 - HoW: Gives access to Conlan's store, Lehland's store, and Nym's store.
 
+--
 
-==================================================
-ITEM LIST
-==================================================
-- Black Bow of Pharis (longbow)
-- Dragonslayer Greatbow (longbow)
-- White Birch Bow (shortbow)
-- Avelyn (crossbow)
-- Greatsword (2-handed sword)
-- Fume Ultra Greatsword (2-handed sword)
-- Stone Greatsword (2-handed sword)
-- Chaos Rapier (long sword)
-- Drakeblood Greatsword (bastard sword)
-- Bewitched Alonne Sword (katana)
-- Aquamarine Dagger
-- Unbalanced Halberd
-- Club +4: Frenzy
-- Scimitar +2: Accelerator
-- Sling +2: Accelerator
+Item list:
+d2bow01 - Black Bow of Pharis
+d2bow02 - Dragonslayer Greatbow
+d2bow03 - White Birch Bow
+d2bow04 - Avelyn
+d2swd01 - Greatsword
+d2swd02 - Fume Ultra Greatsword
+d2swd03 - Chaos Rapier
+d2swd04 - Drakeblood Greatsword
+d2swd05 - Bewitched Alonne Sword
+d2swd06 - Stone Greatsword
+d2swd07 - Scimitar +2: Accelerator
+d2dag01 - Aquamarine Dagger
+d2hal01 - Unbalanced Halberd
+d2ham01 - Club +4: Frenzy
+d2eff01b - Sling +2: Accelerator
 
+d2#wbag - bag containing all weapons (not obtainable through normal gameplay)
 
-==================================================
-CREDITS
-==================================================
+--
+
 Modder: Dan_P
+
+Functions used (not including my own):
+- CD_LEVEL_SELECT-O-MATIC by Camdawg (https://www.gibberlings3.net/forums/topic/28835-toss-your-semi-useful-weidu-macros-here/page/13/#comment-332943)
 
 Tools and Resources used:  
 - WeiDU (https://github.com/WeiDUorg/weidu)
@@ -58,21 +61,32 @@ Tools and Resources used:
 - Git Bash (https://git-scm.com/downloads)
 - Infinity Auto Packager (https://github.com/InfinityTools/InfinityAutoPackager)
 - IESDP (https://gibberlings3.github.io/iesdp/main.htm)
+- 7-Zip (https://www.7-zip.org/)
 
+--
 
-==================================================
-COPYRIGHT NOTICE
-==================================================
+Copyright Notice:
+
 "D2-Weapon" is licensed under Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0). It uses modified images for the icon BAMs, taken from wikidot.com or Fandom.com, and which are shared under this license. https://creativecommons.org/licenses/by-sa/3.0/
 
 Note: Starting with v2.2, this mod no longer uses licensed images, edited or otherwise, except for files taken from Infinity Engine games.
 
+--
 
-==================================================
-VERSION HISTORY
-==================================================
+Version info:
+
 v2.3
-- IWDEE: item files no longer have description images (fixes visual glitch with Infinity UI++).
+Installer:
+	- Added installer options to reduce base price of items to 80% or 50%.
+	- IWDEE: item files no longer have description images (fixes visual glitch with Infinity UI++).
+	- Internal installer improvements.
+Adjustments:
+	- Dragonslayer Greatbow: Increased piercing damage from +10 to +12.
+	- Accelerator (sling): All races get Accelerator effect now. Halflings still have a bonus effect. They are immune to the THAC0 penalty.
+	- Aquamarine Dagger: Usable by more classes, but the Crystal Blade ability will now fail for non-arcane casters.
+	- Chaos Rapier changed to be usable by all classes, except beast masters.
+	- Reduced range of Greatsword and FUGS from 5 to 4.
+	- Bewitched Alonne Sword: Reduce self-damage of Harakiri from 80 to 12d6 (does 6d6 two times).
 
 v2.2
 - What's new:

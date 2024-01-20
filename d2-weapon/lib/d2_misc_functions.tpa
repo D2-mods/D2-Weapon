@@ -202,6 +202,7 @@ BEGIN
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=14780 END
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=26184 END   // confuse
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=25807 END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=14782 END
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=74 opcode=267 parameter1=31786 END    // blind
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=23744 END    // feeblemind
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=32367 END
@@ -258,6 +259,7 @@ BEGIN
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=35545 END
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=37603 END   // confuse
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=37604 END
+    LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=14782 END
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=74 opcode=267 parameter1=37800 END    // blind
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=14407 END    // feeblemind
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=40903 END

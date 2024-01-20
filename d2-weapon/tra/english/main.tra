@@ -1,3 +1,17 @@
+//
+//
+
+
+/*
+//Ranged
+//2-handed
+//1-handed
+//non-Souls weapons
+//alternate text (bow damage)
+*/
+
+
+
 //Spell Names and Display Strings
 @300 = ~Invisible~
 @301 = ~Repeat Fire~
@@ -11,7 +25,7 @@
 @309 = ~When the berserk state ends, the character will take 15 damage.~
 @310 = ~Confused~
 @311 = ~Halfling~
-@312 = ~~
+@312 = ~^ASpell failed! Arcane magic is needed to activate Crystal Blade.^-~
 @313 = ~~
 
 
@@ -73,7 +87,7 @@ Combat abilities:
 – Target is knocked back and stunned for 3 seconds (no save)
 
 THAC0: -2
-Damage: +3d6 (missile), +10 (piercing)
+Damage: +3d6 (missile), +12 (piercing)
 Speed Factor: 10
 Proficiency Type: Longbow
 Type: Two-handed
@@ -109,12 +123,12 @@ Weight: 1~
 STATISTICS:
 
 Equipped abilities:
-– -2 penalty to casting speed
+– Slows casting speed by 2
 – Sets base Attacks Per Round to 3
 
 Charge abilities:
 – Repeat Fire three times per day
-  Special: Sets Attacks Per Round to 9, with a +10 bonus to THAC0, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
+  Special: Sets Attacks Per Round to 9, with a +10 bonus to attack rolls, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
   Duration: 1 round
   Area of Effect: The user
 
@@ -143,7 +157,7 @@ Equipped abilities:
 
 Combat abilities:
 – Heavy: +4d8 (crushing)
-– Reach of 5 feet, rather than 2
+– Reach of 4 feet, rather than 2
 – Target is knocked back or knocked down (50% chance of each, no save)
 
 THAC0: -2
@@ -162,13 +176,13 @@ Weight: 60~
 STATISTICS:
 
 Equipped abilities:
-– Shield: +4 bonus to AC vs. crushing, slashing, piercing, and missile
+– +4 bonus to AC vs. crushing, slashing, piercing, and missile
 – Heavy: -2 penalty to Dexterity
 – Sets Attacks Per Round to 1 (max of 2 with Haste or Whirlwind effects)
 
 Combat abilities:
 – Heavy: +4d8 (crushing)
-– Reach of 5 feet, rather than 2
+– Reach of 4 feet, rather than 2
 – Target is knocked back or knocked down (50% chance of each, no save)
 
 THAC0: -2 (strikes as a +4 weapon)
@@ -268,7 +282,7 @@ Combat abilities:
 
 Charge abilities:
 – Harakiri once per day
-  Special: Reverse the blade and plunge into oneself. The wielder takes 80 points of piercing damage and suffers Blood Loss, yet attacks become quicker and each strike deadlier. Gains bonuses of +1 Attacks Per Round and +30% chance to score a critical hit with melee attacks.
+  Special: Reverse the blade and plunge into oneself. The wielder takes 12d6 piercing damage and suffers Blood Loss, yet attacks become quicker and each strike deadlier. Gains bonuses of +1 to Attacks Per Round and +30% chance to score a critical hit with melee attacks.
   Duration: 6 rounds
   Area of Effect: The user
   Note: Stoneskin effects can halve the initial damage but all skins are shattered in the process
@@ -291,10 +305,7 @@ A skilled mage or sorcerer may induce the magic of the crystals, creating a flee
 STATISTICS:
 
 Equipped abilities:
-– +1 bonus to casting speed
-
-Combat abilities:
-– Magic: +1d6 magic damage
+– Improves casting speed by 1
 
 Charge abilities:
 – Crystal Blade three times per day (costs one memorized spell)
@@ -303,7 +314,7 @@ Charge abilities:
   Area of Effect: The user
 
 THAC0: +2
-Damage: 1d4+2 (piercing)
+Damage: 1d4+2 (piercing), +3 (magic)
 Speed Factor: 1
 Proficiency Type: Dagger
 Type: One-handed
@@ -321,7 +332,7 @@ Weight: 1~
 STATISTICS:
 
 Equipped abilities:
-– Once per round, the wielder gains +1 or -1 each to damage, THAC0, and Armor Class for 3 rounds
+– Once per round, the wielder gains +1 or -1 each to damage, attack rolls, and Armor Class for 3 rounds
 
 Damage: 1d10 (piercing or slashing)
 Speed Factor: 9
@@ -338,9 +349,9 @@ Weight: 15~
 STATISTICS:
 
 Combat abilities:
-– Daze: 25% chance target is confused for 1 round (no save)
+– 25% chance target is confused for 1 round (no save)
 – May Enrage as a Berserker three times per day (duration: 1 turn)
-– Becomes winded after berserking (5 rounds): -2 penalty to THAC0, damage, and Armor Class
+– Becomes winded after berserking (5 rounds): -2 penalty to damage, attack rolls, and Armor Class
 
 FRENZY: The wielder does not have full control over the weapon-induced rage. While berserking, there is a 15% chance per round to enter a frenzied state, attacking friend and foe alike. While frenzied, the wielder gains +2 to hit and damage, an extra attack per round, doubled movement speed, and a +30% chance to score a critical hit. Frenzy always lasts for a full turn and the bonuses are in addition to the bonuses from Enrage.
 
@@ -360,7 +371,7 @@ Weight: 3~
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to THAC0
+– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
 
 THAC0: +2
 Damage: 1d8+2 (slashing)
@@ -373,12 +384,14 @@ Requires:
 Weight: 4~
 
 @114 = ~Sling +2: Accelerator~
-@214 = ~Magical slings are the hallmark of stout halfling warriors and adventurers. Anyone can take this sling up and use it as a powerful magical weapon, but the full enchantment emerges when swung by a halfling. Power courses from sling to hand, and the wielder attacks more rapidly with each stone flung from the pocket.
+@214 = ~Magical slings are the hallmark of stout halfling warriors. This blue sling reveals a hidden power when swung in battle. Power courses from sling to hand, and the slinger attacks more rapidly with each stone flung from the pocket.
 
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to THAC0 (Halflings only)
+– Accelerator: Each hit gives the slinger +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
+
+Special: Halflings do not suffer a penalty to attack rolls from Accelerator
 
 THAC0: +2
 Damage: +2 (missile)
@@ -452,12 +465,12 @@ Weight: 1~
 STATISTICS:
 
 Equipped abilities:
-– -2 penalty to casting speed
+– Slows casting speed by 2
 – Sets base Attacks Per Round to 3
 
 Charge abilities:
 – Repeat Fire three times per day
-  Special: Sets Attacks Per Round to 9, with a +10 bonus to THAC0, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
+  Special: Sets Attacks Per Round to 9, with a +10 bonus to attack rolls, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
   Duration: 1 round
   Area of Effect: The user
 

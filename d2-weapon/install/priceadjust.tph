@@ -1,29 +1,76 @@
-//Reduce prices of items (for IWDEE)
-//some sellers (Lehland or Nym) have crazy high markups
+//adjust base price per game
+//
 
 
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-
-ACTION_DEFINE_ASSOCIATIVE_ARRAY d2setprices BEGIN
-  d2bow03 => 6000     // White Birch Bow
-  d2swd07 => 4000     // Scimitar +2: Accelerator
-  d2swd06 => 10000    // Stone Greatsword
-  d2swd04 => 13000    // Drakeblood Greatsword
-  d2dag01 => 16000    // Aquamarine Dagger
-  d2swd03 => 18000    // Chaos Rapier
-  d2swd02 => 20000    // Fume Ultra Greatsword
-  d2bow04 => 20000    // Avelyn
+//game variables
+ACTION_IF (GAME_IS ~iwdee~)  BEGIN 
+  OUTER_TEXT_SPRINT game ~iwd~    // IWDEE
+END 
+ELSE BEGIN
+  OUTER_TEXT_SPRINT game ~bg2~    // BG games
 END
 
 
-ACTION_PHP_EACH d2setprices AS item => price BEGIN
-  ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+//
+//BG2 prices
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponbg2prices BEGIN
+  ~%blackbow%~     => 15000
+  ~%greatbow%~     => 14000
+  ~%whitebirch%~   => 8000
+  ~%avelyn%~       => 22000
+//
+  ~%greatsword%~   => 6000
+  ~%fumeultraGS%~  => 22000
+  ~%stoneGS%~      => 12000
+//
+  ~%chaosrapier%~  => 20000
+  ~%drakeblood%~   => 15000
+  ~%alonnesword%~  => 16000
+  ~%aquamarine%~   => 18000
+//
+  ~%uhalberd%~     => 1
+  ~%clubfrenzy%~   => 8000
+  ~%accelerator%~  => 3000
+  ~%slingaccel%~   => 6000
+END
+
+
+//
+//IWD prices
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponiwdprices BEGIN
+  ~%blackbow%~     => 14000
+  ~%greatbow%~     => 18000
+  ~%whitebirch%~   => 5000
+  ~%avelyn%~       => 18000
+//
+  ~%greatsword%~   => 6000
+  ~%fumeultraGS%~  => 20000
+  ~%stoneGS%~      => 8000
+//
+  ~%chaosrapier%~  => 16000
+  ~%drakeblood%~   => 12000
+  ~%alonnesword%~  => 20000
+  ~%aquamarine%~   => 16000
+//
+  ~%uhalberd%~     => 1
+  ~%clubfrenzy%~   => 8000
+  ~%accelerator%~  => 4000
+  ~%slingaccel%~   => 5000
+END
+
+
+//patch items
+ACTION_PHP_EACH ~d2weapon%game%prices~ AS item => price BEGIN
+  ACTION_IF (FILE_EXISTS ~override/%item%.itm~) BEGIN
+
+    OUTER_SET  price /= 10
+    OUTER_SET  price *= adjust    // adjust = 10, 8, or 5 (chosen at install)
+
     COPY_EXISTING ~%item%.itm~ ~override~
       WRITE_LONG 0x34 price
     BUT_ONLY
-  END
-END
 
+  END
 END
 
 

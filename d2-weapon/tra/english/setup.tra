@@ -1,6 +1,11 @@
 //Setup
-@1 = ~D2-Weapon - A Souls-inspired Weapon Pack~
-@2 = ~~
-@3 = ~Add damage to bows (recommended for IWD:EE)~
-@4 = ~Add NPC merchant to Throne of Bhaal or Heart of Winter?~
-@5 = ~~
+@9999 = ~D2-Weapon - A Souls-inspired Weapon Pack~
+	@1 = ~Standard Install~
+	@2 = ~80% base price~
+	@3 = ~50% base price~
+
+@20 = ~Add damage to bows (recommended for IWD:EE)~
+@50 = ~Add NPC merchant to Throne of Bhaal or Heart of Winter?~
+
+
+@6 = ~Additional patching of spells, items, or creatures~

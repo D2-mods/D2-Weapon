@@ -1,4 +1,9 @@
-//BG1 stores
+/*
+Add items to stores
+*/
+
+
+//BGEE
 ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN
 
   COPY_EXISTING ~INN2616.STO~  ~override~
@@ -25,6 +30,7 @@ ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN
 END
 
 
+//SoD
 ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
 
   COPY_EXISTING ~bdbelega.STO~  ~override~
@@ -43,7 +49,7 @@ END
 
 
 
-//BG2 stores
+//BG2EE
 ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
 
   // Copper Coronet
@@ -138,8 +144,8 @@ END
   
   
 
-//IWD stores
-ACTION_IF (GAME_INCLUDES ~iwd~) BEGIN
+//IWDEE
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
 
   COPY_EXISTING ~EHPOMAB.STO~  ~override~
     LPF ADD_STORE_ITEM_EX
