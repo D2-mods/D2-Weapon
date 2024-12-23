@@ -1,0 +1,181 @@
+/*
+convert item abilities to cast from dialog
+click "Use" button from inventory to use item abilities
+issue: global scripting seems inconsistent (uses per day sometimes works, sometimes doesn't)
+
+variables: resource, item_name, ability_name, button, style, item_uses
+*/
+
+
+/*example - set variables and INCLUDE this file
+OUTER_TEXT_SPRINT resource ~%avelyn%~
+OUTER_SPRINT item_name @103
+OUTER_SPRINT ability_name @301
+OUTER_TEXT_SPRINT button ~use~    // label on button (set to "Use" or "Talk")
+OUTER_TEXT_SPRINT style ~activate~    // dialog wording (set to "use", "cast", or "activate")
+OUTER_SET item_uses = 9999
+INCLUDE ~%install%/pstitemdialog.tph~
+*/
+
+
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+
+
+//conversable flag + delete spell header
+COPY_EXISTING ~%resource%.ITM~  ~override~
+  LPF d2_pstitemflags INT_VAR conversable=1 END       // conversable flag (adds Use/Talk button)
+  LPF DELETE_ITEM_HEADER INT_VAR header_type=3 END    // remove spell headers
+
+  PATCH_IF !(~%style%~ STR_EQ ~cast~) BEGIN
+    LPF d2_pstitem_npcflags END    // make usable by all NPCs (even if they can't equip)
+  END
+BUT_ONLY
+
+//Note: items that require to be equipped will do nothing if used and not equipped (gives floating message)
+
+
+//variables
+OUTER_SET stringref = RESOLVE_STR_REF(~%item_name%~)     // just use item name
+//OUTER_SET stringref = RESOLVE_STR_REF(@778040)    // use "You examine the item_name" as the "name"
+ACTION_IF !(IS_AN_INT item_uses) BEGIN OUTER_SET item_uses = 9999 END
+OUTER_SET item_uses -= 1
+
+
+//add line to itemdial.2da
+ACTION_IF !(~%button%~ STRING_CONTAINS_REGEXP ~talk~) BEGIN
+  OUTER_TEXT_SPRINT newline ~%resource% 4254 %resource% %stringref%~    // "Talk to Item"
+END ELSE BEGIN
+  OUTER_TEXT_SPRINT newline ~%resource% 4251 %resource% %stringref%~    // "Use" (default)
+END
+
+APPEND ~itemdial.2da~  ~%newline%~
+
+
+//dialog response
+ACTION_IF (~%style%~ STR_EQ ~cast~) BEGIN
+  OUTER_SPRINT itemtalk @778014    // Cast "ability_name"
+END ELSE ACTION_IF (~%style%~ STR_EQ ~activate~) BEGIN
+  OUTER_SPRINT itemtalk @778013    // Activate "ability_name"
+END ELSE BEGIN
+  OUTER_SPRINT itemtalk @778012    // Use the "ability_name" ability (default)
+END
+
+
+//
+<<<<<<<< .../temp/itemtalk
+BEGIN ~%resource%~
+
+IF ~!GlobalGT("%resource%_uses","GLOBAL",%item_uses%)~ BEGIN activate
+  SAY @778010
+  IF ~~ REPLY @778011 EXIT
+END
+
+IF ~GlobalGT("%resource%_uses","GLOBAL",%item_uses%)~ BEGIN expired
+  SAY @778050
+  IF ~~ REPLY @778011 EXIT
+END
+>>>>>>>>
+COPY - ~.../temp/itemtalk~  ~inlined/itemtalk.d~
+  EVALUATE_BUFFER
+COMPILE ~inlined/itemtalk.d~
+
+
+//response for main guy (use Player1 or "Nameless")
+<<<<<<<< .../temp/useitem
+EXTEND_TOP ~%resource%~ 0
+  IF ~HasItem("%resource%",Player1)~
+  REPLY ~%itemtalk%~
+  DO ~ActionOverride(Player1,ForceSpellRESNoFeedback("%resource%",Myself))
+      IncrementGlobal("%resource%_uses","GLOBAL",1)
+//      SetGlobalTimer("%resource%_timer","GLOBAL",2400)
+     ~
+  EXIT
+END
+>>>>>>>>
+COPY - ~.../temp/useitem~  ~inlined/useitem.d~
+  EVALUATE_BUFFER
+COMPILE ~inlined/useitem.d~
+
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_pstee_namerefs BEGIN
+//  Nameless => 727
+  Morte    => 274
+  Annah    => 48289
+  Dakkon   => 3124
+  Grace    => 3099
+  Ignus    => 3126
+  Vhail    => 3254
+  Nordom   => 3266
+END
+
+ACTION_PHP_EACH ~d2weapon_pstee_namerefs~ AS chara => string BEGIN
+
+ACTION_GET_STRREF ~%string%~  npc_name
+OUTER_SPRINT npc_name2 @778020
+OUTER_TEXT_SPRINT npctalk  ~%itemtalk% %npc_name2%~
+
+//dialog response
+<<<<<<<< .../temp/useitem
+EXTEND_BOTTOM ~%resource%~ 0 #1
+  IF ~OR(2)
+        Allegiance("%chara%",PC)
+        Allegiance("%chara%",FAMILIAR)
+      HasItem("%resource%","%chara%")
+//      !HasItem("%resource%",Player1)
+     ~
+  REPLY ~%npctalk%~
+  DO ~ActionOverride("%chara%",ForceSpellRESNoFeedback("%resource%",Myself))
+      IncrementGlobal("%resource%_uses","GLOBAL",1)
+//      SetGlobalTimer("%resource%_timer","GLOBAL",2400)
+     ~
+  EXIT
+END
+>>>>>>>>
+COPY - ~.../temp/useitem~  ~inlined/useitem.d~
+  EVALUATE_BUFFER
+COMPILE ~inlined/useitem.d~
+
+END
+
+
+//reset uses variable (global scripting)
+<<<<<<<< .../temp/itemreset
+IF
+	OR(2)
+		PartyRested()           // works from baldur.bcs
+//		NamelessBitTheDust()    // doesn't work from baldur.bcs
+//		Died(Player1)           // doesn't work from baldur.bcs
+		HPLT(Player1,1)         // works from baldur.bcs
+	GlobalGT("%resource%_uses","GLOBAL",0)
+//	!GlobalTimerNotExpired("%resource%_timer","GLOBAL")
+THEN
+	RESPONSE #100
+		SetGlobal("%resource%_uses","GLOBAL",0)
+//		SetGlobalTimer("%resource%_timer","GLOBAL",2400)
+		Continue()
+END
+>>>>>>>>
+COPY - ~.../temp/itemreset~  ~inlined/itemreset.BAF~
+  EVALUATE_BUFFER
+
+ACTION_FOR_EACH script IN ~BALDUR~ ~BALDUR25~ ~bdbaldur~ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+    EXTEND_BOTTOM ~%script%.BCS~  ~inlined/itemreset.BAF~
+  END
+END
+
+
+//reset variables
+OUTER_TEXT_SPRINT resource ~default~
+OUTER_TEXT_SPRINT item_name ~default~
+OUTER_TEXT_SPRINT ability_name ~default~
+OUTER_TEXT_SPRINT button ~default~
+OUTER_TEXT_SPRINT style ~default~
+OUTER_SET item_uses = 9999
+
+
+END
+
+
+//
+//

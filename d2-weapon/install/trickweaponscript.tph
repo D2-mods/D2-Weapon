@@ -1,0 +1,80 @@
+/*
+invisible creature scripting
+variables: itemid, magicitem, endspell, duration
+*/
+
+
+//make BCS file
+<<<<<<<< .../temp/%itemid%.BAF
+>>>>>>>>
+COMPILE ~.../temp/%itemid%.BAF~
+
+
+//check for real weapon (in inventory)
+<<<<<<<< .../temp/itemcheck
+IF
+//	!Global("%itemid%Player1","LOCALS",1)
+	Exists(Player1)
+	HasItem("%magicitem%",Player1)
+	!HasItemEquiped("%itemid%",Player1)
+THEN
+	RESPONSE #100
+//		SetGlobal("%itemid%Player1","LOCALS",1)
+		ReallyForceSpellRES("%endspell%",Player1)
+		Continue()
+END
+>>>>>>>>
+COPY - ~.../temp/itemcheck~  ~inlined/itemcheck.BAF~
+  EVALUATE_BUFFER
+COPY - ~inlined/itemcheck.BAF~  ~inlined/itemcheck2.BAF~
+  REPLACE_TEXTUALLY ~Player1~ ~Player2~
+COPY - ~inlined/itemcheck.BAF~  ~inlined/itemcheck3.BAF~
+  REPLACE_TEXTUALLY ~Player1~ ~Player3~
+COPY - ~inlined/itemcheck.BAF~  ~inlined/itemcheck4.BAF~
+  REPLACE_TEXTUALLY ~Player1~ ~Player4~
+COPY - ~inlined/itemcheck.BAF~  ~inlined/itemcheck5.BAF~
+  REPLACE_TEXTUALLY ~Player1~ ~Player5~
+COPY - ~inlined/itemcheck.BAF~  ~inlined/itemcheck6.BAF~
+  REPLACE_TEXTUALLY ~Player1~ ~Player6~
+
+EXTEND_BOTTOM ~%itemid%.BCS~  ~inlined/itemcheck.BAF~
+EXTEND_BOTTOM ~%itemid%.BCS~  ~inlined/itemcheck2.BAF~
+EXTEND_BOTTOM ~%itemid%.BCS~  ~inlined/itemcheck3.BAF~
+EXTEND_BOTTOM ~%itemid%.BCS~  ~inlined/itemcheck4.BAF~
+EXTEND_BOTTOM ~%itemid%.BCS~  ~inlined/itemcheck5.BAF~
+EXTEND_BOTTOM ~%itemid%.BCS~  ~inlined/itemcheck6.BAF~
+
+
+//set spell timer
+<<<<<<<< .../temp/movecre
+IF
+	!Global("%itemid%move","LOCALS",1)
+THEN
+	RESPONSE #100
+		SetGlobal("%itemid%move","LOCALS",1)
+//		JumpToPoint([20.20])
+		SetGlobalTimer("%itemid%timer","LOCALS",%duration%)
+END
+>>>>>>>>
+COPY - ~.../temp/movecre~  ~inlined/movecre.BAF~
+  EVALUATE_BUFFER
+EXTEND_TOP ~%itemid%.BCS~  ~inlined/movecre.BAF~
+
+
+//spell ended
+<<<<<<<< .../temp/endspell
+IF
+	Global("%itemid%move","LOCALS",1)
+	!GlobalTimerNotExpired("%itemid%timer","LOCALS")
+THEN
+	RESPONSE #100
+		DestroySelf()
+END
+>>>>>>>>
+COPY - ~.../temp/endspell~    ~inlined/endspell.BAF~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~%itemid%.BCS~  ~inlined/endspell.BAF~
+
+
+//
+//

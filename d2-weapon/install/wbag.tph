@@ -1,31 +1,77 @@
 //add Bag of Holding with all weapons
 //
 
+/*
+Resource: d2#wbag.ITM
+*/
+
 
 ACTION_IF (GAME_IS ~bgee bg2ee eet~) BEGIN
-  COPY ~%files%/d2hbee1.ITM~ ~override/d2#wbag.ITM~
-    SAY NAME1 @115 SAY UNIDENTIFIED_DESC @215
-    SAY NAME2 @115
-    WRITE_ASCII 0x3a ~d2#wbag~ #8    // set inventory icon
-	
-  COPY ~%files%/d2hbee1.STO~ ~override/d2#wbag.STO~
-    SAY 0xc @115  /* Weapon Sack */
-    LPF cannot_add_items END         // make it so items cannot be placed in the bag
-END
-  
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  COPY ~%files%/d2hbee0.ITM~ ~override/d2#wbag.ITM~
-    SAY NAME1 @115
-    SAY NAME2 @115 SAY DESC @215
-    WRITE_ASCII 0x3a ~d2#wbag~ #8    // set inventory icon
-	
-  COPY ~%files%/d2hbee0.STO~ ~override/d2#wbag.STO~
-    SAY 0xc @115  /* Weapon Sack */
+  COPY ~%wbag%/d2hbee1.ITM~ ~override/d2#wbag.ITM~
+    SAY NAME1 ~%weaponsack_name%~ SAY UNIDENTIFIED_DESC ~%weaponsack_desc%~
+    SAY NAME2 ~%weaponsack_name%~
+    WRITE_ASCII 0x3a ~d2#wbag~ #8
+
+  COPY ~%wbag%/d2hbee1.STO~ ~override/d2#wbag.STO~
+    SAY 0xc ~%weaponsack_name%~
     LPF cannot_add_items END         // make it so items cannot be placed in the bag
 END
 
-COPY ~%files%/d2#wbag.BAM~ ~override~
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  COPY ~%wbag%/d2hbee0.ITM~ ~override/d2#wbag.ITM~
+    SAY NAME1 ~%weaponsack_name%~
+    SAY NAME2 ~%weaponsack_name%~ SAY DESC ~%weaponsack_desc%~
+    WRITE_ASCII 0x3a ~d2#wbag~ #8
+
+  COPY ~%wbag%/d2hbee0.STO~ ~override/d2#wbag.STO~
+    SAY 0xc ~%weaponsack_name%~
+    LPF cannot_add_items END         // make it so items cannot be placed in the bag
+END
+
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+  COPY ~%wbag%/pstbag.ITM~ ~override/d2#wbag.ITM~
+    SAY NAME1 ~%weaponsack_name%~
+    SAY NAME2 ~%weaponsack_name%~ SAY DESC @778215
+    WRITE_ASCII 0x3a ~d2#wbag~ #8
+    WRITE_ASCII 0x44 WMTPOT #8       // ground bottle icon (match Argent77's bag mod)
+    WRITE_ASCII 0x10 INT_12O1 #8     // drop sound
+    WRITE_ASCII 0x58 INT_12O #8      // pick up sound
+
+  COPY ~%wbag%/pstbag.STO~ ~override/d2#wbag.STO~
+    SAY 0xc ~%weaponsack_name%~
+    LPF cannot_add_items END         // make it so items cannot be placed in the bag
+END
+
+COPY ~%wbag%/d2#wbag.BAM~ ~override~
 INCLUDE ~%MOD_FOLDER%/install/wbagfill.tph~
+
+
+//
+//Add scripts for Dev mode option
+
+ACTION_IF ((IS_AN_INT devmode) AND (devmode = 8)) BEGIN
+
+  ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
+    EXTEND_BOTTOM ~AR0602.BCS~  ~%wbag%/wbag-imoen.BAF~
+  END 
+  
+  ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+    EXTEND_BOTTOM ~bd0120.BCS~  ~%wbag%/wbag-sodscript.BAF~
+  END
+
+  ACTION_FOR_EACH script IN ~BPHUB~ ~ohbhub~ BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+      EXTEND_BOTTOM ~%script%.BCS~  ~%wbag%/wbag-bpscript.BAF~
+    END
+  END
+
+  ACTION_FOR_EACH script IN ~BALDUR~ ~BALDUR25~ ~bdbaldur~ BEGIN
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%script%.BCS~) BEGIN
+      EXTEND_TOP ~%script%.BCS~  ~%wbag%/wbag-script.BAF~
+    END
+  END
+
+END
 
 
 /*

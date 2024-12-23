@@ -6,10 +6,11 @@
 //Ranged
 //2-handed
 //1-handed
-//non-Souls weapons
-//alternate text (bow damage)
+//misc weapons
+//misc stuff
+//alt text (bow damage)
+//alt text (pst)
 */
-
 
 
 //Spell Names and Display Strings
@@ -25,35 +26,87 @@
 @309 = ~When the berserk state ends, the character will take 15 damage.~
 @310 = ~Confused~
 @311 = ~Halfling~
-@312 = ~^ASpell failed! Arcane magic is needed to activate Crystal Blade.^-~
-@313 = ~~
+@312 = ~Spell failed! Arcane magic is needed to activate Crystal Blade.~
+@313 = ~Bleeding~
+@314 = ~The berserk state has ended. The character now loses the extra 15 Hit Points previously gained. If the character is below 15 Hit Points, he or she will be knocked unconscious.~
+@315 = ~1 Hit Point Drained~
+@316 = ~2 Hit Points Drained~
+@317 = ~3 Hit Points Drained~
+
+
+//text with variables
+@350 = ~Unaffected by effects from %ability_name%~
+@351 = ~No effect! You must equip %item_name% to use %ability_name%.~
+@352 = ~%item_name% unequipped. The effects of %ability_name% have ended.~
+@353 = ~%ability_name% activated. The effects have now ended.~
+@354 = ~The effects of %ability_name% have ended.~
+@358 = ~You cannot cast %ability_name% until the cooldown timer has run out.~
+
+
+//pst item dialog
+@778010 = ~Choose an action.~
+	@778011 = ~Do nothing.~
+	@778012 = ~Use the %ability_name% ability.~
+	@778013 = ~Activate %ability_name%.~
+	@778014 = ~Cast %ability_name%.~
+@778020 = ~(%npc_name%)~    // name in brackets added to end of line
+@778030 = ~You must equip the item to examine it.~
+@778040 = ~You examine the %item_name%~
+@778050 = ~You examine the item... but it was drained!~
 
 
 //Store text
-@2001 = ~Mysterious Man~
-@2002 = ~Rakshasa?~
+@2001 = ~Mysterious Man~    // rakshasa/humanoid
+@2002 = ~Rakshasa~
 @2003 = ~Stranger~
-@2004 = ~~
-@2005 = ~~
+@2004 = ~Odd Creature~    // chicken/animal
+@2005 = ~Employee~    // golem/other
+@2006 = ~Merchant~
+@2007 = ~???~
+@2040 = ~We're still setting up. Come again later.~
+@2060 = ~...~
 
 @2011 = ~The stranger watches as you approach...~
-@2012 = ~He motions to the odd sack on the ground...~
+@2012 = ~He motions to the odd sack on the ground.~
 @2013 = ~The stranger motions to the odd sack on the ground...~
-@2014 = ~~
+@2014 = ~Hmmheheh...~
 @2015 = ~Avoid eye contact...~
 
+@2051 = ~I don't get paid enough for this...~
+@2052 = ~Yeah, okay, but don't ask ANY QUESTIONS. I just work here.~
+@2053 = @2052
+@2054 = ~Nope, I'm out...~
+@2055 = ~Is this legal...?~
+
+@2061 = ~*stares intently*~
+@2062 = ~WELL, WHAT IS IT?! Are you buying or not?~
+@2063 = @2062
+@2064 = ~Hey! That tickles...~
+@2065 = ~Avoid getting too close...~
+
+//bg2
 @2021 = ~Ask to browse Deidre's items.~
 @2022 = ~Ask to browse Joluv's items.~
 @2023 = ~Ask to browse Ribald's special store.~
 
+//iwd
 @2031 = ~Ask to browse Conlan's items.~
 @2032 = ~Ask to browse Lehland's items.~
 @2033 = ~Ask to browse Nym's items.~
-@2034 = ~~
-@2035 = ~~
+
+//sod
+@2041 = ~Ask to browse Kazzrem's items.~
+@2042 = ~Ask to browse Waizahb's items.~
+@2043 = ~Ask to browse Nazramu's items.~
+
+//pst
+@2071 = ~Ask to browse Emoric's items.~
+@2072 = ~Ask to browse Coaxmetal's items.~
+@2073 = ~Ask to browse Keldor's items.~
 
 
 
+//
 //Ranged
 @100 = ~Black Bow of Pharis~
 @200 = ~A black longbow named after a hero of old. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
@@ -62,7 +115,7 @@ STATISTICS:
 
 Equipped abilities:
 – +5% chance to score a critical hit
-– Sets base Attacks Per Round to 3
+– 3 shots per round
 
 THAC0: +5
 Speed Factor: 1
@@ -75,7 +128,7 @@ Requires:
 Weight: 1~
 
 @101 = ~Dragonslayer Greatbow~
-@201 = ~Greatbow said to be used by the Dragonslayers from another world. Its unusual size makes it unwieldy in the hands of a human. The bow must be anchored in the ground to be fired, a time consuming operation that leaves the operator vulnerable.
+@201 = ~Greatbow said to be used by the Dragonslayers from another world. Its unusual size makes it unwieldy in the hands of a human or demihuman.
 
 STATISTICS:
 
@@ -118,36 +171,38 @@ Requires:
 Weight: 1~
 
 @103 = ~Avelyn~
-@203 = ~An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism. Unlike other crossbows, the Avelyn requires intelligence to operate proficiently.
+@203 = ~An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism.
 
 STATISTICS:
 
 Equipped abilities:
-– Slows casting speed by 2
-– Sets base Attacks Per Round to 3
+– 3 shots per round
 
 Charge abilities:
-– Repeat Fire three times per day
-  Special: Sets Attacks Per Round to 9, with a +10 bonus to attack rolls, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
-  Duration: 1 round
+– Repeat Fire, usable at will
+  Special: 10 attacks per round, but may not roll a critical hit and each attack deals 30% of normal damage
+  Duration: 8 seconds
   Area of Effect: The user
+  Note: Must be holding Avelyn to use this ability
 
 THAC0: +1
-Damage: +2 (electrical)
+Damage: +1 (missile), +2 (electrical)
 Speed Factor: 4
 Proficiency Type: Crossbow
 Type: Two-handed
 Requires:
  8 Strength
- 14 Intelligence
+ 9 Dexterity
+ 9 Intelligence
 
 Weight: 15~
 
 
 
+//
 //2-handed
-@104 = ~Greatsword~
-@204 = ~A straight sword with a gigantic blade, one of the heaviest of its kind. Highly destructive if intolerably heavy. No human was intended to wield a sword of this weight or destructiveness.
+@104 = ~Colossal Sword~
+@204 = ~A coarse iron lump of an ultra greatsword. Highly destructive if intolerably heavy. Mows down foes by utilizing its incredible weight.
 
 STATISTICS:
 
@@ -196,7 +251,7 @@ Requires:
 Weight: 80~
 
 @106 = ~Stone Greatsword~
-@206 = ~A moss-covered greatsword, wielded by the stone guardians of an enchanted forest—once the home of powerful sorceries, before the inhabitants awakened the Abyss. The sorcerers of this land were peerless in magics that could manipulate light and time, and though faded, this same magic is imbued in the sword.
+@206 = ~A moss-covered greatsword, wielded by the stone guardians of an enchanted forest—once the home of powerful sorceries, before the inhabitants awakened the Abyss.
 
 STATISTICS:
 
@@ -204,10 +259,11 @@ Equipped abilities:
 – Magic Resistance: +10%
 
 Charge abilities:
-– Tranquil Walk of Peace once per day
-  Special: Once per round, all enemies in a 15 ft. radius have their movement slowed by half and suffer a -4 penalty to Armor Class for 2 rounds (no save); the sword is held in the hand and pulses with blue light for the duration or until dispelled
-  Duration: 1 turn
-  Area of Effect: 15 ft. radius centered on the wielder
+– Tranquil Walk of Peace three times per day
+  Special: Activates an aura, which slows movement rate of enemies by half for 1 turn (no save); while slowed, also suffer a -2 penalty to Armor Class and Saving Throws (does not stack)
+  Duration: 2 rounds
+  Area of Effect: 15-ft. radius centered on the wielder
+  Note: Must be holding Stone Greatsword to use this ability
 
 THAC0: +3
 Damage: 1d10+3 (slashing), +1 (magic)
@@ -216,38 +272,43 @@ Proficiency Type: Two-handed Sword
 Type: Two-handed
 Requires:
  14 Strength
+ 9 Intelligence
 
 Weight: 18~
 
 
 
+//
 //1-handed
 @107 = ~Chaos Rapier~
-@207 = ~Rapier of darkness and chaos. Attuned to fire, but eats away at the owner's vitality. For shadow is born from light, and the brighter the flame, the deeper the shadow. Nebulous, inky and serene, the Dark holds an allure matched only by the fear it strikes in men's hearts.
+@207 = ~Rapier of darkness and chaos. Attuned to fire, but eats away at the owner's vitality. Nebulous, inky and serene, the Dark holds an allure matched only by the fear it strikes in men's hearts.
 
 STATISTICS:
 
 Equipped abilities:
 – Constitution: -2
-– All fire damage inflicted by the wielder is increased by 20%
+– +10% bonus to all fire damage dealt
+
+Chaos bonus (requires 13 INT and 13 WIS):
+– Additional +20% bonus to all fire damage dealt
+– Strikes as a +5 weapon (all melee attacks)
+– The wielder is drained 2 Hit Points every 3 rounds
 
 Combat abilities:
 – Flame: +1d6 fire damage and 10% chance of an additional +3d6 fire damage
 
-THAC0: +3
+THAC0: +3 (strikes as a +1 weapon)
 Damage: 1d6+3 (piercing)
 Speed Factor: 1
 Proficiency Type: Long Sword
 Type: One-handed
 Requires:
  5 Strength
- 13 Intelligence
- 13 Wisdom
- 
+
 Weight: 2~
 
 @108 = ~Drakeblood Greatsword~
-@208 = ~Greatsword wielded by the Drakeblood Knights, led by the honorable Sir Yorgh. The insignia chiseled upon its hilt symbolizes dragon's blood. To the Drakeblood Knights, fresh dragon blood was sacrosanct. They believed that by obtaining it, they could achieve a true understanding of life, transcending their own banal existence.
+@208 = ~Greatsword wielded by the Drakeblood Knights, worshippers of the blood of dragons. The insignia chiseled upon its hilt symbolizes dragon's blood.
 
 STATISTICS:
 
@@ -270,7 +331,7 @@ Requires:
 Weight: 7~
 
 @109 = ~Bewitched Alonne Sword~
-@209 = ~A long-hilted katana once wielded by a warrior of certain esteem. The man came from the east, became a trusted knight to a once-great king from ages past, then departed long before the king brought his kingdom to ruin, leaving behind only this resplendent sword. The captivating, undulating design serves to enhance this weapon's mystical allure.
+@209 = ~A long-hilted katana once wielded by the honorable Sir Alonne, a warrior from the east. The captivating, undulating design serves to enhance this weapon's mystical allure.
 
 STATISTICS:
 
@@ -282,10 +343,9 @@ Combat abilities:
 
 Charge abilities:
 – Harakiri once per day
-  Special: Reverse the blade and plunge into oneself. The wielder takes 12d6 piercing damage and suffers Blood Loss, yet attacks become quicker and each strike deadlier. Gains bonuses of +1 to Attacks Per Round and +30% chance to score a critical hit with melee attacks.
+  Special: Reverse the blade and plunge into oneself. The wielder takes 12d6 damage and suffers Blood Loss, yet attacks become quicker and each strike deadlier. Gains bonuses of +1 to Attacks Per Round and +30% chance to score a critical hit with melee attacks.
   Duration: 6 rounds
   Area of Effect: The user
-  Note: Stoneskin effects can halve the initial damage but all skins are shattered in the process
 
 THAC0: +4
 Damage: 1d10+4 (slashing)
@@ -294,11 +354,12 @@ Proficiency Type: Katana
 Type: One-handed
 Requires:
  15 Strength
+ 13 Dexterity
 
 Weight: 9~
 
 @110 = ~Aquamarine Dagger~
-@210 = ~A dagger fitted with aquamarine crystals that shimmer with arcane magic. Engraved with a prayer, perhaps it was a parting gift given to one sent off on great travels, never to return.
+@210 = ~A dagger fitted with aquamarine crystals that shimmer with magic. Engraved with a prayer, perhaps it was a parting gift given to one sent off on great travels, never to return.
 
 A skilled mage or sorcerer may induce the magic of the crystals, creating a fleeting blue crystal blade, lengthy enough to swing as a straight sword. This ability requires a focus of magical energy, and each use drains one memorized spell.
 
@@ -309,7 +370,7 @@ Equipped abilities:
 
 Charge abilities:
 – Crystal Blade three times per day (costs one memorized spell)
-  Special: A blue blade extends from the hilt, striking as a +4 weapon, with a +4 bonus to hit, and dealing 1d4+2 piercing damage, plus an additional 3d6 magic damage. The weapon sets base Attacks Per Round to 3, and THAC0 becomes that of a Fighter of the same level as the caster. Proficiency bonuses apply as normal.
+  Special: A magical blade extends from the hilt, striking as a +4 weapon, with a +4 bonus to hit, and dealing 1d4+2 piercing damage, plus an additional 3d6 magic damage. The weapon sets base Attacks Per Round to 3, and THAC0 becomes that of a Fighter of the same level as the caster. Proficiency bonuses apply as normal.
   Duration: 3 rounds
   Area of Effect: The user
 
@@ -325,16 +386,18 @@ Weight: 1~
 
 
 
-//non-Souls weapons
+//
+//misc weapons
 @111 = ~Unbalanced Halberd~
 @211 = ~Like others of its type, this halberd consists of a cleaver-like axe blade mounted on a staff approximately six feet in length. The weapon appears to be solidly built, though the weight feels odd in your hands, shifting forward or sideways of its own accord.
 
 STATISTICS:
 
 Equipped abilities:
+– Dexterity: -1
 – Once per round, the wielder gains +1 or -1 each to damage, attack rolls, and Armor Class for 3 rounds
 
-Damage: 1d10 (piercing or slashing)
+Damage: 1d10+2 (piercing or slashing)
 Speed Factor: 9
 Proficiency Type: Halberd
 Type: Two-handed
@@ -344,7 +407,7 @@ Requires:
 Weight: 15~
 
 @112 = ~Club +4: Frenzy~
-@212 = ~Most clubs are stout, hardwood sticks, narrow at the grip and wider at the end. This simple weapon has been used since mankind first began using tools. Anyone can find a good stout piece of wood and swing it; hence the club's widespread use. This club has been magically enhanced and burns with a fierce rage, for things once lost and a destiny once stolen, which can never be sated.
+@212 = ~Most clubs are stout, hardwood sticks, narrow at the grip and wider at the end. This simple weapon has been used since people first began using tools. Anyone can find a good stout piece of wood and swing it; hence the club's widespread use. This club has been magically enhanced and burns with a fierce rage, for things once lost and a stolen destiny, which can never be sated.
 
 STATISTICS:
 
@@ -353,10 +416,10 @@ Combat abilities:
 – May Enrage as a Berserker three times per day (duration: 1 turn)
 – Becomes winded after berserking (5 rounds): -2 penalty to damage, attack rolls, and Armor Class
 
-FRENZY: The wielder does not have full control over the weapon-induced rage. While berserking, there is a 15% chance per round to enter a frenzied state, attacking friend and foe alike. While frenzied, the wielder gains +2 to hit and damage, an extra attack per round, doubled movement speed, and a +30% chance to score a critical hit. Frenzy always lasts for a full turn and the bonuses are in addition to the bonuses from Enrage.
+FRENZY: While berserking, there is a 15% chance per round to enter a frenzied state, attacking friend and foe alike. While frenzied, the wielder gains +2 to hit and damage, an extra attack per round, doubled movement rate, and +30% to critical hit chance. Frenzy ends after 8 rounds, and the effects are in addition to effects from Enrage.
 
 THAC0: +4
-Damage: 1d6+4 (crushing)
+Damage: 1d6+4 (crushing), +1 (fire)
 Speed Factor: 1
 Proficiency Type: Club
 Type: One-handed
@@ -365,31 +428,31 @@ Requires:
 
 Weight: 3~
 
-@113 = ~Scimitar +2: Accelerator~
-@213 = ~The scimitar is closely related to the saber, a single-edged curved sword with protective hilt. The blade has a greater curve to it and is tapered to an elongated, sharp point. The origins of the scimitar are largely unknown; however, they have been very popular in the southern region of the realms. This sword has been magically enhanced, and attacks come quicker with each swing of the blade.
+@113 = ~Maul +3: Accelerator~
+@213 = ~An old steel hammer with a long handle. This workman's tool has seen better days, but it still looks sturdy enough to be used as a weapon. Tiny runes of power can be seen etched all along the surface.
 
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the wielder +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
+– Accelerator: Each hit gives the wielder +0.5 attacks per round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
 
-THAC0: +2
-Damage: 1d8+2 (slashing)
+THAC0: +3
+Damage: 1d8+3 (crushing)
 Speed Factor: 3
-Proficiency Type: Scimitar/Wakizashi/Ninjatō
+Proficiency Type: War Hammer
 Type: One-handed
 Requires:
- 10 Strength
+ 9 Strength
 
 Weight: 4~
 
 @114 = ~Sling +2: Accelerator~
-@214 = ~Magical slings are the hallmark of stout halfling warriors. This blue sling reveals a hidden power when swung in battle. Power courses from sling to hand, and the slinger attacks more rapidly with each stone flung from the pocket.
+@214 = ~Magical slings are the hallmark of stout halfling warriors. This striking blue sling reveals a hidden power when swung in battle. Power courses from sling to hand, and the slinger attacks more rapidly with each stone flung from the pocket.
 
 STATISTICS:
 
 Combat abilities:
-– Accelerator: Each hit gives the slinger +0.5 Attacks Per Round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
+– Accelerator: Each hit gives the slinger +0.5 attacks per round for 10 seconds, with a 50% chance to incur a -1 penalty to attack rolls
 
 Special: Halflings do not suffer a penalty to attack rolls from Accelerator
 
@@ -405,8 +468,8 @@ Weight: 0~
 
 
 
-
-//other text (i.e. bag of holding)
+//
+//misc stuff
 @115 = ~Weapon Sack~
 @215 = ~This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.
 
@@ -414,18 +477,27 @@ STATISTICS:
 
 Weight: 5~
 
+//pstee
+@778115 = @115
+@778215 = ~WEAPON SACK
+Weight: 5
+
+This magical sack was prepared for <CHARNAME> and <PRO_HISHER> allies. The label on the bag reads, "FOR TESTING PURPOSES ONLY". Items within can be removed, but strangely, a magical force prevents the party from placing items into the bag.~
 
 
-//alternate text (bow damage)
+
+//
+//alt text (bow damage)
 
 //Black Bow of Pharis (IWDEE)
-@900 = ~A black longbow named after a hero of old. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
+@493100 = @100
+@493200 = ~A black longbow named after a hero of old. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
 
 STATISTICS:
 
 Equipped abilities:
 – +5% chance to score a critical hit
-– Sets base Attacks Per Round to 3
+– 3 shots per round
 
 THAC0: +5
 Damage: +2 (missile)
@@ -439,7 +511,8 @@ Requires:
 Weight: 1~
 
 //White Birch Bow (IWDEE)
-@902 = ~A shortbow crafted with white birch. Endowed with light-manipulating magic. The bow is a relic from an ancient land of sorceries that was swallowed by the Abyss.
+@493102 = @102
+@493202 = ~A shortbow crafted with white birch. Endowed with light-manipulating magic. The bow is a relic from an ancient land of sorceries that was swallowed by the Abyss.
 
 STATISTICS:
 
@@ -460,49 +533,344 @@ Requires:
 Weight: 1~
 
 //Avelyn (IWDEE)
-@903 = ~An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism. Unlike other crossbows, the Avelyn requires intelligence to operate proficiently.
+@493103 = @103
+@493203 = ~An extremely rare rapid-firing crossbow. Fires bolts in quick succession by means of an elaborate mechanism.
 
 STATISTICS:
 
 Equipped abilities:
-– Slows casting speed by 2
-– Sets base Attacks Per Round to 3
+– 3 shots per round
 
 Charge abilities:
-– Repeat Fire three times per day
-  Special: Sets Attacks Per Round to 9, with a +10 bonus to attack rolls, and fires bolts of lightning that inflict 1d8+2 electrical damage, plus an additional 4d4 electrical damage (Save vs. Breath for half)
-  Duration: 1 round
+– Repeat Fire, usable at will
+  Special: 10 attacks per round, but may not roll a critical hit and each attack deals 30% of normal damage
+  Duration: 8 seconds
   Area of Effect: The user
+  Note: Must be holding Avelyn to use this ability
 
-THAC0: +1
+THAC0: +3
 Damage: +1 (missile), +2 (electrical)
 Speed Factor: 4
 Proficiency Type: Crossbow
 Type: Two-handed
 Requires:
  8 Strength
- 14 Intelligence
+ 9 Dexterity
+ 9 Intelligence
 
 Weight: 15~
 
 
 
-//unidentified text
-@700 = ~Katana~
-@701 = ~The katana is a single-edged, slightly curved sword that ends with a chisel point. The katana is perhaps one of the finest swords ever made, the steps to its creation a long and secret process that is more art form than anything else. This blade is an important facet of Kara-Turan culture. To touch or wield a samurai's katana is to insult the samurai and to incite his wrath. For a gaijin, or foreigner, to own such a blade is a rare occurrence. Either the gaijin is a greatly honored friend of an important minister, or the gaijin has murdered a samurai.
+//
+//alt text (pst)
 
-STATISTICS:
+//
+//Ranged
 
-Damage: 1d10 (slashing)
-Speed Factor: 4
-Proficiency Type: Katana
-Type: One-handed
-Requires:
- 6 Strength
+//Black Bow of Pharis (PSTEE)
+@778100 = ~Pharis Boltgun~
+@778200 = ~PHARIS BOLTGUN
+Damage: 3-8 Piercing
+Enchanted: +2
+Special:
+   Long Range
+   +5% Critical Hit Chance
+   Increased attack rate
+THAC0: +5
+Speed: 1
+Weight: 1
+Proficiency: Fists
+Requires: 18 Dexterity
+Usable only by Fighters and Thieves
 
-Weight: 6~
+A black boltgun named after a hero of old. Worn over the hands like a fist iron. Superior craftsmanship allows for extremely quick and accurate shots even at long distances, but successful usage requires a trained, dexterous hand.
+
+^NNOTE: This weapon's ammunition is created magically when attacking.^-~
+
+//Dragonslayer Greatbow (PSTEE)
+@778101 = ~Dragonslayer Greatbow~
+@778201 = ~DRAGONSLAYER GREATBOW
+Damage: 4-24 Piercing
+Enchanted: +4
+Special:
+   Long Range
+   +12 Crushing Damage
+   Target is knocked back and stunned for 3 seconds
+   Anchored: -2 penalty to Armor Class
+   May not exceed 1 attack per 5 seconds
+THAC0: -2
+Speed: 10
+Weight: 35
+Proficiency: Axes
+Requires: 19 Strength
+Usable only by Fighters
+
+This massive crossbow, shaped like a battle axe, was said to be used by the Dragonslayers from another world. Its unusual size makes it unwieldy in the hands of a human or demihuman.
+
+^NNOTE: This weapon's ammunition is created magically when attacking.^-~
+
+//White Birch Bow (PSTEE)
+@778102 = ~White Birch Boltgun~
+@778202 = ~WHITE BIRCH BOLTGUN
+Damage: 4-9 Piercing
+Enchanted: +3
+Special:
+   Long Range
+   +1 Magic Damage
+   Hidden Body: 15% chance every 6 seconds the wielder becomes invisible for 18 seconds
+   Hidden Weapon: 25% chance the wielder becomes invisible for 18 seconds after hitting a target
+THAC0: +3
+Speed: 3
+Weight: 1
+Proficiency: Fists
+Usable only by Fighters and Thieves
+
+A boltgun crafted with white birch. Worn over the hands like a fist iron and endowed with light-manipulating magic. The weapon is a relic from an ancient land of sorceries that was swallowed by the Abyss.
+
+^NNOTE: This weapon's ammunition is created magically when attacking.^-~
+
+//Avelyn (PSTEE)
+@778103 = ~Avelyn~
+@778203 = ~AVELYN
+Damage: 2-9 Piercing
+Enchanted: +1
+Special:
+   Long Range
+   1-6 Electrical Damage
+   Repeat Fire at will: Increases attack rate but attacks deal less damage (Duration: 8 seconds)
+THAC0: +3
+Speed: 4
+Weight: 15
+Proficiency: Edged
+Not usable by Priests
+
+An extremely rare rapid-firing crossbow, shaped like a dagger and surprisingly heavy. Fires bolts in quick succession by means of an elaborate mechanism.
+
+^NNOTE: This weapon's ammunition is created magically when attacking. To activate Repeat Fire, select "Use", then choose the option to cast it.^-~
 
 
 
-/*
-*/
+//
+//2-handed
+
+//Colossal Sword (PSTEE)
+@778104 = ~Colossal Hammer~
+@778204 = ~COLOSSAL HAMMER
+Damage: 6-60 Crushing
+Special:
+   Additional 4-32 Crushing Damage
+   Target is knocked back or knocked down (50% chance of each, no save)
+   Heavy: -2 penalty to Dexterity
+   May not exceed 1 attack per 5 seconds
+THAC0: -2
+Speed: 10
+Weight: 60
+Proficiency: Hammers
+Requires: 19 Strength
+Usable only by Fighters
+
+A coarse iron lump of a great hammer. Highly destructive if intolerably heavy. Mows down foes by utilizing its incredible weight.~
+
+//Fume Ultra Greatsword (PSTEE)
+@778105 = ~Fume Great Maul~
+@778205 = ~FUME GREAT MAUL
+Damage: 6-60 Crushing
+Enchanted: +4
+Special:
+   +4 to AC vs. crushing, slashing, piercing, and missile
+   Additional 4-32 Crushing Damage
+   Target is knocked back or knocked down (50% chance of each, no save)
+   Heavy: -2 penalty to Dexterity
+   May not exceed 1 attack per 5 seconds
+THAC0: -2
+Speed: 10
+Weight: 80
+Proficiency: Hammers
+Requires: 19 Strength
+Usable only by Fighters
+
+A gigantic, twisted maul, resembling black slate. This weapon, said to belong to a traitor from long ago, was so heavy that it found no owner, and became a forgotten relic of history.~
+
+//Stone Greatsword (PSTEE)
+@778106 = ~Enchanted Stone Axe~
+@778206 = ~ENCHANTED STONE AXE
+Damage: 4-13 Slashing
+Enchanted: +3
+Special:
+   +1 Magic Damage
+   +10% Resistance to Magic
+   Tranquil Walk of Peace (3x/day): Activates an aura, which slows movement rate of enemies by half for 60 seconds (no save); while slowed, also suffer a -2 penalty to Armor Class and Saving Throws (Duration: 12 seconds)
+THAC0: +3
+Speed: 7
+Weight: 18
+Proficiency: Axes
+Usable only by Fighters
+
+A moss-covered battle axe, wielded by the stone guardians of an enchanted forest—once the home of powerful sorceries, before the inhabitants awakened the Abyss.
+
+^NNOTE: To cast Tranquil Walk of Peace, select "Use", then choose the option to cast it.^-~
+
+
+
+//
+//1-handed
+
+//Chaos Rapier (PSTEE)
+@778107 = ~Chaos Flame Dagger~
+@778207 = ~CHAOS FLAME DAGGER
+Damage: 4-9 Piercing
+Enchanted: +1 (+5 with Chaos bonus)
+Special:
+   1-6 Fire Damage and 10% chance of an additional 3-18 Fire Damage
+   -2 to Constitution
+   10% bonus to all fire damage dealt (30% with Chaos bonus)
+   Chaos bonus (13+ INT/WIS): Increased enchantment and fire damage but wielder is drained 2 Hit Points every 18 seconds
+THAC0: +3
+Speed: 1
+Weight: 2
+Proficiency: Edged
+Not usable by Morte
+
+Dagger of darkness and chaos. Attuned to fire, but eats away at the owner's vitality. Nebulous, inky and serene, the Dark holds an allure matched only by the fear it strikes in men's hearts.
+
+^NNOTE: Chaos stat is checked every second. Damage taken from the Chaos bonus cannot reduce a character to 0 Hit Points.^-~
+
+//Drakeblood Greatsword (PSTEE)
+@778108 = ~Drakeblood Axe~
+@778208 = ~DRAKEBLOOD AXE
+Damage: 5-11 Slashing
+Enchanted: +3
+Special:
+   55% chance of 1-6 Magic Damage
+   55% chance of 1-6 Electrical Damage (10% chance of both damage types)
+   +20% Resistance to Fire
+   -2 to Save vs. Death Magic
+THAC0: +3
+Speed: 5
+Weight: 7
+Proficiency: Axes
+Usable only by Fighters
+
+Enchanted axe wielded by the Drakeblood Knights, worshippers of the blood of dragons. The insignia chiseled upon the haft symbolizes dragon's blood.~
+
+//Bewitched Alonne Sword (PSTEE)
+@778109 = ~Bewitched Knight's Axe~
+@778209 = ~BEWITCHED KNIGHT'S AXE
+Damage: 5-14 Slashing
+Enchanted: +4
+Special:
+   +2 to Save vs. Spells
+   25% chance of +5 Slashing Damage and Blood Loss (5 damage twice over the next 12 seconds)
+   Harakiri (1x/day): Inflicts heavy damage (12-72) and Blood Loss on self, but gain increased attack rate and +30% critical hit chance with melee attacks. (Duration: 36 seconds)
+THAC0: +4
+Speed: 2
+Weight: 9
+Proficiency: Axes
+Requires: 15 Strength, 13 Dexterity
+Usable only by Fighters
+
+A flawless battle axe once wielded by the honorable Sir Alonne, a warrior from the east. The captivating, undulating design serves to enhance this weapon's mystical allure.
+
+^NNOTE: To use the Harakiri ability, select "Use", then choose the option to cast it.^-~
+
+//Aquamarine Dagger (PSTEE)
+@778110 = ~Aquamarine Dagger~
+@778210 = ~AQUAMARINE DAGGER
+Damage: 3-6 Piercing
+Enchanted: +2 (+4 with Crystal Blade)
+Special:
+   +3 Magic Damage (3-18 with Crystal Blade)
+   Improves casting speed by 1
+   Crystal Blade (3x/day): Consumes 1 memorized spell, but gain increased attack rate, enchantment, THAC0 bonus, and Magic Damage dealt (Duration: 18 seconds)
+THAC0: +2 (+4 with Crystal Blade)
+Speed: 1
+Weight: 1
+Proficiency: Edged
+Not usable by Priests
+
+A dagger fitted with aquamarine crystals that shimmer with magic. Engraved with a prayer, perhaps it was a parting gift given to one sent off on great travels, never to return.
+
+^NNOTE: Only a Mage can use the Crystal Blade ability. To activate Crystal Blade, select "Use", then choose the option to cast it.^-~
+
+
+
+//
+//misc weapons
+
+//Unbalanced Halberd (PSTEE)
+@778111 = ~Unbalanced Battle Axe~
+@778211 = ~UNBALANCED BATTLE AXE
+Damage: 3-12 Slashing
+Special:
+   -1 to Dexterity
+   Once per 6 seconds, the wielder gains +1 or -1 each to damage, attack rolls, and Armor Class for 18 seconds
+Speed: 9
+Weight: 15
+Proficiency: Axes
+Requires: 13 Strength
+Usable only by Fighters
+
+This huge axe is a double-bladed weapon topped with a spike. The edges are razor-sharp, and the long handle allows the wielder to put considerable force into the swing. The weapon appears to be solidly built, though the weight feels odd in your hands, shifting forward or sideways of its own accord.~
+
+//Club +4: Frenzy (PSTEE)
+@778112 = ~Club +4: Frenzy~
+@778212 = ~CLUB +4: FRENZY
+Damage: 5-10 Crushing
+Enchanted: +4
+Special:
+   +1 Fire Damage
+   Confuses target (25% chance)
+   Enrage (3x/day): Gain combat bonuses (+15 Hit Points, +2 damage, +2 THAC0, +2 Armor Class) and immunity to charm, confusion, fear, feeblemind, hold, imprisonment, level drain, maze, stun, and sleep (Duration: 60 seconds)
+   Chance of Frenzy while berserking
+THAC0: +4
+Speed: 1
+Weight: 3
+Proficiency: Clubs
+Not usable by Mages
+
+Most clubs are stout, hardwood sticks, narrow at the grip and wider at the end. This club has been magically enhanced and burns with a fierce rage, for things once lost and a stolen destiny, which can never be sated.
+
+FRENZY: While berserking, there is a 15% chance per 6 seconds to enter a frenzied state, attacking friend and foe alike. While frenzied, the wielder gains increased damage, attack rate, and movement rate, and +30% to critical hit chance. Frenzy ends after 48 seconds, and the effects are in addition to effects from Enrage.
+
+^NNOTE: To use the Enrage ability, select "Use", then choose the option to cast it.^-~
+
+//Maul +3: Accelerator (PSTEE)
+@778113 = ~Maul +3: Accelerator~
+@778213 = ~MAUL +3: ACCELERATOR
+Damage: 4-11 Crushing
+Enchanted: +3
+Special:
+   Accelerator: +0.5 to attack rate for 10 seconds with each hit, with a 50% chance to incur a -1 penalty to THAC0
+THAC0: +3
+Speed: 3
+Weight: 4
+Proficiency: Hammers
+Usable only by Fighters
+
+An old steel hammer with a long handle. This workman's tool has seen better days, but it still looks sturdy enough to be used as a weapon. Tiny runes of power can be seen etched all along the surface.~
+
+//Sling +2: Accelerator (PSTEE)
+@778114 = ~Staff Sling +2: Accelerator~
+@778214 = ~STAFF SLING +2: ACCELERATOR
+Damage: 4-7 Crushing
+Enchanted: +2
+Special:
+   Long Range
+   Accelerator: +0.5 to attack rate for 10 seconds with each hit, with a 50% chance to incur a -1 penalty to THAC0
+   Special: Modrons do not suffer a penalty to THAC0 from Accelerator
+THAC0: +2
+Speed: 4
+Weight: 2
+Proficiency: Clubs
+Not usable by Mages
+
+The staff sling is able to throw projectiles at greater force and distance than hand slings. This striking blue sling reveals a hidden power when swung in battle. Power courses from sling to hand, and the slinger attacks more rapidly with each stone flung from the pocket.
+
+Special: Nordom always wields this weapon with Specialization (2 slots).
+
+^NNOTE: This weapon's ammunition is created magically when attacking.^-~
+
+
+//
+//

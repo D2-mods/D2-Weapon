@@ -1,166 +1,165 @@
 /*
 BG2EE: Adds a merchant to ToB in the pocket plane.
 IWDEE: Adds a merchant to HoW in Lonelywood.
-Has shops from pre-expansion areas with items from this mod.
 */
 
 
-ACTION_IF !(FILE_EXISTS ~override/d2rakst2.CRE~) BEGIN
-
-
-//Create dialogue file
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  COPY - ~%files%/rakstoreiwd.d~  ~%workspace%/d2rakst2.d~        // IWDEE
-END
-ELSE BEGIN
-  ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
-    COPY - ~%files%/rakstorebg2.d~  ~%workspace%/d2rakst2.d~      // BG2EE
-  END
-  ELSE BEGIN
-    ACTION_IF (GAME_IS ~bgee~) BEGIN
-      COPY - ~%files%/rakstorebg1.d~  ~%workspace%/d2rakst2.d~    // SoD
-    END
+//set CRE variable
+ACTION_FOR_EACH cre IN ~rakshasa~ ~bpelan~ ~ohbrak02~ ~GITHSOL4~ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%cre%.cre~) BEGIN
+    OUTER_TEXT_SPRINT outer  ~%cre%~
   END
 END
-
-COMPILE ~%workspace%/d2rakst2.d~
-
-
-//Write script
-<<<<<<<< .../temp/d2rakst2.BAF
-IF
-	OnCreation()
-	!Global("d2rakst2","GLOBAL",0)
-THEN
-	RESPONSE #100
-		SetGlobal("d2rakst2","GLOBAL",0)
-		Continue()
-END
-
-IF
-	!Global("SaveLocation","LOCALS",1)
-	NearSavedLocation(Myself,"StartPoint",0)
-THEN
-	RESPONSE #100
-		SetGlobal("SaveLocation","LOCALS",1)
-		SaveObjectLocation("LOCALS","StartPoint",Myself)
-END
-
-IF
-	!NearSavedLocation(Myself,"StartPoint",0)
-	!Detect([PC])
-	ActionListEmpty()
-THEN
-	RESPONSE #100
-		SetGlobal("SaveLocation","LOCALS",0)
-		MoveToSavedLocation("StartPoint","LOCALS")
-END
-
-IF
-	!Global("d2facePC","LOCALS",1)
-	Range([PC],15)
-THEN
-	RESPONSE #100
-		SetGlobal("d2facePC","LOCALS",1)
-		FaceObject([PC])
-END
-
-IF
-	!Global("d2facePC","LOCALS",0)
-	!Detect([PC])
-THEN
-	RESPONSE #100
-		SetGlobal("d2facePC","LOCALS",0)
-END
-
-IF
-	AttackedBy([ANYONE],DEFAULT)
-	!StateCheck(Myself,STATE_INVISIBLE)
-THEN
-	RESPONSE #100
-		ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)
-		ApplySpell(Myself,WIZARD_INVISIBILITY)
-END
->>>>>>>>
-
-COMPILE ~.../temp/d2rakst2.BAF~
-
-
-//Create creature file
-ACTION_IF (FILE_EXISTS_IN_GAME ~rakshasa.CRE~) BEGIN      // IWDEE
-  OUTER_TEXT_SPRINT merchant  ~rakshasa~
-END
-ELSE BEGIN
-  ACTION_IF (FILE_EXISTS_IN_GAME ~ohbrak02.CRE~) BEGIN    // BG2EE
-    OUTER_TEXT_SPRINT merchant  ~ohbrak02~
-  END
-  ELSE BEGIN
-    ACTION_IF (FILE_EXISTS_IN_GAME ~BPELAN.CRE~) BEGIN    // SoD
-      OUTER_TEXT_SPRINT merchant  ~BPELAN~
-    END
+ACTION_FOR_EACH cre IN ~golsan01~ ~bpclay~ ~GOLCLA01~ ~abishab~ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%cre%.cre~) BEGIN
+    OUTER_TEXT_SPRINT golem  ~%cre%~
   END
 END
-
-COPY ~%files%/rakscim.ITM~      ~override/d2rakst2.ITM~
-COPY_EXISTING ~%merchant%.CRE~  ~override/d2rakst2.CRE~
-  SAY NAME1 @2001  /* Mysterious Man */
-  SAY NAME2 @2001  /* Mysterious Man */
-  REPLACE_CRE_ITEM ~minhp1~ #0 #0 #0 ~unstealable&undroppable~ ~rring~
-  REPLACE_CRE_ITEM ~immune2~ #0 #0 #0 ~unstealable&undroppable~ ~amulet~
-  REPLACE_CRE_ITEM ~d2rakst2~ #0 #0 #0 ~unstealable&undroppable~ ~weapon1~ EQUIP
-
-  WRITE_ASCII 0x248 ~None~ #8         // set scripts
-  WRITE_ASCII 0x250 ~d2rakst2~ #8
-  WRITE_ASCII 0x258 ~None~ #8
-  WRITE_ASCII 0x260 ~None~ #8
-  WRITE_ASCII 0x268 ~None~ #8
-  WRITE_BYTE  0x270 128               // set Allegiance to Neutral
-  WRITE_ASCII 0x280 ~d2rakst2~ #32    // set script name
-  WRITE_ASCII 0x2cc ~d2rakst2~ #8     // set dialogue
-
-
-//Add merchant to maps
-ACTION_IF (GAME_IS ~iwdee~) BEGIN
-  COPY_EXISTING ~AR9100.ARE~  ~override~      // add to Lonelywood
-    LPF fj_are_structure
-      INT_VAR
-        fj_loc_x          = 1010
-        fj_loc_y          = 2110
-        fj_animation      = 0x7F10
-        fj_orientation    = 1    // SSW
-      STR_VAR
-        fj_structure_type = actor
-        fj_name           = Mysterious Man
-        fj_cre_resref     = d2rakst2
-    END
-  BUT_ONLY
-END
-ELSE BEGIN
-  ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
-    COPY_EXISTING ~AR4500.ARE~  ~override~    // add to Pocket Plane
-      LPF fj_are_structure
-        INT_VAR
-          fj_loc_x          = 2249
-          fj_loc_y          = 1817
-          fj_animation      = 0x7F10
-          fj_orientation    = 7    // NNW
-        STR_VAR
-          fj_structure_type = actor
-          fj_name           = Mysterious Man
-          fj_cre_resref     = d2rakst2
-      END
-    BUT_ONLY
-  END
-  ELSE BEGIN
-    ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
-      // nothing yet
-    END
+ACTION_FOR_EACH cre IN ~chicken~ ~chicke~ ~LIMLIM~ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%cre%.cre~) BEGIN
+    OUTER_TEXT_SPRINT chicken  ~%cre%~
   END
 END
 
 
+//more variables
+ACTION_FOR_EACH item IN ~MIN1HP~ ~minhp1~ ~IMOENHP1~ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+    OUTER_TEXT_SPRINT protect1  ~%item%~
+  END
+END
+ACTION_FOR_EACH item IN ~immune1~ ~immune2~ ~SILVMAG~ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%item%.itm~) BEGIN
+    OUTER_TEXT_SPRINT protect2  ~%item%~
+  END
+END
+OUTER_TEXT_SPRINT rakscim    ~d2rakst2~    // weapon + invis spell
+OUTER_TEXT_SPRINT rakcancel  ~d2rakstx~    // cancel invis spell
+OUTER_TEXT_SPRINT rakmorph   ~d2raksts~    // change merchant spell
+OUTER_TEXT_SPRINT delaymorph ~d2rakstt~    // delay merchant change
+
+
+//
+DEFINE_ACTION_FUNCTION d2weapon_cre INT_VAR type=1 STR_VAR race=~~ name=~~ file=None RET animation BEGIN
+  OUTER_TEXT_SPRINT race EVAL ~%%race%%~
+  ACTION_IF (type < 0) BEGIN OUTER_SET type = 1 END
+  OUTER_SPRINT tooltip @2007
+//  ACTION_IF (GAME_IS ~pstee~) BEGIN OUTER_TEXT_SPRINT name ~%tooltip%~ END    // use "???" for pst name (using below instead)
+
+  COPY_EXISTING ~%race%.CRE~  ~override/%file%.CRE~
+    SAY NAME1 ~%name%~
+    SAY NAME2 ~%tooltip%~
+    WRITE_LONG 0x14 0
+    WRITE_LONG 0x18 30
+    WRITE_BYTE 0x234 30
+    READ_LONG 0x28 animation
+    REPLACE_CRE_ITEM ~%protect1%~ #0 #0 #0 ~unstealable&undroppable~ ~amulet~
+    REPLACE_CRE_ITEM ~%protect2%~ #0 #0 #0 ~unstealable&undroppable~ ~rring~
+    REPLACE_CRE_ITEM ~%rakscim%~ #0 #0 #0 ~unstealable&undroppable~ ~weapon1~ EQUIP
+    PATCH_IF (GAME_IS ~pstee~) BEGIN WRITE_LONG 0x10 0 END    // remove flags for pst
+
+    WRITE_ASCII 0x248 ~None~ #8
+    WRITE_ASCII 0x250 ~%rakscim%~ #8    // set script (one for all CREs)
+    WRITE_ASCII 0x258 ~None~ #8
+    WRITE_ASCII 0x260 ~None~ #8
+    WRITE_ASCII 0x268 ~None~ #8
+    WRITE_BYTE  0x270 128               // set Allegiance to Neutral
+    WRITE_BYTE  0x271 type              // set General type (self-check for script/dialogue)
+    WRITE_ASCII 0x280 ~%file%~ #32      // set script name
+    WRITE_ASCII 0x2cc ~%rakscim%~ #8    // set dialogue (one for all CREs)
+  IF_EXISTS
 END
 
 
-/*
-*/
+//make outerplanar
+OUTER_TEXT_SPRINT race  ~outer~
+OUTER_TEXT_SPRINT outer_res  ~d2rakst2~
+OUTER_SET type = IDS_OF_SYMBOL (general ~HUMANOID~)
+OUTER_SPRINT merchant @2001
+LAF d2weapon_cre INT_VAR type=type STR_VAR race=~%race%~ name=~%merchant%~ file=~%outer_res%~ RET animation END
+
+OUTER_SET ~animate_%race%~ = animation
+OUTER_SPRINT ~talk1_%race%~ @2011
+OUTER_SPRINT ~talk2_%race%~ @2012
+OUTER_SPRINT ~talk3_%race%~ @2013
+OUTER_SPRINT ~invis_%race%~ @2014
+
+//make golem
+OUTER_TEXT_SPRINT race  ~golem~
+OUTER_TEXT_SPRINT golem_res  ~d2rakst3~
+OUTER_SET type = IDS_OF_SYMBOL (general ~MONSTER~)
+OUTER_SPRINT merchant @2005
+LAF d2weapon_cre INT_VAR type=type STR_VAR race=~%race%~ name=~%merchant%~ file=~%golem_res%~ RET animation END
+
+OUTER_SET ~animate_%race%~ = animation
+OUTER_SPRINT ~talk1_%race%~ @2051
+OUTER_SPRINT ~talk2_%race%~ @2052
+OUTER_SPRINT ~talk3_%race%~ @2053
+OUTER_SPRINT ~invis_%race%~ @2054
+
+//make chicken
+OUTER_TEXT_SPRINT race  ~chicken~
+OUTER_TEXT_SPRINT chicken_res  ~d2rakst4~
+OUTER_SET type = IDS_OF_SYMBOL (general ~ANIMAL~)
+OUTER_SPRINT merchant @2004
+LAF d2weapon_cre INT_VAR type=type STR_VAR race=~%race%~ name=~%merchant%~ file=~%chicken_res%~ RET animation END
+
+OUTER_SET ~animate_%race%~ = animation
+OUTER_SPRINT ~talk1_%race%~ @2061
+OUTER_SPRINT ~talk2_%race%~ @2062
+OUTER_SPRINT ~talk3_%race%~ @2063
+OUTER_SPRINT ~invis_%race%~ @2064
+
+
+//
+DEFINE_PATCH_FUNCTION rakscim_pst BEGIN
+  PATCH_IF (GAME_IS ~pstee~) BEGIN
+    LPF ALTER_ITEM_HEADER INT_VAR animation_overhand=34 animation_backhand=33 animation_thrust=33 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=7 match_parameter2=16 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=7 match_parameter2=20 END
+    WRITE_ASCII 0x22 AX #2
+    WRITE_ASCII 0x44 WMTREZR #8
+    WRITE_ASCII 0x10 ~~ #8
+    WRITE_ASCII 0x58 ~~ #8
+    LPF ALTER_EFFECT INT_VAR match_opcode=7 parameter1=38 END
+    LPF d2_pstitemflags INT_VAR silver=1 coldiron=1 steel=1 END
+  END
+END
+
+
+//add weapon (not scripted to attack)
+COPY ~%files%/rakscim.ITM~  ~override/%rakscim%.ITM~
+  LPF DELETE_EFFECT INT_VAR match_opcode=232 END    // moved effect to script
+  LPF rakscim_pst END
+COPY ~%files%/rakscim.SPL~  ~override/%rakscim%.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END    // delete sound (annoying)
+  LPF DELETE_EFFECT INT_VAR match_opcode=317 END
+  LPF d2_protect_on_castequip END
+
+//remove invisible (from script)
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%rakcancel%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%rakscim%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=136 timing=1 END
+
+//change merchant spell
+COPY ~%abilities%/replaceself.SPL~  ~override/%rakmorph%.SPL~
+  LPF ALTER_EFFECT INT_VAR parameter2=0 probability1=33 probability2=0 STR_VAR resource=~%outer_res%~ END    // 34% humanoid
+  LPF CLONE_EFFECT INT_VAR multi_match=1 probability1=66 probability2=34 STR_VAR resource=~%golem_res%~ END    // 33% golem
+  LPF CLONE_EFFECT INT_VAR multi_match=1 probability1=100 probability2=67 STR_VAR resource=~%chicken_res%~ END    // 33% chicken
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=215 target=2 timing=1 STR_VAR resource=ALTERH END
+
+//delay merchant change
+COPY ~%abilities%/opcode318.SPL~  ~override/%delaymorph%.SPL~
+  LPF ALTER_EFFECT INT_VAR duration=12000 STR_VAR resource=~%rakmorph%~ END    // switch every 1-2 days (200 turns)
+  LPF d2_remove_effects_on_cast END
+
+
+//
+INCLUDE ~%install%/npcdfiles.tph~
+INCLUDE ~%install%/npcscript.tph~
+INCLUDE ~%install%/npclocations.tph~
+INCLUDE ~%install%/npcglobals.tph~
+
+
+//
+//

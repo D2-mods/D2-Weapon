@@ -1,0 +1,506 @@
+/*
+npc merchant locations
+*/
+
+
+/*variables (set from npcstore.tph)
+OUTER_TEXT_SPRINT outer_res  ~d2rakst2~
+OUTER_TEXT_SPRINT golem_res  ~d2rakst3~
+OUTER_TEXT_SPRINT chicken_res  ~d2rakst4~
+
+OUTER_SET animate_outer = 0x7F10    // RAKSHASA
+OUTER_SET animate_golem = 0x7F07    // GOLEM_CLAY
+OUTER_SET animate_chicken = 0xC200    // CHICKEN
+
+//adjust for pst? only if adding merchant
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+END
+*/
+
+
+//
+//Add merchant to maps
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+
+  // Lonelywood
+  COPY_EXISTING ~AR9100.ARE~  ~override~
+    SET loc_x = 1571
+    SET loc_y = 1523
+    SET orientation = 1    // SSW
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x    // rak (1010, 2110), golem (1571, 1523)
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  BUT_ONLY
+
+  // gloomfrost
+  COPY_EXISTING ~AR9501.ARE~  ~override~
+    SET loc_x = 2684
+    SET loc_y = 612
+    SET orientation = 1
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_outer
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%outer_res%~
+    END
+  BUT_ONLY
+
+  // totlm
+  COPY_EXISTING ~AR9711.ARE~  ~override~
+    SET loc_x = 1686   // 1999
+    SET loc_y = 1754   // 732
+    SET orientation = 6
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  BUT_ONLY
+
+  // kuldahar
+  COPY_EXISTING ~AR2100.ARE~  ~override~
+    SET loc_x = 1127
+    SET loc_y = 2134
+    SET orientation = 0
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  BUT_ONLY
+
+  // gnome town
+  COPY_EXISTING ~AR8004.ARE~  ~override~
+    SET loc_x = 1362
+    SET loc_y = 1532
+    SET orientation = 9
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_chicken
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%chicken_res%~
+    END
+  BUT_ONLY
+
+END
+
+
+
+ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
+
+  // Pocket Plane
+  COPY_EXISTING ~AR4500.ARE~  ~override~
+    SET loc_x = 2249
+    SET loc_y = 1817
+    SET orientation = 7    // NNW
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_outer
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%outer_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+  // Watcher's Keep
+  COPY_EXISTING ~AR3017.ARE~  ~override~
+    SET loc_x = 4124
+    SET loc_y = 2178
+    SET orientation = 4
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+  // underdark (gnome town)
+  COPY_EXISTING ~AR2100.ARE~  ~override~
+    SET loc_x = 3046
+    SET loc_y = 1290
+    SET orientation = 1
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_chicken
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%chicken_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+  // docks
+  COPY_EXISTING ~AR0300.ARE~  ~override~
+    SET loc_x = 2708
+    SET loc_y = 299
+    SET orientation = 0
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+  // trademeet
+  COPY_EXISTING ~AR2000.ARE~  ~override~
+    SET loc_x = 2007
+    SET loc_y = 1228
+    SET orientation = 13
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+  // black pits 2 (OH8100)
+
+END
+
+
+
+ACTION_IF (GAME_INCLUDES ~bg1~) BEGIN
+
+//bg1 areas
+OUTER_TEXT_SPRINT bg2000  ~AR2000~    // bg1werewolfisle
+OUTER_TEXT_SPRINT bg0700  ~AR0700~    // bg1centralmarket
+OUTER_TEXT_SPRINT bg1400  ~AR1400~    // bg1fishingvillage
+OUTER_TEXT_SPRINT bg0500  ~AR0500~    // bg1durlagstower
+OUTER_TEXT_SPRINT bg3300  ~AR3300~    // bg1beregost
+
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  OUTER_TEXT_SPRINT bg2000  ~BG2000~
+  OUTER_TEXT_SPRINT bg0700  ~BG0700~
+  OUTER_TEXT_SPRINT bg1400  ~BG1400~
+  OUTER_TEXT_SPRINT bg0500  ~BG0500~
+  OUTER_TEXT_SPRINT bg3300  ~BG3300~
+END
+ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
+  OUTER_TEXT_SPRINT bg2000  ~FW2000~
+  OUTER_TEXT_SPRINT bg0700  ~FW0700~
+  OUTER_TEXT_SPRINT bg1400  ~FW1400~
+  OUTER_TEXT_SPRINT bg0500  ~FW0500~
+  OUTER_TEXT_SPRINT bg3300  ~FW3300~
+END
+ACTION_IF (GAME_IS ~bgt~) BEGIN
+  OUTER_TEXT_SPRINT bg2000  ~ARW000~
+  OUTER_TEXT_SPRINT bg0700  ~AR7700~
+  OUTER_TEXT_SPRINT bg1400  ~AR8300~
+  OUTER_TEXT_SPRINT bg0500  ~ARD000~
+  OUTER_TEXT_SPRINT bg3300  ~AR6700~
+END
+
+  // werewolf island
+  COPY_EXISTING ~%bg2000%.ARE~  ~override~
+    SET loc_x = 318
+    SET loc_y = 1000
+    SET orientation = 2
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_chicken
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%chicken_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+  // bg marketplace
+  COPY_EXISTING ~%bg0700%.ARE~  ~override~
+    SET loc_x = 2250
+    SET loc_y = 2473
+    SET orientation = 0
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+/*
+  // fishing village
+  COPY_EXISTING ~%bg1400%.ARE~  ~override~
+    SET loc_x = 2950
+    SET loc_y = 1286
+    SET orientation = 4
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_outer
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%outer_res%~
+    END
+  IF_EXISTS BUT_ONLY
+*/
+
+  // durlag's
+  COPY_EXISTING ~%bg0500%.ARE~  ~override~
+    SET loc_x = 3032
+    SET loc_y = 1762
+    SET orientation = 1
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_outer
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%outer_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+  // beregost
+  COPY_EXISTING ~%bg3300%.ARE~  ~override~
+    SET loc_x = 2457
+    SET loc_y = 3202
+    SET orientation = 1
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+
+//
+//sod areas
+
+/*
+  // sod siege camp
+  COPY_EXISTING ~bd3000.ARE~  ~override~
+    SET loc_x = 1043
+    SET loc_y = 209
+    SET orientation = 0
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  IF_EXISTS BUT_ONLY
+*/
+
+  // sod caelar camp
+  COPY_EXISTING ~bd4000.ARE~  ~override~
+    SET loc_x = 2962
+    SET loc_y = 2449
+    SET orientation = 0
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_chicken
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%chicken_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+  // sod warrens
+  COPY_EXISTING ~bd5200.ARE~  ~override~
+    SET loc_x = 1935
+    SET loc_y = 860
+    SET orientation = 0
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  IF_EXISTS BUT_ONLY
+
+  // black pits 1 (OH9360)
+
+END
+
+
+
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+
+  // pst hive mortuary
+  COPY_EXISTING ~ar0200.ARE~  ~override~
+    SET loc_x = 2542
+    SET loc_y = 2165
+    SET orientation = 0
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  BUT_ONLY
+
+  // pst lower ward
+  COPY_EXISTING ~ar0500.ARE~  ~override~
+    SET loc_x = 3209
+    SET loc_y = 865
+    SET orientation = 1
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_chicken
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%chicken_res%~
+    END
+  BUT_ONLY
+
+  // pst outlands
+  COPY_EXISTING ~AR1100.ARE~  ~override~
+    SET loc_x = 1217
+    SET loc_y = 1806
+    SET orientation = 1
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_golem
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%golem_res%~
+    END
+  BUT_ONLY
+
+  // pst curst gone
+  COPY_EXISTING ~AR0800.ARE~  ~override~
+    SET loc_x = 3631
+    SET loc_y = 1284
+    SET orientation = 1
+
+    LPF fj_are_structure
+      INT_VAR
+        fj_loc_x          = loc_x
+        fj_loc_y          = loc_y
+        fj_animation      = animate_outer
+        fj_orientation    = orientation
+      STR_VAR
+        fj_structure_type = actor
+        fj_name           = Stranger
+        fj_cre_resref     = ~%outer_res%~
+    END
+  BUT_ONLY
+
+END
+
+
+//
+//

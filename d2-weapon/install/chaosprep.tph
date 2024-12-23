@@ -1,0 +1,32 @@
+//prep for chaos stat (chaos rapier)
+//
+
+
+/*
+d2chaoscheck = if both INT and WIS are 13+
+d2chaosunder = if either INT or WIS is under 13
+*/
+
+//add stat check to splprot.2da
+OUTER_SET mentals = 13
+OUTER_TEXT_SPRINT d2chaosINT  ~d2chaosINT 38 %mentals% 2~    // INT < mentals
+OUTER_TEXT_SPRINT d2chaosWIS  ~d2chaosWIS 39 %mentals% 2~    // WIS < mentals
+
+COPY_EXISTING ~splprot.2da~  ~override~
+  LPF d2_splprot_adder STR_VAR match=d2chaosINT string=~%d2chaosINT%~ RET stat END
+  SET d2chaosINT = stat
+  LPF d2_splprot_adder STR_VAR match=d2chaosWIS string=~%d2chaosWIS%~ RET stat END
+  SET d2chaosWIS = stat
+
+  TEXT_SPRINT d2chaoscheck  ~d2chaoscheck 0x104 %d2chaosINT% %d2chaosWIS%~    // 0x104 = both are false (passes chaos check)
+  TEXT_SPRINT d2chaosunder  ~d2chaosunder 0x103 %d2chaosINT% %d2chaosWIS%~    // 0x103 = either is true (fails chaos check)
+
+  LPF d2_splprot_adder STR_VAR match=d2chaoscheck string=~%d2chaoscheck%~ RET stat END
+  SET d2chaoscheck = stat
+  LPF d2_splprot_adder STR_VAR match=d2chaosunder string=~%d2chaosunder%~ RET stat END
+  SET d2chaosunder = stat
+BUT_ONLY
+
+
+/*
+*/

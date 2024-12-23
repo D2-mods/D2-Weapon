@@ -3,15 +3,16 @@
 
 
 //game variables
-ACTION_IF (GAME_IS ~iwdee~)  BEGIN 
+ACTION_IF (GAME_IS ~iwdee pstee~)  BEGIN 
   OUTER_TEXT_SPRINT game ~iwd~    // IWDEE
-END 
-ELSE BEGIN
+END ELSE BEGIN
   OUTER_TEXT_SPRINT game ~bg2~    // BG games
 END
 
+ACTION_IF (GAME_IS ~pstee~) BEGIN OUTER_SET adjust = 3 END
+ACTION_IF !(IS_AN_INT adjust) BEGIN OUTER_SET adjust = 8 END
 
-//
+
 //BG2 prices
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponbg2prices BEGIN
   ~%blackbow%~     => 15000
@@ -30,12 +31,11 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponbg2prices BEGIN
 //
   ~%uhalberd%~     => 1
   ~%clubfrenzy%~   => 8000
-  ~%accelerator%~  => 3000
+  ~%workhammer%~   => 5000
   ~%slingaccel%~   => 6000
 END
 
 
-//
 //IWD prices
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponiwdprices BEGIN
   ~%blackbow%~     => 14000
@@ -54,22 +54,31 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weaponiwdprices BEGIN
 //
   ~%uhalberd%~     => 1
   ~%clubfrenzy%~   => 8000
-  ~%accelerator%~  => 4000
+  ~%workhammer%~   => 6000
   ~%slingaccel%~   => 5000
+END
+
+
+//
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+  OUTER_TEXT_SPRINT $d2weaponiwdprices (~%stoneGS%~) ~10000~
+  OUTER_TEXT_SPRINT $d2weaponiwdprices (~%whitebirch%~) ~9000~
+  OUTER_TEXT_SPRINT $d2weaponiwdprices (~%slingaccel%~) ~6000~
+  OUTER_TEXT_SPRINT $d2weaponiwdprices (~%greatsword%~) ~7000~
 END
 
 
 //patch items
 ACTION_PHP_EACH ~d2weapon%game%prices~ AS item => price BEGIN
   ACTION_IF (FILE_EXISTS ~override/%item%.itm~) BEGIN
-
-    OUTER_SET  price /= 10
-    OUTER_SET  price *= adjust    // adjust = 10, 8, or 5 (chosen at install)
+    ACTION_IF (price >= 10) BEGIN
+      OUTER_SET  price /= 10
+      OUTER_SET  price *= adjust    // adjust = 10, 8, or 5 (chosen at install)
+    END
 
     COPY_EXISTING ~%item%.itm~ ~override~
       WRITE_LONG 0x34 price
     BUT_ONLY
-
   END
 END
 

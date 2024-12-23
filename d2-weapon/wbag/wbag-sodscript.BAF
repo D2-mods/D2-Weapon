@@ -1,0 +1,30 @@
+IF
+	!Global("d2wbagsod","GLOBAL",1)
+	GlobalGT("bd_plot","GLOBAL",0)
+	!PartyHasItem("d2#wbag")
+THEN
+	RESPONSE #100
+		GiveItemCreate("d2#wbag",Player1,0,0,0)
+		SetGlobal("d2wbagsod","GLOBAL",1)
+		Continue()
+END
+
+IF
+	!Global("d2wbagsod","GLOBAL",1)
+	GlobalGT("bd_plot","GLOBAL",0)
+	PartyHasItem("d2#wbag")
+THEN
+	RESPONSE #100
+		SetGlobal("d2wbagsod","GLOBAL",1)
+		Continue()
+END
+
+IF
+	!Global("d2wbagsoddupe","GLOBAL",1)
+	Global("d2wbagsod","GLOBAL",1)
+	NumItemsPartyGT("d2#wbag",1)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,DestroyItem("d2#wbag"))
+		SetGlobal("d2wbagsoddupe","GLOBAL",1)
+END

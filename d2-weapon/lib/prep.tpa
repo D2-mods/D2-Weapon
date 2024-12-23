@@ -19,20 +19,36 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_variable_array BEGIN
   aquamarine   => d2dag01
   uhalberd     => d2hal01
   clubfrenzy   => d2ham01
-  slingaccel   => d2eff01b
+  workhammer   => d2ham02
+  slingaccel   => d2eff01
 END
 >>>>>>>>
 COPY ~.../inlined/d2weapon_variable_array~  ~override~
 
 INCLUDE ~override/d2weapon_variable_array~
 
-
-//
 //set variables
 ACTION_PHP_EACH d2weapon_variable_array AS var => res BEGIN
   OUTER_TEXT_SPRINT  ~%var%~ ~%res%~
 END
 
 
-/*
-*/
+
+//
+//pstee - fix for custom projectiles (with weidu ADD_PROJECTILE)
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+  COPY_EXISTING - ~projectl.ids~ ~~
+    COUNT_REGEXP_INSTANCES  ~^299 ~  check1
+    COUNT_REGEXP_INSTANCES  ~^300 ~  check2
+    COUNT_REGEXP_INSTANCES  ~^455 ~  check3
+    COUNT_REGEXP_INSTANCES  ~^456 ~  check4
+
+  ACTION_IF (check1 = 0) BEGIN  APPEND ~projectl.ids~ ~299 --       // rune of torment - used by spwi914.spl (hardcoded)~  END
+  ACTION_IF (check2 = 0) BEGIN  APPEND ~projectl.ids~ ~300 --       // blacksphere - used by spwi401.spl (hardcoded)~  END
+  ACTION_IF (check3 = 0) BEGIN  APPEND ~projectl.ids~ ~455 --       // prayer - used by sppr303.spl (via prayerg.spl)~  END
+  ACTION_IF (check4 = 0) BEGIN  APPEND ~projectl.ids~ ~456 --       // prayer - used by sppr303.spl (via prayerb.spl)~  END
+END
+
+
+//
+//

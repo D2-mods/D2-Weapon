@@ -1,0 +1,340 @@
+/*
+checks item types and profs for pstee
+most of this is placeholder to load in game without issues
+
+NOTE: All launcher weapons use fist, edge, or axe proficiency. For technical reasons (UI issues with ammo), all launchers use innate ammo (same damage as normal ammo from BG games) + bonuses from the launcher.
+*/
+
+
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_pstitemtypes BEGIN
+  ~%blackbow%~     => punchdagger
+  ~%greatbow%~     => axe
+  ~%whitebirch%~   => punchdagger    // "fist"
+  ~%avelyn%~       => dagger
+//
+  ~%greatsword%~   => hammer
+  ~%fumeultraGS%~  => hammer
+  ~%stoneGS%~      => axe
+//
+  ~%chaosrapier%~  => dagger    // "edge"
+  ~%drakeblood%~   => axe
+  ~%alonnesword%~  => axe
+  ~%aquamarine%~   => dagger
+  ~%crystalblade%~ => dagger    // note: magic weapon opcode is buggy (don't use)
+//
+  ~%uhalberd%~     => axe
+  ~%clubfrenzy%~   => club
+  ~%accelerator%~  => dagger
+  ~%slingaccel%~   => club
+  ~%workhammer%~   => hammer
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_magical BEGIN
+  ~%blackbow%~     => 0
+  ~%greatbow%~     => 1
+  ~%whitebirch%~   => 1
+  ~%avelyn%~       => 1
+//
+  ~%greatsword%~   => 0
+  ~%fumeultraGS%~  => 1
+  ~%stoneGS%~      => 1
+//
+  ~%chaosrapier%~  => 1
+  ~%drakeblood%~   => 1
+  ~%alonnesword%~  => 1
+  ~%aquamarine%~   => 1
+  ~%crystalblade%~ => 1
+//
+  ~%uhalberd%~     => 0
+  ~%clubfrenzy%~   => 1
+  ~%accelerator%~  => 1
+  ~%slingaccel%~   => 1
+  ~%workhammer%~   => 1
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_color BEGIN
+  ~%blackbow%~     => 85
+  ~%greatbow%~     => 130
+  ~%whitebirch%~   => 9
+  ~%avelyn%~       => 131
+//
+  ~%greatsword%~   => 85
+  ~%fumeultraGS%~  => 197    // darker than 85
+  ~%stoneGS%~      => 132
+//
+  ~%chaosrapier%~  => 129
+  ~%drakeblood%~   => 133    // greenish to match new icon
+  ~%alonnesword%~  => 19
+  ~%aquamarine%~   => 87
+  ~%crystalblade%~ => 135
+//
+  ~%uhalberd%~     => 91
+  ~%clubfrenzy%~   => 35    // 35 (coppertone), 17 (reddish brown)
+  ~%accelerator%~  => 38
+  ~%slingaccel%~   => 44
+  ~%workhammer%~   => 38
+END
+
+
+//patch items
+ACTION_PHP_EACH ~d2weapon_pstitemtypes~ AS weapon => type BEGIN
+
+  COPY_EXISTING ~%weapon%.itm~  ~override~
+    LPF DELETE_EFFECT INT_VAR match_opcode=7 match_parameter2=16 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=7 match_parameter2=20 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=7 match_parameter2=18 END
+    LPF DELETE_EFFECT INT_VAR match_opcode=8 END
+//    LPF DELETE_EFFECT INT_VAR match_opcode=319 END    // remove op319 restrictions
+    WRITE_ASCII 0x10 ~~ #8         // pick up sound
+    WRITE_ASCII 0x58 ~~ #8         // drop sound
+//    LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=9 parameter2=135 probability1=100 probability2=0 END
+  LPF ALTER_ITEM_HEADER INT_VAR animation_overhand=34 animation_backhand=33 animation_thrust=33 END
+
+    PHP_EACH ~d2weapon_magical~ AS weapon2 => magical BEGIN
+      PATCH_IF (~%weapon%~ STR_EQ ~%weapon2%~) BEGIN
+        LPF d2_set_weapontype_fields INT_VAR magical=magical STR_VAR type=~%type%~ END
+
+        PATCH_IF (magical = 0) BEGIN
+          LPF d2_get_weapontype_fields STR_VAR type=~%type%~ RET item_desc END
+          WRITE_LONG 0x50 item_desc
+        END
+      END
+    END
+
+    PHP_EACH ~d2weapon_color~ AS weapon3 => color BEGIN
+      PATCH_IF (~%weapon%~ STR_EQ ~%weapon3%~) BEGIN
+        LPF ALTER_EFFECT INT_VAR match_opcode=7 parameter1=color END
+      END
+    END
+  BUT_ONLY
+
+END
+
+
+//
+DEFINE_PATCH_FUNCTION pst_bow_edits
+  INT_VAR dice=1 size=6 bonus=0 visual=~-1~ enchant=~-1~ usable=~-1~ dtype=0 proj=267    // 267 = Nordom bolts
+  STR_VAR type=none
+BEGIN
+
+//  WRITE_SHORT 0x1c 27    // crossbow type
+  LPF d2_pstitemflags INT_VAR steel=0 coldiron=0 END
+
+  PATCH_IF (~%type%~ STR_EQ ~bow~)       BEGIN SET dice=1 SET size=6 SET bonus=bonus SET dtype=1 END
+  PATCH_IF (~%type%~ STR_EQ ~crossbow~)  BEGIN SET dice=1 SET size=8 SET bonus=bonus SET dtype=1 END
+  PATCH_IF (~%type%~ STR_EQ ~sling~)     BEGIN SET dice=1 SET size=4 SET bonus+=1    SET dtype=2 END
+  PATCH_IF (~%type%~ STR_EQ ~composite~) BEGIN SET dice=1 SET size=6 SET bonus+=1    SET dtype=1 END
+  PATCH_IF (dtype<1 OR dtype>9) BEGIN SET dtype = 1 END
+
+  LPF ALTER_ITEM_HEADER
+    INT_VAR header=1 new_header_type=2 dicenumber=dice dicesize=size damage_bonus=bonus damage_type=dtype projectile=proj
+  END
+
+  PATCH_IF (visual > 0) BEGIN
+    WRITE_ASCII 0x22 ~CB~ #2    // crossbow visual (no visual in pst)
+  END
+
+  PATCH_IF (enchant > 0) BEGIN
+    LPF d2_magic_item_flags INT_VAR enchantment=enchant END    // use if changing from default
+  END
+
+  PATCH_IF (usable > 0) BEGIN
+    LPF d2_pstitem_npcflags END    // usable by NPCs (if class allows)
+  END
+
+END
+
+
+//fix APR of the super strong/slow weapons
+DEFINE_PATCH_FUNCTION pst_greatsword_apr BEGIN
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=1 match_parameter1=0 duration=5 END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=1 match_parameter1=1 parameter1=6 parameter2=1 END
+END
+
+
+//projectiles
+COPY ~%abilities%/pstmagicbullet.BAM~  ~override/%slingaccel%g.BAM~
+COPY - ~%abilities%/pstmagicbullet.PRO~  ~inlined/%slingaccel%g.PRO~
+  WRITE_ASCII 0x104 ~%slingaccel%g~ #8
+ADD_PROJECTILE ~inlined/%slingaccel%g.PRO~
+OUTER_SET magicbullet = ~%slingaccel%g~
+
+COPY ~%abilities%/pstmagicbolt.BAM~  ~override/%avelyn%g.BAM~
+COPY - ~%abilities%/pstmagicbolt.PRO~  ~inlined/%avelyn%g.PRO~
+  WRITE_ASCII 0x104 ~%avelyn%g~ #8
+ADD_PROJECTILE ~inlined/%avelyn%g.PRO~
+OUTER_SET avelynbolt = ~%avelyn%g~
+
+COPY - ~%abilities%/pstmagicbolt2.PRO~  ~inlined/%whitebirch%g.PRO~
+  WRITE_ASCII 0x104 ~%avelyn%g~ #8
+ADD_PROJECTILE ~inlined/%whitebirch%g.PRO~
+OUTER_SET magicbolt = ~%whitebirch%g~
+
+COPY ~%abilities%/pstgreatarrow.BAM~  ~override/%greatbow%g.BAM~
+COPY - ~%abilities%/pstgreatarrow.PRO~  ~inlined/%greatbow%g.PRO~
+  WRITE_ASCII 0x104 ~%greatbow%g~ #8
+ADD_PROJECTILE ~inlined/%greatbow%g.PRO~
+OUTER_SET greatarrow = ~%greatbow%g~
+
+
+//
+//bow edits
+COPY_EXISTING ~%slingaccel%.itm~  ~override~
+  LPF pst_bow_edits INT_VAR bonus=2 usable=1 proj=magicbullet STR_VAR type=sling END
+  WRITE_ASCII 0x10 INT_12R1 #8    // drop sound
+  WRITE_ASCII 0x58 INT_12R #8     // pick up sound
+  WRITE_LONG 0x4c 2               // 2 weight (changed to "staff sling")
+BUT_ONLY
+
+COPY_EXISTING ~%blackbow%.itm~  ~override~
+  LPF pst_bow_edits INT_VAR enchant=2 STR_VAR type=bow END
+BUT_ONLY
+
+COPY_EXISTING ~%whitebirch%.itm~  ~override~
+  LPF pst_bow_edits INT_VAR proj=magicbolt STR_VAR type=bow END
+  LPF DELETE_EFFECT INT_VAR match_opcode=319 END    // no druids + not a shortbow
+  LPF DELETE_EFFECT INT_VAR match_opcode=1 END      // no apr bonus
+BUT_ONLY
+
+COPY_EXISTING ~%greatbow%.itm~  ~override~
+  LPF pst_bow_edits INT_VAR dice=4 size=6 proj=greatarrow END
+  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter2=0x00000000 END    // crushing damage for knockback
+  LPF pst_greatsword_apr END
+BUT_ONLY
+
+COPY_EXISTING ~%avelyn%.itm~  ~override~
+  LPF pst_bow_edits INT_VAR bonus=1 proj=avelynbolt STR_VAR type=crossbow END
+  LPF DELETE_EFFECT INT_VAR match_opcode=1 END    // no apr bonus (buff gives max apr)
+  LPF ALTER_EFFECT INT_VAR match_opcode=12 parameter1=0 dicenumber=1 dicesize=6 END    // 1d6 electrical
+BUT_ONLY
+
+
+/*alt method for launchers (no change to header)
+COPY_EXISTING ~%slingaccel%.itm~  ~override~
+  WRITE_LONG 0x1e 0      // usable by anyone
+  WRITE_SHORT 0x1c 27    // crossbow type
+  LPF d2_pstitemflags INT_VAR steel=0 coldiron=0 END
+BUT_ONLY
+
+ACTION_FOR_EACH item IN ~%blackbow%~ ~%greatbow%~ ~%whitebirch%~ ~%avelyn%~ BEGIN
+  COPY_EXISTING ~%item%.itm~  ~override~
+    WRITE_SHORT 0x1c 27         // crossbow type
+//    WRITE_ASCII 0x22 ~CB~ #2    // crossbow visual (no visual)
+    LPF d2_pstitemflags INT_VAR steel=0 coldiron=0 END
+  BUT_ONLY
+END
+*/
+
+
+//
+//misc edits
+COPY_EXISTING ~%chaosrapier%.itm~  ~override~
+  WRITE_LONG 0x1e 0    // usable by anyone
+  LPF ALTER_EFFECT INT_VAR match_opcode=9 probability1=100 probability2=0 END
+BUT_ONLY
+
+COPY_EXISTING ~%greatsword%.itm~  ~override~
+  WRITE_ASCII 0x10 INT_12F1 #8    // drop sound
+  WRITE_ASCII 0x58 INT_12F #8     // pick up sound
+  LPF ALTER_ITEM_HEADER INT_VAR damage_type=2 END    // crushing damage
+  LPF pst_greatsword_apr END
+BUT_ONLY
+
+COPY_EXISTING ~%fumeultraGS%.itm~  ~override~
+  WRITE_ASCII 0x10 INT_12F1 #8    // drop sound
+  WRITE_ASCII 0x58 INT_12F #8     // pick up sound
+  LPF pst_greatsword_apr END
+BUT_ONLY
+
+COPY_EXISTING ~%clubfrenzy%.itm~  ~override~
+  WRITE_ASCII 0x10 INT_12P1 #8    // drop sound
+  WRITE_ASCII 0x58 INT_12P #8     // pick up sound
+  LPF DELETE_EFFECT INT_VAR match_opcode=139 END    // remove display string (not needed for pst confusion)
+BUT_ONLY
+
+COPY_EXISTING ~%alonnesword%.itm~  ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode=9 END    // remove glow pulse
+BUT_ONLY
+
+COPY_EXISTING ~%aquamarine%.ITM~  ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode=9 END
+BUT_ONLY
+
+COPY_EXISTING ~%uhalberd%.itm~  ~override~
+  LPF ALTER_ITEM_HEADER INT_VAR damage_type=3 END    // slashing damage
+BUT_ONLY
+
+
+/*sword animation isn't complete
+//sword edits
+ACTION_FOR_EACH item IN
+  ~%chaosrapier%~
+  ~%drakeblood%~
+  ~%alonnesword%~
+  ~%crystalblade%~
+  ~%accelerator%~
+BEGIN
+  COPY_EXISTING ~%item%.itm~  ~override~
+    WRITE_ASCII 0x22 ~S1~ #2    // visual
+  BUT_ONLY
+END
+*/
+
+
+/*not needed
+//edit glow pulse settings
+ACTION_FOR_EACH item IN ~%chaosrapier%~ ~%aquamarine%~ BEGIN
+  COPY_EXISTING ~%item%.itm~  ~override~
+    LPF ALTER_EFFECT INT_VAR match_opcode=9 parameter2=135 probability2=0 END
+  BUT_ONLY
+END
+
+ACTION_FOR_EACH item IN ~%alonnesword%~ ~%stoneGS%~ BEGIN
+  COPY_EXISTING ~%item%.itm~  ~override~
+    LPF ALTER_EFFECT INT_VAR match_opcode=9 parameter2=128 probability2=0 END
+  BUT_ONLY
+END
+*/
+
+
+//update item icons (just overwrite old ones)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_psticons BEGIN
+  ~%blackbow%~     => pstblackbow
+  ~%greatbow%~     => pstgreatbow
+  ~%whitebirch%~   => pstwhitebirch
+  ~%avelyn%~       => pstavelyn
+//
+  ~%greatsword%~   => pstgreatsword
+  ~%fumeultraGS%~  => pstfumeultraGS
+  ~%stoneGS%~      => pststoneGS
+//
+  ~%chaosrapier%~  => pstchaosrapier
+  ~%drakeblood%~   => pstdrakeblood
+  ~%alonnesword%~  => pstalonnesword
+  ~%aquamarine%~   => pstaquamarine
+//
+  ~%uhalberd%~     => pstuhalberd
+  ~%clubfrenzy%~   => pstclubfrenzy
+  ~%slingaccel%~   => pstslingaccel
+  ~%workhammer%~   => pstworkhammer
+END
+
+ACTION_PHP_EACH d2weapon_psticons AS res => bam BEGIN
+  ACTION_IF (FILE_EXISTS ~%icons%/%bam%.BAM~) BEGIN
+    COPY ~%icons%/%bam%.BAM~  ~override/%res%.BAM~    // overwrite default icons
+  END
+END
+
+
+//include bow damage component
+INCLUDE ~%install%/bowdamage.tph~
+
+
+END
+
+
+//
+//

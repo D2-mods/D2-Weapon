@@ -2,11 +2,22 @@
 //
 
 
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+  OUTER_SPRINT blackbow_text @778200
+  OUTER_SPRINT whitebirch_text @778202
+  OUTER_SPRINT avelyn_text @778203
+END ELSE BEGIN
+  OUTER_SPRINT blackbow_text @493200
+  OUTER_SPRINT whitebirch_text @493202
+  OUTER_SPRINT avelyn_text @493203
+END
+
+
 //Black Bow of Pharis (d2bow01)
 ACTION_IF (FILE_EXISTS ~override/%blackbow%.ITM~) BEGIN
   COPY_EXISTING ~%blackbow%.ITM~ ~override~  
     WRITE_SHORT 0x8c 2    // +2 damage (was +0)
-    SAY DESC @900
+    SAY DESC ~%blackbow_text%~
   BUT_ONLY
 END
 
@@ -14,14 +25,18 @@ END
 ACTION_IF (FILE_EXISTS ~override/%whitebirch%.ITM~) BEGIN
   COPY_EXISTING ~%whitebirch%.ITM~ ~override~
     WRITE_SHORT 0x8c 3    // +3 damage (was +0)
-    SAY DESC @902
+    SAY DESC ~%whitebirch_text%~
   BUT_ONLY
 END
 
 //Avelyn (d2bow04)
 ACTION_IF (FILE_EXISTS ~override/%avelyn%.ITM~) BEGIN
   COPY_EXISTING ~%avelyn%.ITM~ ~override~
-    WRITE_SHORT 0x8c 1    // +1 damage (was +0)
-    SAY DESC @903
+    WRITE_SHORT 0x86 3    // +3 THAC0 (was +1)
+    SAY DESC ~%avelyn_text%~
   BUT_ONLY
 END
+
+
+/*
+*/

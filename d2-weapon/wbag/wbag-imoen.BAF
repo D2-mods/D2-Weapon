@@ -1,0 +1,40 @@
+IF
+	!Global("d2wbagbg2","GLOBAL",1)
+	!PartyHasItem("d2#wbag")
+	InParty("Imoen")
+THEN
+	RESPONSE #100
+		GiveItemCreate("d2#wbag","Imoen",0,0,0)
+		SetGlobal("d2wbagbg2","GLOBAL",1)
+		Continue()
+END
+
+IF
+	!Global("d2wbagbg2","GLOBAL",1)
+	!PartyHasItem("d2#wbag")
+	InParty("Imoen2")
+THEN
+	RESPONSE #100
+		GiveItemCreate("d2#wbag","Imoen2",0,0,0)
+		SetGlobal("d2wbagbg2","GLOBAL",1)
+		Continue()
+END
+
+IF
+	!Global("d2wbagbg2","GLOBAL",1)
+	PartyHasItem("d2#wbag")
+THEN
+	RESPONSE #100
+		SetGlobal("d2wbagbg2","GLOBAL",1)
+		Continue()
+END
+
+IF
+	!Global("d2wbagbg2dupe","GLOBAL",1)
+	Global("d2wbagbg2","GLOBAL",1)
+	NumItemsPartyGT("d2#wbag",1)
+THEN
+	RESPONSE #100
+		ActionOverride(Player1,DestroyItem("d2#wbag"))
+		SetGlobal("d2wbagbg2dupe","GLOBAL",1)
+END

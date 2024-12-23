@@ -1,0 +1,87 @@
+//
+//
+
+
+//
+//item text (without damage component)
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+//bows
+  OUTER_SPRINT ~blackbow_name~ @778100
+  OUTER_SPRINT ~blackbow_desc~ @778200
+  OUTER_SPRINT ~greatbow_name~ @778101
+  OUTER_SPRINT ~greatbow_desc~ @778201
+  OUTER_SPRINT ~whitebirch_name~ @778102
+  OUTER_SPRINT ~whitebirch_desc~ @778202
+  OUTER_SPRINT ~avelyn_name~ @778103
+  OUTER_SPRINT ~avelyn_desc~ @778203
+//2 handed
+  OUTER_SPRINT ~colossalsword_name~ @778104
+  OUTER_SPRINT ~colossalsword_desc~ @778204
+  OUTER_SPRINT ~fumeultraGS_name~ @778105
+  OUTER_SPRINT ~fumeultraGS_desc~ @778205
+  OUTER_SPRINT ~stoneGS_name~ @778106
+  OUTER_SPRINT ~stoneGS_desc~ @778206
+//1 handed
+  OUTER_SPRINT ~chaosrapier_name~ @778107
+  OUTER_SPRINT ~chaosrapier_desc~ @778207
+  OUTER_SPRINT ~drakeblood_name~ @778108
+  OUTER_SPRINT ~drakeblood_desc~ @778208
+  OUTER_SPRINT ~alonnesword_name~ @778109
+  OUTER_SPRINT ~alonnesword_desc~ @778209
+  OUTER_SPRINT ~aquamarine_name~ @778110
+  OUTER_SPRINT ~aquamarine_desc~ @778210
+//other
+  OUTER_SPRINT ~uhalberd_name~ @778111
+  OUTER_SPRINT ~uhalberd_desc~ @778211
+  OUTER_SPRINT ~clubfrenzy_name~ @778112
+  OUTER_SPRINT ~clubfrenzy_desc~ @778212
+  OUTER_SPRINT ~workhammer_name~ @778113
+  OUTER_SPRINT ~workhammer_desc~ @778213
+  OUTER_SPRINT ~slingaccel_name~ @778114
+  OUTER_SPRINT ~slingaccel_desc~ @778214
+  OUTER_SPRINT ~weaponsack_name~ @778115
+  OUTER_SPRINT ~weaponsack_desc~ @778215
+
+END ELSE BEGIN
+//bows
+  OUTER_SPRINT ~blackbow_name~ @100
+  OUTER_SPRINT ~blackbow_desc~ @200
+  OUTER_SPRINT ~greatbow_name~ @101
+  OUTER_SPRINT ~greatbow_desc~ @201
+  OUTER_SPRINT ~whitebirch_name~ @102
+  OUTER_SPRINT ~whitebirch_desc~ @202
+  OUTER_SPRINT ~avelyn_name~ @103
+  OUTER_SPRINT ~avelyn_desc~ @203
+//2 handed
+  OUTER_SPRINT ~colossalsword_name~ @104
+  OUTER_SPRINT ~colossalsword_desc~ @204
+  OUTER_SPRINT ~fumeultraGS_name~ @105
+  OUTER_SPRINT ~fumeultraGS_desc~ @205
+  OUTER_SPRINT ~stoneGS_name~ @106
+  OUTER_SPRINT ~stoneGS_desc~ @206
+//1 handed
+  OUTER_SPRINT ~chaosrapier_name~ @107
+  OUTER_SPRINT ~chaosrapier_desc~ @207
+  OUTER_SPRINT ~drakeblood_name~ @108
+  OUTER_SPRINT ~drakeblood_desc~ @208
+  OUTER_SPRINT ~alonnesword_name~ @109
+  OUTER_SPRINT ~alonnesword_desc~ @209
+  OUTER_SPRINT ~aquamarine_name~ @110
+  OUTER_SPRINT ~aquamarine_desc~ @210
+//other
+  OUTER_SPRINT ~uhalberd_name~ @111
+  OUTER_SPRINT ~uhalberd_desc~ @211
+  OUTER_SPRINT ~clubfrenzy_name~ @112
+  OUTER_SPRINT ~clubfrenzy_desc~ @212
+  OUTER_SPRINT ~workhammer_name~ @113
+  OUTER_SPRINT ~workhammer_desc~ @213
+  OUTER_SPRINT ~slingaccel_name~ @114
+  OUTER_SPRINT ~slingaccel_desc~ @214
+  OUTER_SPRINT ~weaponsack_name~ @115
+  OUTER_SPRINT ~weaponsack_desc~ @215
+
+END
+
+
+//
+//

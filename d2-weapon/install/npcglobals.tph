@@ -1,0 +1,545 @@
+/*
+sets variables for both area scripts and npc dialog
+variables are checked in merchant dialog to trigger responses
+some later areas will enable all dialog checks (ex. being in tob enables bg2 stores)
+
+in some areas, merchant may also require story/area progress to offer stores
+*/
+
+
+//
+//set variables
+
+//bg1 areas
+OUTER_TEXT_SPRINT bg2000  ~AR2000~    // bg1werewolfisle
+OUTER_TEXT_SPRINT bg0700  ~AR0700~    // bg1centralmarket
+OUTER_TEXT_SPRINT bg1400  ~AR1400~    // bg1fishingvillage
+OUTER_TEXT_SPRINT bg0500  ~AR0500~    // bg1durlagstower
+OUTER_TEXT_SPRINT bg3300  ~AR3300~    // bg1beregost
+OUTER_TEXT_SPRINT bg0516  ~AR0516~    // bg1demonknight
+OUTER_TEXT_SPRINT bg2600  ~AR2600~    // bg1prologue
+
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  OUTER_TEXT_SPRINT bg2000  ~BG2000~
+  OUTER_TEXT_SPRINT bg0700  ~BG0700~
+  OUTER_TEXT_SPRINT bg1400  ~BG1400~
+  OUTER_TEXT_SPRINT bg0500  ~BG0500~
+  OUTER_TEXT_SPRINT bg3300  ~BG3300~
+  OUTER_TEXT_SPRINT bg0516  ~BG0516~
+  OUTER_TEXT_SPRINT bg2600  ~BG2600~
+END
+ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
+  OUTER_TEXT_SPRINT bg2000  ~FW2000~
+  OUTER_TEXT_SPRINT bg0700  ~FW0700~
+  OUTER_TEXT_SPRINT bg1400  ~FW1400~
+  OUTER_TEXT_SPRINT bg0500  ~FW0500~
+  OUTER_TEXT_SPRINT bg3300  ~FW3300~
+  OUTER_TEXT_SPRINT bg0516  ~FW0516~
+  OUTER_TEXT_SPRINT bg2600  ~FW2600~
+END
+ACTION_IF (GAME_IS ~bgt~) BEGIN
+  OUTER_TEXT_SPRINT bg2000  ~ARW000~
+  OUTER_TEXT_SPRINT bg0700  ~AR7700~
+  OUTER_TEXT_SPRINT bg1400  ~AR8300~
+  OUTER_TEXT_SPRINT bg0500  ~ARD000~
+  OUTER_TEXT_SPRINT bg3300  ~AR6700~
+  OUTER_TEXT_SPRINT bg0516  ~ARD016~
+  OUTER_TEXT_SPRINT bg2600  ~AR0015~
+END
+
+
+//code => area
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2rakstore_areas BEGIN
+//bg1
+  ~%bg2000%~ => bg1werewolfisle
+  ~%bg0700%~ => bg1centralmarket
+  ~%bg1400%~ => bg1fishingvillage    // not used
+  ~%bg0500%~ => bg1durlagstower
+  ~%bg3300%~ => bg1beregost
+//sod
+  bd3000 => sodsiegecamp    // not used
+  bd4000 => sodcaelarcamp
+  bd5200 => sodwarrens
+//bg2
+  AR4500 => bg2pocketplane
+  AR3017 => bg2watcherskeep
+  AR2100 => bg2underdark
+  AR0300 => bg2thiefdocks
+  AR2000 => bg2trademeet
+//iwd
+  AR9100 => iwd1lonelywood
+  AR9501 => iwd1gloomfrost
+  AR9711 => iwd1totlm
+  AR2100 => iwd1kuldahar    // overlap with bg2underdark has no gameplay effect
+  AR8004 => iwd1gnometown
+//pst
+  ar0200 => psthivemortuary
+  ar0500 => pstlowerward
+  ar1100 => pstoutlands
+  ar0800 => pstcurstgone
+//activation
+  AR0020 => bg2citygates
+  AR3000 => iwdvaleshadows    // overlap has no gameplay effect (anything that does is accounted for)
+  AR9300 => iwdburialisle
+//starting areas
+  ~%bg2600%~ => bg1prologue
+  bd0120     => sodprologue
+  AR0602     => bg2prologue
+  AR4000     => tobprologue
+  BPHUB      => bp1hubarea
+  ohbhub     => bp2hubarea
+  AR1000     => iwdprologue
+  AR0202     => pstprologue
+END
+
+ACTION_PHP_EACH d2rakstore_areas AS code => area BEGIN
+  OUTER_TEXT_SPRINT EVAL ~%area%~ ~%rakscim%_%code%~    // set in area scripts
+END
+
+
+//store => npc
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2rakstore_npcs BEGIN
+//sod
+  bdkazzre => sodkazzrem
+  bdwaizah => sodwaizahb
+  bdnazram => sodnazramu
+//bg2
+  wmart2   => bg2deidre
+  wmart1   => bg2joluv
+  ribald3  => bg2ribald
+//iwd
+  KUSMITH  => iwd1conland
+  SHLEHLAN => iwd1lehland
+  LDD_NYM  => iwd1nym
+//pst
+  EMORIC   => pstemoric
+  COAX     => pstcoaxmetal
+  KELDOR   => pstkeldor
+END
+
+ACTION_PHP_EACH d2rakstore_npcs AS store => npc BEGIN
+  OUTER_TEXT_SPRINT EVAL ~%npc%~ ~%rakscim%_%store%~    // set from dlgs
+END
+
+
+
+//
+//add to dlgs
+
+//npc => dlg
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2rakstore_dlgs BEGIN
+//sod
+  bdkazzre => sodkazzrem
+  bdwaizah => sodwaizahb
+  bdnazram => sodnazramu
+//bg2
+  wmart2   => bg2deidre
+  wmart1   => bg2joluv
+  RIBALD   => bg2ribald
+//iwd
+  DCONLAN  => iwd1conland
+  DLEHLAND => iwd1lehland
+  DNYM     => iwd1nym
+//pst
+  DEMORIC  => pstemoric
+  DCOAX    => pstcoaxmetal
+  DKELDOR  => pstkeldor
+END
+
+
+//dlg => states
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2rakstore_states BEGIN
+//sod
+  bdkazzre => ~0~
+  bdwaizah => ~11 13~
+  bdnazram => ~0 13~
+//bg2
+  wmart2   => ~0~
+  wmart1   => ~0~
+  RIBALD   => ~48~
+//iwd
+  DCONLAN  => ~0 1 13 14~
+  DLEHLAND => ~0 10~
+  DNYM     => ~0 10 11 18 19~
+//pst
+  DEMORIC  => ~93 98 100~
+  DCOAX    => ~64 65~
+  DKELDOR  => ~2 9~
+END
+
+
+//
+ACTION_PHP_EACH d2rakstore_dlgs AS dlg => npc BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%dlg%.dlg~) BEGIN
+    ACTION_PHP_EACH d2rakstore_states AS dlg2 => states BEGIN
+      ACTION_IF (~%dlg%~ STR_EQ ~%dlg2%~) BEGIN
+
+OUTER_TEXT_SPRINT var EVAL ~%%npc%%~
+<<<<<<<< .../temp/setglobal
+ADD_TRANS_ACTION ~%dlg%~
+  BEGIN %states% END
+  BEGIN END
+  ~SetGlobal("%var%","GLOBAL",1)~
+>>>>>>>>
+COPY - ~.../temp/setglobal~  ~inlined/setglobal.d~
+  EVALUATE_BUFFER
+COMPILE ~inlined/setglobal.d~
+
+      END
+    END
+  END
+END
+
+
+
+//
+//add to areas
+
+//code => activate
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2rakstore_activate BEGIN
+//bg1
+  ~%bg2000%~ => 1
+  ~%bg0700%~ => 0
+  ~%bg1400%~ => 0
+  ~%bg0500%~ => 1
+  ~%bg3300%~ => 0
+//sod
+  bd3000 => 1
+  bd4000 => 1
+  bd5200 => 1
+//bg2
+  AR4500 => 0
+  AR3017 => 1
+  AR2100 => 1
+  AR0300 => 0
+  AR2000 => 1
+//iwd
+  AR9100 => 0
+  AR9501 => 1
+  AR9711 => 1
+  AR2100 => 0
+  AR8004 => 1
+//pst
+  ar0200 => 0
+  ar0500 => 1
+  ar1100 => 1
+  ar0800 => 1
+//activation
+  AR0020 => 1    // bg2citygates
+  AR3000 => 1    // iwdvaleshadows
+  AR9300 => 1    // iwdburialisle
+//starting areas
+  ~%bg2600%~ => 1    // bg1
+  bd0120     => 1    // sod
+  AR0602     => 1    // bg2
+  AR4000     => 1    // tob
+  BPHUB      => 1    // bp1
+  ohbhub     => 1    // bp2
+  AR1000     => 1    // iwd
+  AR0202     => 1    // pst
+END
+
+
+//code => xpcheck (only relevant if activate = 0)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2rakstore_xpcheck BEGIN
+//bg1
+  ~%bg2000%~ => 1
+  ~%bg0700%~ => 149999
+  ~%bg1400%~ => 149999
+  ~%bg0500%~ => 1
+  ~%bg3300%~ => 149999
+//sod
+  bd3000 => 1
+  bd4000 => 1
+  bd5200 => 1
+//bg2
+  AR4500 => 2999999
+  AR3017 => 1
+  AR2100 => 1
+  AR0300 => 999999
+  AR2000 => 1
+//iwd
+  AR9100 => 2999999
+  AR9501 => 1
+  AR9711 => 1
+  AR2100 => 149999
+  AR8004 => 1
+//pst
+  ar0200 => 999999
+  ar0500 => 1
+  ar1100 => 1
+  ar0800 => 1
+//activation
+  AR0020 => 1    // bg2citygates
+  AR3000 => 1    // iwdvaleshadows
+  AR9300 => 1    // iwdburialisle
+//starting areas
+  ~%bg2600%~ => 1    // bg1
+  bd0120     => 1    // sod
+  AR0602     => 1    // bg2
+  AR4000     => 1    // tob
+  BPHUB      => 1    // bp1
+  ohbhub     => 1    // bp2
+  AR1000     => 1    // iwd
+  AR0202     => 1    // pst
+END
+
+
+//
+ACTION_PHP_EACH d2rakstore_areas AS code => area BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%code%.are~) BEGIN    // not super precise (doesn't matter)
+    ACTION_PHP_EACH d2rakstore_activate AS code2 => activate BEGIN
+      ACTION_IF (~%code%~ STR_EQ ~%code2%~) BEGIN
+        ACTION_PHP_EACH d2rakstore_xpcheck AS code3 => xpcheck BEGIN
+          ACTION_IF (~%code%~ STR_EQ ~%code3%~) BEGIN
+
+//
+//stores auto-enabled
+ACTION_IF (activate > 0) BEGIN 
+OUTER_TEXT_SPRINT var EVAL ~%%area%%~
+<<<<<<<< .../temp/setglobal
+IF
+	!Global("%var%","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("%var%","GLOBAL",1)
+		Continue()
+END
+
+IF
+	Global("%var%","GLOBAL",1)
+	!Global("%rakscim%_activate","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("%rakscim%_activate","GLOBAL",1)
+		Continue()
+END
+>>>>>>>>
+COPY - ~.../temp/setglobal~  ~inlined/setglobal.baf~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~%code%.bcs~ ~inlined/setglobal.baf~
+END
+
+//
+//requires area or story progress
+ACTION_IF (activate = 0) BEGIN
+OUTER_TEXT_SPRINT var EVAL ~%%area%%~
+<<<<<<<< .../temp/setglobal
+IF
+	!Global("%var%","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("%var%","GLOBAL",1)
+		Continue()
+END
+
+IF
+	Global("%var%","GLOBAL",1)
+	!Global("%rakscim%_activate","GLOBAL",1)
+	OR(7)
+		GlobalGT("ScarMission","GLOBAL",0)         // bg1
+		GlobalGT("%bg2citygates%","GLOBAL",0)      // bg2
+		GlobalGT("BeginChallenge1","GLOBAL",1)     // tob
+		GlobalGT("%iwdvaleshadows%","GLOBAL",0)    // iwd
+		GlobalGT("%iwdburialisle%","GLOBAL",0)     // how
+		GlobalGT("Alley_Face_SC","GLOBAL",0)       // pst
+		XPGT(Player1,%xpcheck%)
+THEN
+	RESPONSE #100
+		SetGlobal("%rakscim%_activate","GLOBAL",1)
+		Continue()
+END
+
+IF
+	Global("%var%","GLOBAL",1)
+	GlobalGT("%rakscim%_activate","GLOBAL",0)
+	!GlobalGT("ScarMission","GLOBAL",0)
+	!GlobalGT("%bg2citygates%","GLOBAL",0)
+	!GlobalGT("BeginChallenge1","GLOBAL",1)
+	!GlobalGT("%iwdvaleshadows%","GLOBAL",0)
+	!GlobalGT("%iwdburialisle%","GLOBAL",0)
+	!GlobalGT("Alley_Face_SC","GLOBAL",0)
+	!XPGT(Player1,%xpcheck%)
+THEN
+	RESPONSE #100
+		SetGlobal("%rakscim%_activate","GLOBAL",0)
+		Continue()
+END
+>>>>>>>>
+COPY - ~.../temp/setglobal~  ~inlined/setglobal.baf~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~%code%.bcs~ ~inlined/setglobal.baf~
+END
+
+          END
+        END
+      END
+    END
+  END
+END
+
+
+
+//
+//dialog triggers (merchant)
+ACTION_IF (GAME_IS ~bgee~) BEGIN
+  OUTER_SET xpcheck = 149999
+END ELSE BEGIN
+  OUTER_SET xpcheck = 2999999    // xpcheck is just an alt check for "activate" variable
+END
+
+<<<<<<<< .../temp/d2rakst2
+ADD_STATE_TRIGGER ~D2RAKST2~ 0    // state 0 (greeting)
+  ~OR(2)
+  GlobalGT("%rakscim%_activate","GLOBAL",0)
+  XPGT(Player1,%xpcheck%)
+  ~
+  2 3 5 6 8    // more states (has to be here for some reason)
+
+APPEND ~D2RAKST2~
+IF ~!GlobalGT("%rakscim%_activate","GLOBAL",0)
+    !XPGT(Player1,%xpcheck%)
+    General(Myself,MONSTER)
+   ~ BEGIN notopen
+  SAY @2040
+  IF ~~
+  DO ~ApplySpellRES("%delaymorph%",Myself)~
+  EXIT
+END
+END
+
+APPEND ~D2RAKST2~
+IF ~!GlobalGT("%rakscim%_activate","GLOBAL",0)
+    !XPGT(Player1,%xpcheck%)
+    General(Myself,HUMANOID)
+   ~ BEGIN silent
+  SAY @2060
+  IF ~~
+  DO ~ApplySpellRES("%delaymorph%",Myself)~
+  EXIT
+END
+END
+
+APPEND ~D2RAKST2~
+IF ~!GlobalGT("%rakscim%_activate","GLOBAL",0)
+    !XPGT(Player1,%xpcheck%)
+    General(Myself,ANIMAL)
+   ~ BEGIN stares
+  SAY @2061
+  IF ~~
+  DO ~ApplySpellRES("%delaymorph%",Myself)~
+  EXIT
+END
+END
+>>>>>>>>
+COPY - ~.../temp/d2rakst2~  ~inlined/d2rakst2.d~
+  EVALUATE_BUFFER
+COMPILE ~inlined/d2rakst2.d~
+
+
+
+//
+//dialog triggers (store options)
+DEFINE_ACTION_FUNCTION d2rakstore_npcchecks INT_VAR transition=0 STR_VAR npc=none BEGIN
+  ACTION_PHP_EACH d2rakstore_npcs AS store => npc2 BEGIN
+    ACTION_IF (~%npc%~ STR_EQ ~%npc2%~) BEGIN
+      ACTION_IF (FILE_EXISTS_IN_GAME ~%store%.sto~) BEGIN
+
+OUTER_TEXT_SPRINT npc EVAL ~%%npc%%~
+<<<<<<<< .../temp/d2rakst2
+ADD_TRANS_TRIGGER ~D2RAKST2~ 1    // state 1 (store list)
+  ~OR(2)
+  GlobalGT("%npc%","GLOBAL",0)
+  XPGT(Player1,%xpcheck%)
+  ~
+  2 4 5 7 8    // more states (has to be here for some reason)
+  DO %transition%
+>>>>>>>>
+COPY - ~.../temp/d2rakst2~  ~inlined/d2rakst2.d~
+  EVALUATE_BUFFER
+COMPILE ~inlined/d2rakst2.d~
+
+      END
+    END
+  END
+END
+
+//
+ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
+  LAF d2rakstore_npcchecks INT_VAR transition=2 STR_VAR npc=bg2ribald END
+END
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  LAF d2rakstore_npcchecks INT_VAR transition=1 STR_VAR npc=iwd1lehland END
+  LAF d2rakstore_npcchecks INT_VAR transition=2 STR_VAR npc=iwd1nym END
+END
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+  LAF d2rakstore_npcchecks INT_VAR transition=1 STR_VAR npc=pstcoaxmetal END
+  LAF d2rakstore_npcchecks INT_VAR transition=2 STR_VAR npc=pstkeldor END
+END
+
+
+
+//
+//expansion or later areas (enable all stores)
+DEFINE_ACTION_FUNCTION d2rakstore_expansion STR_VAR area=none BEGIN
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%area%.bcs~) BEGIN
+<<<<<<<< .../temp/allstores
+IF
+	!Global("%rakscim%_expansion","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("%rakscim%_expansion","GLOBAL",1)
+		SetGlobal("%npcstore1%","GLOBAL",1)
+		SetGlobal("%npcstore2%","GLOBAL",1)
+		SetGlobal("%npcstore3%","GLOBAL",1)
+		Continue()
+END
+>>>>>>>>
+COPY - ~.../temp/allstores~  ~inlined/allstores.baf~
+  EVALUATE_BUFFER
+EXTEND_BOTTOM ~%area%.bcs~ ~inlined/allstores.baf~
+END
+
+END
+
+//
+ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+  OUTER_TEXT_SPRINT npcstore1 ~%bdkazzre%~
+  OUTER_TEXT_SPRINT npcstore2 ~%bdwaizah%~
+  OUTER_TEXT_SPRINT npcstore3 ~%bdnazram%~
+  ACTION_FOR_EACH area IN ~%bg0516%~ ~BPHUB~ BEGIN
+    LAF d2rakstore_expansion STR_VAR area=~%area%~ END
+  END
+END
+
+ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
+  OUTER_TEXT_SPRINT npcstore1 ~%bg2deidre%~
+  OUTER_TEXT_SPRINT npcstore2 ~%bg2joluv%~
+  OUTER_TEXT_SPRINT npcstore3 ~%bg2ribald%~
+  ACTION_FOR_EACH area IN ~AR4000~ ~AR3020~ ~ohbhub~ BEGIN
+    LAF d2rakstore_expansion STR_VAR area=~%area%~ END
+  END
+END
+
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+  OUTER_TEXT_SPRINT npcstore1 ~%iwd1conland%~
+  OUTER_TEXT_SPRINT npcstore2 ~%iwd1lehland%~
+  OUTER_TEXT_SPRINT npcstore3 ~%iwd1nym%~
+  ACTION_FOR_EACH area IN ~AR9100~ ~AR9700~ BEGIN
+    LAF d2rakstore_expansion STR_VAR area=~%area%~ END
+  END
+END
+
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+  OUTER_TEXT_SPRINT npcstore1 ~%pstemoric%~
+  OUTER_TEXT_SPRINT npcstore2 ~%pstcoaxmetal%~
+  OUTER_TEXT_SPRINT npcstore3 ~%pstkeldor%~
+  ACTION_FOR_EACH area IN ~AR1100~ ~AR0800~ BEGIN
+    LAF d2rakstore_expansion STR_VAR area=~%area%~ END
+  END
+END
+
+
+//
+//

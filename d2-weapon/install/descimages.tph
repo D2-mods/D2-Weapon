@@ -1,0 +1,41 @@
+//
+//
+
+
+//update BAM images (descriptions)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_bam2 BEGIN
+  ~%blackbow%~     => blackbow2
+  ~%greatbow%~     => greatbow2
+  ~%whitebirch%~   => whitebirch2
+  ~%avelyn%~       => avelyn2
+//
+  ~%greatsword%~   => greatsword2
+  ~%fumeultraGS%~  => fumeultraGS2
+  ~%stoneGS%~      => stoneGS2
+//
+  ~%chaosrapier%~  => chaosrapier2
+  ~%drakeblood%~   => drakeblood2
+  ~%alonnesword%~  => alonnesword2
+  ~%aquamarine%~   => aquamarine2
+//
+  ~%uhalberd%~     => uhalberd2
+  ~%clubfrenzy%~   => clubfrenzy2
+  ~%accelerator%~  => accelerator2
+  ~%slingaccel%~   => slingaccel2
+  ~%workhammer%~   => workhammer2
+END
+
+//
+ACTION_PHP_EACH d2weapon_bam2 AS res => bam BEGIN
+  ACTION_IF (FILE_EXISTS ~%icons%/%bam%.BAM~) BEGIN
+    COPY ~%icons%/%bam%.BAM~  ~override/%res%d.BAM~
+
+    COPY_EXISTING ~%res%.ITM~  ~override~
+      WRITE_ASCII 0x58 ~%res%d~ #8
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+
+/*
+*/

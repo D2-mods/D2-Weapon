@@ -1,0 +1,33 @@
+/*
+add silver and cold iron flags
+"buff" adds as equipped effect, instead of setting flag
+*/
+
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_silver BEGIN
+  ~%alonnesword%~  => flag
+  ~%chaosrapier%~  => flag
+  ~%fumeultraGS%~  => flag
+  ~%greatsword%~   => flag
+  ~%crystalblade%~ => flag
+  ~%greatbow%~     => buff
+  ~%whitebirch%~   => buff
+END
+
+
+//patch items
+ACTION_PHP_EACH ~d2weapon_silver~ AS weapon => type BEGIN
+
+  COPY_EXISTING ~%weapon%.itm~  ~override~
+    PATCH_IF (~%type%~ STR_EQ ~buff~) BEGIN
+      LPF d2_silverweapon_buff END
+    END ELSE BEGIN
+      LPF d2_silverweapon END
+    END
+  BUT_ONLY
+
+END
+
+
+//
+//

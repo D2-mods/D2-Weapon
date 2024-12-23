@@ -1,0 +1,100 @@
+/*
+d2!bleed removes "bleeding" effects
+d2!phase removes phasing/dot damage (excluding poison/disease)
+files are only created if they don't already exist
+*/
+
+
+//run function to add resource to a file
+//Set mode to bleed (default) or phase, or both
+//no effect gets added if resource is not set (files are still created)
+
+
+DEFINE_ACTION_FUNCTION d2_bleed_removal INT_VAR overwrite=1 STR_VAR resource=~~ mode=bleed BEGIN
+
+  // make files
+  ACTION_IF !(FILE_EXISTS ~override/d2!bleed.SPL~) BEGIN
+    COPY_EXISTING ~SPCL142.SPL~  ~override/d2!bleed.SPL~
+      LPF d2_bleed_removal_prep END
+      LPF ALTER_EFFECT INT_VAR opcode=321 timing=1 parameter1=0 parameter2=0 STR_VAR resource=BLUN24 END
+      PHP_EACH d2_bleed_removal_array AS res => type BEGIN
+        PATCH_IF (~%type%~ STR_EQ ~bleed~) BEGIN
+          LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=EVAL ~%res%~ END
+        END
+      END
+  END
+
+  ACTION_IF !(FILE_EXISTS ~override/d2!phase.SPL~) BEGIN
+    COPY_EXISTING ~SPCL142.SPL~  ~override/d2!phase.SPL~
+      LPF d2_bleed_removal_prep END
+      LPF ALTER_EFFECT INT_VAR opcode=321 timing=1 parameter1=0 parameter2=0 STR_VAR resource=UDAGG1B END
+      PHP_EACH d2_bleed_removal_array AS res => type BEGIN
+        PATCH_IF (~%type%~ STR_EQ ~phase~) BEGIN
+          LPF CLONE_EFFECT INT_VAR multi_match=1 STR_VAR resource=EVAL ~%res%~ END
+        END
+      END
+//    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=221 parameter1=10 parameter2=9 END
+//    LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=221 parameter1=10 parameter2=10 END
+      LPF ADD_SPELL_EFFECT INT_VAR opcode=337 target=2 timing=1 parameter1=(0 - 1) parameter2=12 END    // op12 (delayed damage)
+  END
+
+  // add to files
+  ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
+    ACTION_IF !(~%mode%~ STRING_CONTAINS_REGEXP ~bleed~) BEGIN
+      COPY ~override/d2!bleed.SPL~  ~override~
+        PATCH_IF (overwrite > 0) BEGIN
+          LPF DELETE_EFFECT INT_VAR match_opcode=321 STR_VAR match_resource=EVAL ~%resource%~ END
+        END
+        LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 timing=1 parameter2=0 STR_VAR resource=EVAL ~%resource%~ END
+      BUT_ONLY
+    END
+
+    ACTION_IF !(~%mode%~ STRING_CONTAINS_REGEXP ~phas~) BEGIN
+      COPY ~override/d2!phase.SPL~  ~override~
+        PATCH_IF (overwrite > 0) BEGIN
+          LPF DELETE_EFFECT INT_VAR match_opcode=321 STR_VAR match_resource=EVAL ~%resource%~ END
+        END
+        LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=321 timing=1 parameter2=0 STR_VAR resource=EVAL ~%resource%~ END
+      BUT_ONLY
+    END
+  END
+
+END
+
+
+//
+DEFINE_PATCH_FUNCTION d2_bleed_removal_prep BEGIN
+  LPF ALTER_SPELL_HEADER INT_VAR target=1 range=1 speed=0 END
+  LPF ALTER_EFFECT INT_VAR opcode=0 target=2 parameter1=0 parameter2=0 timing=1 duration=0 resist_dispel=2 END
+  WRITE_LONG 0x18 THIS | BIT14
+  WRITE_LONG 0x18 THIS | BIT25
+END
+
+
+//
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_bleed_removal_array BEGIN
+  bdhalb02  => bleed    // bg1
+  bdsw1h21  => bleed
+  SW1H38    => bleed    // bg2
+  NPSW04    => bleed
+  ohbbleed  => bleed
+  U1HAM5A   => phase    // iwd
+  U2HAM4B   => phase
+  U2HAX4A   => phase
+  UBSWD2A   => phase
+  UBSWD4B   => phase
+  UMSTR3C   => phase
+  USSWD2B   => phase
+  backstab  => bleed
+//  d2swd05b  => bleed    // mod (temp)
+  d2abb03e  => bleed
+  d2abb15e  => phase
+  d2drt01e  => phase
+END
+
+
+//LAF d2_bleed_removal END
+
+
+//
+//

@@ -15,25 +15,32 @@ PRINT @6
 
 COPY_EXISTING_REGEXP GLOB ~.*\.SPL~  ~override~
 
-  GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
-  PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
-    GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
-    PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
-      PATCH_IF (patch_spell = 0) BEGIN
-        READ_SHORT effect_off opcode                                 // opcode
-        PATCH_IF ((opcode = 101) OR (opcode = 4)) BEGIN              // 101 = block effect, 4 = cure berserk
-          SET patch_spell = 1
+  PATCH_IF (SOURCE_SIZE > 0x99) BEGIN    // skip if no headers
+
+    GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
+    PHP_EACH spl_headers AS num => header_off BEGIN                    // array of headers
+      GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
+      PHP_EACH spl_effects AS num => effect_off BEGIN                  // array of effects on each header
+        PATCH_IF (patch_spell = 0) BEGIN
+          READ_SHORT effect_off opcode                                 // opcode
+          PATCH_IF ((opcode = 101) OR (opcode = 4) OR     // 101 = block effect, 4 = cure berserk
+                    (opcode = 163) OR (opcode = 16)       // 163 = free action, 16 = haste (skip haste 2)
+          ) BEGIN
+            SET patch_spell = 1
+          END
         END
       END
     END
-  END
 
-  PATCH_IF (patch_spell = 1) BEGIN
-    LPF remove_frenzy END
-    LPF block_frenzy END
-    SET patch_spell = 0
-  END
+    PATCH_IF (patch_spell = 1) BEGIN
+      LPF remove_frenzy END
+      LPF remove_tranquil END
+      LPF block_frenzy END
+      LPF block_tranquil END
+      SET patch_spell = 0
+    END
 
+  END
 BUT_ONLY
 
 
@@ -42,21 +49,25 @@ BUT_ONLY
 
 COPY_EXISTING_REGEXP GLOB ~.*\.ITM~  ~override~
 
-  GET_OFFSET_ARRAY itm_equip  ITM_V10_GEN_EFFECTS
-  PHP_EACH itm_equip AS num => equip_off BEGIN    // array of equipped effects
-    PATCH_IF (patch_item = 0) BEGIN
-      READ_SHORT equip_off opcode                 // opcode
-      PATCH_IF (opcode = 101) BEGIN
-        SET patch_item = 1
+  PATCH_IF (SOURCE_SIZE > 0xa0) BEGIN    // skip if no effects
+
+    GET_OFFSET_ARRAY itm_equip  ITM_V10_GEN_EFFECTS
+    PHP_EACH itm_equip AS num => equip_off BEGIN    // array of equipped effects
+      PATCH_IF (patch_item = 0) BEGIN
+        READ_SHORT equip_off opcode                 // opcode
+        PATCH_IF (opcode = 101) BEGIN
+          SET patch_item = 1
+        END
       END
     END
-  END
 
-  PATCH_IF (patch_item = 1) BEGIN
-    LPF block_frenzy END
-    SET patch_item = 0
-  END
+    PATCH_IF (patch_item = 1) BEGIN
+      LPF block_frenzy END
+      LPF block_tranquil END
+      SET patch_item = 0
+    END
 
+  END
 BUT_ONLY
 
 
@@ -65,28 +76,17 @@ BUT_ONLY
 
 COPY_EXISTING_REGEXP GLOB ~.*\.CRE~  ~override~
 
-//This works in unmodded BG2EE. Has issues in BGEE, and with some modded CRE files.
-/*
-  GET_OFFSET_ARRAY cre_effects  CRE_V10_EFFECTS
-  PHP_EACH cre_effects AS num => effect_off BEGIN    // array of effects
-    PATCH_IF (patch_cre = 0) BEGIN
-      READ_LONG (effect_off+0x8) opcode              // opcode is at 0x8 of effect
-      PATCH_IF (opcode = 101) BEGIN
-        SET patch_cre = 1
-      END
+  PATCH_IF (SOURCE_SIZE > 0x2d3) BEGIN    // valid cre file
+    READ_LONG 0x2c8 cre_effects
+    PATCH_IF (cre_effects > 14) BEGIN    // immunities always have many effects
+      SET patch_cre = 1
     END
-  END
-*/
-//Using the simpler check below instead. Speed isn't that much slower.
 
-  READ_LONG 0x2c8 cre_effects
-  PATCH_IF (cre_effects > 10) BEGIN    // immunities always have many effects
-    SET patch_cre = 1
-  END
-
-  PATCH_IF (patch_cre = 1) BEGIN
-    LPF block_frenzy END
-    SET patch_cre = 0
+    PATCH_IF (patch_cre = 1) BEGIN
+      LPF block_frenzy END
+      LPF block_tranquil END
+      SET patch_cre = 0
+    END
   END
 
 BUT_ONLY

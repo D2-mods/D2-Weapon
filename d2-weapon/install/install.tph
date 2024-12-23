@@ -1,5 +1,6 @@
-//
-//
+/*
+main install file
+*/
 
 
 //check for missing game resources
@@ -10,9 +11,29 @@ ACTION_BASH_FOR ~%resource%~  ~.*~ BEGIN
 END
 
 
+//prep
+INCLUDE ~%install%/weapontypes.tph~
+INCLUDE ~%install%/enrageprep.tph~
+INCLUDE ~%install%/bleedprep.tph~
+INCLUDE ~%install%/chaosprep.tph~
+
+//items
+INCLUDE ~%install%/weapontext.tph~
 INCLUDE ~%install%/weapons.tph~
 INCLUDE ~%install%/spellpatching.tph~
+INCLUDE ~%install%/descimages.tph~
 INCLUDE ~%install%/addtostore.tph~
 INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/wbag.tph~
+
+//patches
+INCLUDE ~%install%/itemtypepatch.tph~
+INCLUDE ~%install%/pstitemtypes.tph~
+INCLUDE ~%install%/pstitemabilities.tph~
+INCLUDE ~%install%/silverweapon.tph~
 INCLUDE ~%install%/iwditempatch.tph~
+INCLUDE ~%install%/pstopcodepatch.tph~
+
+
+//
+//

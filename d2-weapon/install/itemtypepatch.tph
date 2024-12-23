@@ -1,0 +1,93 @@
+/*
+Sets weapons to correct proficiency, flags, etc.
+Checks nonmagical weapon of each item type
+*/
+
+
+ACTION_IF !(GAME_IS ~pstee~) BEGIN
+
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_itemtypes BEGIN
+  ~%blackbow%~     => longbow
+  ~%greatbow%~     => composite
+  ~%whitebirch%~   => shortbow
+  ~%avelyn%~       => crossbow
+//
+  ~%greatsword%~   => greatsword
+  ~%fumeultraGS%~  => greatsword
+  ~%stoneGS%~      => greatsword
+//
+  ~%chaosrapier%~  => longsword
+  ~%drakeblood%~   => bastard
+  ~%alonnesword%~  => katana
+  ~%aquamarine%~   => dagger
+//  ~%crystalblade%~   => dagger    // aquamarine spell (just check prof below)
+//
+  ~%uhalberd%~     => halberd
+  ~%clubfrenzy%~   => club
+  ~%accelerator%~  => scimitar
+  ~%slingaccel%~   => sling
+  ~%workhammer%~   => hammer
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_magical BEGIN
+  ~%blackbow%~     => 0
+  ~%greatbow%~     => 1
+  ~%whitebirch%~   => 1
+  ~%avelyn%~       => 1
+//
+  ~%greatsword%~   => 0
+  ~%fumeultraGS%~  => 1
+  ~%stoneGS%~      => 1
+//
+  ~%chaosrapier%~  => 1
+  ~%drakeblood%~   => 1
+  ~%alonnesword%~  => 1
+  ~%aquamarine%~   => 1
+  ~%crystalblade%~   => 1
+//
+  ~%uhalberd%~     => 0
+  ~%clubfrenzy%~   => 1
+  ~%accelerator%~  => 1
+  ~%slingaccel%~   => 1
+  ~%workhammer%~   => 1
+END
+
+
+//patch items
+ACTION_PHP_EACH ~d2weapon_itemtypes~ AS weapon => type BEGIN
+
+  COPY_EXISTING ~%weapon%.itm~  ~override~
+    PHP_EACH ~d2weapon_magical~ AS weapon2 => magical BEGIN
+      PATCH_IF (~%weapon%~ STR_EQ ~%weapon2%~) BEGIN
+        LPF d2_set_weapontype_fields INT_VAR magical=magical STR_VAR type=~%type%~ END
+
+        PATCH_IF (magical = 0) BEGIN
+          LPF d2_get_weapontype_fields STR_VAR type=~%type%~ RET item_desc END
+          WRITE_LONG 0x50 item_desc
+        END
+      END
+    END
+  BUT_ONLY
+
+END
+
+
+//chaos rapier usable by all classes
+COPY_EXISTING ~%chaosrapier%.itm~  ~override~
+  WRITE_LONG 0x1e 0
+BUT_ONLY
+
+
+//check aquamarine spell prof
+COPY_EXISTING ~%crystalblade%.itm~  ~override~
+  LPF d2_get_weapontype_fields STR_VAR type=dagger RET item_prof END
+  WRITE_BYTE 0x31 item_prof
+BUT_ONLY
+
+
+END
+
+
+//
+//

@@ -1,0 +1,237 @@
+/*
+prep enrage effects
+main spell should cast these with op146 or op326
+*/
+
+
+//variables
+OUTER_TEXT_SPRINT enrage_base ~d2rageb~
+OUTER_TEXT_SPRINT winded_base ~d2ragew~
+OUTER_SET enrage_warn = RESOLVE_STR_REF (@309)    // 15 damage info (when enraged)
+OUTER_SET winded_warn = RESOLVE_STR_REF (@314)    // 15 damage info (when winded)
+
+OUTER_SET make_d2rage20 = 0    // 2 turns version (test functions)
+OUTER_SET make_d2ragef  = 1    // 8 round no visual (for Frenzy)
+
+ACTION_IF !(FILE_EXISTS ~override/d2rageb.SPL~) BEGIN 
+  OUTER_SET build_d2rage = 1
+END ELSE BEGIN
+  OUTER_SET build_d2rage = 0
+END
+
+ACTION_IF (RESOURCE_CONTAINS ~action.ids~ ~ZoomLock~) BEGIN
+  OUTER_SET ee_game = 1
+END ELSE BEGIN
+  OUTER_SET ee_game = 0
+END
+
+
+//make core Enrage files
+ACTION_IF (build_d2rage > 0) BEGIN
+    
+  //clone existing Enrage if not modified
+  ACTION_IF !(FILE_EXISTS ~override/SPCL321.SPL~) BEGIN
+    COPY_EXISTING ~SPCL321.SPL~   ~override/d2rageb.SPL~ IF_EXISTS
+    COPY_EXISTING ~SPCL321D.SPL~  ~override/d2ragew.SPL~ IF_EXISTS
+  END
+
+  //or add new files
+  ACTION_IF !(FILE_EXISTS ~override/d2rageb.SPL~) BEGIN
+    COPY ~%abilities%/enrage.SPL~  ~override/d2rageb.SPL~ IF_EXISTS
+    COPY ~%abilities%/winded.SPL~  ~override/d2ragew.SPL~ IF_EXISTS
+  END
+
+  //fallback attempt (use modified Enrage)
+  ACTION_IF !(FILE_EXISTS ~override/d2rageb.SPL~) BEGIN
+    COPY_EXISTING ~SPCL321.SPL~   ~override/d2rageb.SPL~
+    COPY_EXISTING ~SPCL321D.SPL~  ~override/d2ragew.SPL~
+  END
+
+  //edit Enrage effects
+  COPY_EXISTING ~d2rageb.SPL~  ~override~
+    WRITE_LONG 0x8 ~-1~
+    WRITE_LONG 0x50 ~-1~
+    LPF DELETE_EFFECT INT_VAR match_opcode=139 END    // remove old text string
+    LPF ADD_SPELL_EFFECT INT_VAR opcode=139 target=1 parameter1=enrage_warn END    // 15 damage info (when enraged)
+
+    // move damage and winded to end of stack
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=12 STR_VAR insert=last END
+    LPF CLONE_EFFECT INT_VAR silent=1 STR_VAR match_resource=SPCL321D resource=d2ragew insert=last END
+    LPF DELETE_EFFECT INT_VAR multi_match=1 match_opcode=12 END
+    LPF DELETE_EFFECT STR_VAR match_resource=SPCL321D END
+
+    // more patching
+    LPF DELETE_EFFECT INT_VAR match_opcode=338 END    // remove no resting (IWDEE)
+    LPF d2_string_immunities END
+    LPF ee_fixpack_immunities STR_VAR status=~charm conf fear stun hold feeble sleep~ END   // skipped if no ee fixpack
+
+    PATCH_IF (ee_game > 0) BEGIN
+      LPF DELETE_EFFECT INT_VAR match_opcode=206 STR_VAR match_resource=SPCL321 END       // allow recast
+      LPF d2_remove_effects_on_cast INT_VAR timing=4 duration=61 END                      // fix for winded after rest
+      LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=d2ragex END    // remove effects on recast
+      LPF d2_protect_on_castequip INT_VAR duration=2 END
+    END ELSE BEGIN
+      LPF CLONE_EFFECT INT_VAR silent=1 STR_VAR match_resource=SPCL321 resource=d2rageb insert=last END
+      LPF DELETE_EFFECT STR_VAR match_resource=SPCL321 END
+    END
+
+    PATCH_IF (GAME_IS ~pst pstee~) BEGIN
+      LPF DELETE_EFFECT INT_VAR match_timing=4 END      // remove delayed timing (counts by ticks, not worth fixing)
+      LPF DELETE_EFFECT INT_VAR match_opcode=139 END    // remove display string
+      LPF DELETE_EFFECT INT_VAR match_opcode=267 END    // remove disable display string (not updated for pst)
+      LPF DELETE_EFFECT STR_VAR match_resource=SPWI205 END
+
+      // change vvc to use op373 (play BAM file)
+      LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 timing=1 STR_VAR resource=EFF_M41 END
+      LPF ALTER_EFFECT INT_VAR match_opcode=215 opcode=373 parameter1=0 parameter2=3145728 timing=1 STR_VAR resource=S029STMN END
+    END
+  BUT_ONLY
+
+  //edit winded effects
+  COPY_EXISTING ~d2ragew.SPL~  ~override~
+    LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+    LPF ADD_SPELL_EFFECT INT_VAR opcode=139 target=1 parameter1=winded_warn END    // 15 damage info (when winded)
+    PATCH_IF (ee_game > 0) BEGIN
+      LPF DELETE_EFFECT INT_VAR match_opcode=206 STR_VAR match_resource=SPCL321 END
+      LPF d2_remove_effects_on_cast END
+    END ELSE BEGIN
+      LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=SPCL321 resource=d2ragew END
+    END
+  BUT_ONLY
+
+END
+
+
+//
+DEFINE_PATCH_FUNCTION enrage_rounds INT_VAR rounds=10 no_visuals=0 update_res=1 BEGIN
+  PATCH_IF (rounds < 1) BEGIN SET rounds = 10 END
+  SET var = 10 - rounds
+  SET mod = var * 6
+  LPF ALTER_EFFECT INT_VAR silent=1 match_duration=59 duration=(59 - mod) END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_duration=60 duration=(60 - mod) END
+  LPF ALTER_EFFECT INT_VAR silent=1 match_duration=61 duration=(61 - mod) END
+
+  PATCH_IF (no_visuals > 0) BEGIN
+    LPF d2_subspell_remove_effects END
+    LPF d2_subspell_remove_visuals INT_VAR icon=0 END
+  END
+
+  PATCH_IF (update_res > 0) BEGIN
+    LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=~%SOURCE_RES%~ resource=~%DEST_RES%~ END
+  END
+END
+
+
+//2 turns version (test)
+ACTION_IF ((IS_AN_INT make_d2rage20) AND (make_d2rage20 > 0)) BEGIN
+  COPY_EXISTING ~d2rageb.SPL~  ~override/d2rage20.SPL~
+    LPF enrage_rounds INT_VAR rounds=20 END
+END
+
+//alt version for Frenzy (8 rounds and no visual)
+ACTION_IF ((IS_AN_INT make_d2ragef) AND (make_d2ragef > 0)) BEGIN
+  COPY_EXISTING ~d2rageb.SPL~  ~override/d2ragef.SPL~
+    LPF enrage_rounds INT_VAR rounds=8 no_visuals=1 END
+END
+
+
+//
+ACTION_IF !(FILE_EXISTS ~override/d2_enrageprep_array~) BEGIN
+
+<<<<<<<< .../temp/d2_enrageprep_array
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_enrageprep_array BEGIN
+  d2rageb  => enrage
+  d2ragef  => enrage
+  SPCL321  => enrage
+  SPCL152  => enrage
+  d2mk1s1  => enrage
+  d2ragew  => winded
+  SPCL321D => winded
+  dvwinded => winded
+  d2mk1s1a => winded
+  enrage => marker
+  winded => marker
+END
+>>>>>>>>
+COPY ~.../temp/d2_enrageprep_array~  ~override~
+
+END
+
+INCLUDE ~override/d2_enrageprep_array~
+
+
+//
+//remove all enrage + winded effects
+ACTION_IF !(FILE_EXISTS ~override/d2ragex.SPL~) BEGIN
+  COPY ~%abilities%/removespelleffects.SPL~  ~override/d2ragex.SPL~
+    LPF ALTER_EFFECT INT_VAR opcode=93 parameter2=1 END    // remove fatigue
+    PHP_EACH d2_enrageprep_array AS res => type BEGIN
+      LPF d2_remove_effects_on_cast STR_VAR resource=~%res%~ END
+    END
+END
+
+
+//
+//function to block other enrages for x seconds
+DEFINE_PATCH_FUNCTION enrage_block INT_VAR rounds=10 STR_VAR block=~enrage winded~ BEGIN
+  SET enrage = 0
+  SET winded = 0
+  PATCH_IF !(~%block%~ STRING_CONTAINS_REGEXP ~rage~) BEGIN SET enrage = 1 END
+  PATCH_IF !(~%block%~ STRING_CONTAINS_REGEXP ~bers~) BEGIN SET enrage = 1 END
+  PATCH_IF !(~%block%~ STRING_CONTAINS_REGEXP ~wind~) BEGIN SET winded = 1 END
+  PATCH_IF !(~%block%~ STRING_CONTAINS_REGEXP ~fati~) BEGIN SET winded = 1 END
+  PATCH_IF (rounds < 1) BEGIN  SET rounds = 1 END
+  SET duration = (rounds*6) - 2
+
+  PHP_EACH d2_enrageprep_array AS res => type BEGIN
+    PATCH_IF (~%type%~ STR_EQ ~enrage~) BEGIN
+      PATCH_IF (enrage > 0) BEGIN
+        LPF d2_protect_on_castequip INT_VAR duration=duration STR_VAR resource=~%res%~ END
+      END
+    END
+    PATCH_IF (~%type%~ STR_EQ ~winded~) BEGIN
+      PATCH_IF (winded > 0) BEGIN
+        LPF d2_protect_on_castequip INT_VAR duration=duration STR_VAR resource=~%res%~ END
+      END
+    END
+  END
+END
+
+
+//function to add new SPL to d2ragex.spl and d2_enrageprep_array
+DEFINE_ACTION_FUNCTION enrage_effects STR_VAR resource=~~ type=enrage BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%resource%.spl~) BEGIN
+    COPY_EXISTING ~d2ragex.SPL~  ~override~
+      LPF d2_remove_effects_on_cast STR_VAR resource=~%resource%~ END
+    BUT_ONLY
+
+    OUTER_SET enrage = 0
+    OUTER_SET winded = 0
+    ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~rage~) BEGIN OUTER_SET enrage = 1 END
+    ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~bers~) BEGIN OUTER_SET enrage = 1 END
+    ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~wind~) BEGIN OUTER_SET winded = 1 END
+    ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~fati~) BEGIN OUTER_SET winded = 1 END
+
+    ACTION_IF (enrage > 0) BEGIN
+      COPY_EXISTING ~override/d2_enrageprep_array~  ~override~
+        REPLACE_TEXTUALLY ~enrage => marker~  ~enrage => marker%WNL%  %resource% => enrage~
+      BUT_ONLY UNLESS ~%resource% => enrage~
+    END
+    ACTION_IF (winded > 0) BEGIN
+      COPY_EXISTING ~override/d2_enrageprep_array~  ~override~
+        REPLACE_TEXTUALLY ~winded => marker~  ~winded => marker%WNL%  %resource% => winded~
+      BUT_ONLY UNLESS ~%resource% => winded~
+    END
+  END
+END
+
+
+//test (2 turns version)
+ACTION_IF (FILE_EXISTS ~override/d2rage20.spl~) BEGIN
+  LAF enrage_effects STR_VAR resource=d2rage20 END
+  OUTER_TEXT_SPRINT $d2_enrageprep_array(~d2rage20~) ~enrage~    // d2rage20 => enrage
+END
+
+
+//
+//

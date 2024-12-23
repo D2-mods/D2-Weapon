@@ -1,0 +1,164 @@
+/*
+add DLG for NPC merchant
+trigger conditions are added from npcglobals.tph
+*/
+
+
+/*variables (set from npcstore.tph)
+OUTER_SPRINT talk1_outer @2011
+OUTER_SPRINT talk2_outer @2012
+OUTER_SPRINT talk3_outer @2013
+
+OUTER_SPRINT talk1_golem @2051
+OUTER_SPRINT talk2_golem @2052
+OUTER_SPRINT talk3_golem @2053
+
+OUTER_SPRINT talk1_chicken @2061
+OUTER_SPRINT talk2_chicken @2062
+OUTER_SPRINT talk3_chicken @2063
+*/
+
+
+//change name to "Merchant" after talk
+OUTER_SET merchant = RESOLVE_STR_REF (@2006)
+
+
+//
+ACTION_IF !(FILE_EXISTS ~override/d2rakst2.DLG~) BEGIN
+
+<<<<<<<< .../temp/d2rakst2
+BEGIN ~D2RAKST2~
+
+//stranger (0 1 2)
+IF ~!Global("d2rakst2","LOCALS",1) General(Myself,HUMANOID)~ BEGIN talk1_outer
+  SAY ~%talk1_outer%~
+  IF ~~
+  DO ~SetGlobal("d2rakst2","LOCALS",1)
+      SetGlobal("d2rename_outer","GLOBAL",1)    // variable to rename in all locations
+      SetName(%merchant%)~
+  GOTO talk2_outer
+END
+
+IF ~~ BEGIN talk2_outer
+  SAY ~%talk2_outer%~
+  IF ~~ REPLY @2015 EXIT
+END
+
+IF ~Global("d2rakst2","LOCALS",1) General(Myself,HUMANOID)~ BEGIN talk3_outer
+  SAY ~%talk3_outer%~
+  IF ~~ REPLY @2015 EXIT
+END
+
+//golem (3 4 5)
+IF ~!Global("d2rakst2","LOCALS",1) General(Myself,MONSTER)~ BEGIN talk1_golem
+  SAY ~%talk1_golem%~
+  IF ~~
+  DO ~SetGlobal("d2rakst2","LOCALS",1)
+      SetGlobal("d2rename_golem","GLOBAL",1)    // variable to rename in all locations
+      SetName(%merchant%)~
+  GOTO talk2_golem
+END
+
+IF ~~ BEGIN talk2_golem
+  SAY ~%talk2_golem%~
+  IF ~~ REPLY @2055 EXIT
+END
+
+IF ~Global("d2rakst2","LOCALS",1) General(Myself,MONSTER)~ BEGIN talk3_golem
+  SAY ~%talk3_golem%~
+  IF ~~ REPLY @2055 EXIT
+END
+
+//chicken (6 7 8)
+IF ~!Global("d2rakst2","LOCALS",1) General(Myself,ANIMAL)~ BEGIN talk1_chicken
+  SAY ~%talk1_chicken%~
+  IF ~~
+  DO ~SetGlobal("d2rakst2","LOCALS",1)
+      SetGlobal("d2rename_chicken","GLOBAL",1)    // variable to rename in all locations
+      SetName(%merchant%)~
+  GOTO talk2_chicken
+END
+
+IF ~~ BEGIN talk2_chicken
+  SAY ~%talk2_chicken%~
+  IF ~~ REPLY @2065 EXIT
+END
+
+IF ~Global("d2rakst2","LOCALS",1) General(Myself,ANIMAL)~ BEGIN talk3_chicken
+  SAY ~%talk3_chicken%~
+  IF ~~ REPLY @2065 EXIT
+END
+>>>>>>>>
+COPY - ~.../temp/d2rakst2~  ~inlined/d2rakst2.d~
+  EVALUATE_BUFFER
+COMPILE ~inlined/d2rakst2.d~
+
+END
+
+
+
+//
+//add store options
+
+//
+ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
+
+<<<<<<<< .../temp/d2rakst2.d
+EXTEND_TOP ~D2RAKST2~ 1 2 4 5 7 8
+  IF ~~ REPLY @2041 DO ~StartStore("bdkazzre",LastTalkedToBy)~ EXIT    // Kazzrem
+  IF ~~ REPLY @2042 DO ~StartStore("bdwaizah",LastTalkedToBy)~ EXIT    // Waizahb
+  IF ~~ REPLY @2043 DO ~StartStore("bdnazram",LastTalkedToBy)~ EXIT    // Nazramu
+END
+>>>>>>>>
+COMPILE ~.../temp/d2rakst2.d~
+
+END
+
+
+//
+ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
+
+<<<<<<<< .../temp/d2rakst2.d
+EXTEND_TOP ~D2RAKST2~ 1 2 4 5 7 8
+  IF ~~ REPLY @2021 DO ~StartStore("wmart2",LastTalkedToBy)~ EXIT     // Deidre
+  IF ~~ REPLY @2022 DO ~StartStore("wmart1",LastTalkedToBy)~ EXIT     // Joluv
+  IF ~~ REPLY @2023 DO ~StartStore("ribald3",LastTalkedToBy)~ EXIT    // Ribald
+END
+>>>>>>>>
+COMPILE ~.../temp/d2rakst2.d~
+
+END
+
+
+//
+ACTION_IF (GAME_IS ~iwdee~) BEGIN
+
+<<<<<<<< .../temp/d2rakst2.d
+EXTEND_TOP ~D2RAKST2~ 1 2 4 5 7 8
+  IF ~~ REPLY @2031 DO ~StartStore("KUSMITH",LastTalkedToBy)~ EXIT     // Conlan
+  IF ~~ REPLY @2032 DO ~StartStore("SHLEHLAN",LastTalkedToBy)~ EXIT    // Lehland
+  IF ~~ REPLY @2033 DO ~StartStore("LDD_NYM",LastTalkedToBy)~ EXIT     // Nym
+END
+>>>>>>>>
+COMPILE ~.../temp/d2rakst2.d~
+
+END
+
+
+//
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+
+<<<<<<<< .../temp/d2rakst2.d
+EXTEND_TOP ~D2RAKST2~ 1 2 4 5 7 8
+  IF ~~ REPLY @2071 DO ~StartStore("EMORIC",LastTalkedToBy)~ EXIT    // Emoric
+  IF ~~ REPLY @2072 DO ~StartStore("COAX",LastTalkedToBy)~ EXIT      // Coaxmetal
+  IF ~~ REPLY @2073 DO ~StartStore("KELDOR",LastTalkedToBy)~ EXIT    // Keldor
+END
+>>>>>>>>
+COMPILE ~.../temp/d2rakst2.d~
+
+END
+
+
+//
+//

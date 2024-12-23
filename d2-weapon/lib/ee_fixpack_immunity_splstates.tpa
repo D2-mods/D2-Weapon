@@ -1,0 +1,118 @@
+/*
+adds EE fixpack immunity spellstates (PATCH function)
+function does nothing if EE fixpack is not installed (skipped silently)
+*/
+
+
+//set spell states
+//sets to -1 if not installed
+
+  OUTER_SET charm_immunity        = IDS_OF_SYMBOL (~splstate~ ~CHARM_IMMUNITY~)
+  OUTER_SET confusion_immunity    = IDS_OF_SYMBOL (~splstate~ ~CONFUSION_IMMUNITY~)
+  OUTER_SET death_immunity        = IDS_OF_SYMBOL (~splstate~ ~DEATH_IMMUNITY~)
+  OUTER_SET disintegrate_immunity = IDS_OF_SYMBOL (~splstate~ ~DISINTEGRATE_IMMUNITY~)
+  OUTER_SET entangle_immunity     = IDS_OF_SYMBOL (~splstate~ ~ENTANGLE_IMMUNITY~)
+  OUTER_SET feeblemind_immunity   = IDS_OF_SYMBOL (~splstate~ ~FEEBLEMIND_IMMUNITY~)
+  OUTER_SET haste_immunity        = IDS_OF_SYMBOL (~splstate~ ~HASTE_IMMUNITY~)
+  OUTER_SET hold_immunity         = IDS_OF_SYMBOL (~splstate~ ~HOLD_IMMUNITY~)
+  OUTER_SET panic_immunity        = IDS_OF_SYMBOL (~splstate~ ~PANIC_IMMUNITY~)
+  OUTER_SET petrify_immunity      = IDS_OF_SYMBOL (~splstate~ ~PETRIFY_IMMUNITY~)
+  OUTER_SET silence_immunity      = IDS_OF_SYMBOL (~splstate~ ~SILENCE_IMMUNITY~)
+  OUTER_SET sleep_immunity        = IDS_OF_SYMBOL (~splstate~ ~SLEEP_IMMUNITY~)
+  OUTER_SET slow_immunity         = IDS_OF_SYMBOL (~splstate~ ~SLOW_IMMUNITY~)
+  OUTER_SET sneak_attack_immunity = IDS_OF_SYMBOL (~splstate~ ~SNEAK_ATTACK_IMMUNITY~)
+  OUTER_SET stun_immunity         = IDS_OF_SYMBOL (~splstate~ ~STUN_IMMUNITY~)
+  OUTER_SET web_immunity          = IDS_OF_SYMBOL (~splstate~ ~WEB_IMMUNITY~)
+
+////////////////////////////////////////////////////////////
+
+/*
+"status" variable can be a list (ex. status = ~sleep charm feeblemind~)
+will only patch if SPL/ITM has an opcode 101 with immunity to the effect (table at bottom)
+will not make duplicate effects (deletes old effect)
+*/
+
+//
+DEFINE_PATCH_FUNCTION ee_fixpack_immunities  STR_VAR status = ~~ BEGIN
+  PATCH_IF (charm_immunity > 0) BEGIN    // skip if no EE fixpack
+
+  // check type array
+  PHP_EACH ee_fixpack_immunities_array AS type => splstates BEGIN
+    PATCH_IF !(~%status%~ STRING_CONTAINS_REGEXP ~%type%~) BEGIN    // if "status" DOES contain "type"
+ 
+      // get splstate number (for parameter2)
+      TEXT_SPRINT ee_splstate ~%splstates%~
+      SET ee_splstate = EVAL ~%ee_splstate%~
+      PATCH_IF (ee_splstate > 0) BEGIN
+
+        // check match array
+        PHP_EACH ee_fixpack_immunities_match AS splstates2 => match BEGIN
+          PATCH_IF (~%splstates%~ STR_EQ ~%splstates2%~) BEGIN
+            LPF DELETE_EFFECT INT_VAR match_opcode=328 match_parameter2=ee_splstate END
+            LPF CLONE_EFFECT INT_VAR silent=1 multi_match=1 match_opcode=101 match_parameter2=match opcode=328 parameter2=ee_splstate special=1 END
+          END
+        END
+      END
+    END
+  END    // end PHP_EACH
+
+  END
+END
+
+
+/*
+"status" variable just needs to include the "type" string to get a match (spacing doesn't matter)
+*/
+
+//type => splstate
+ACTION_DEFINE_ASSOCIATIVE_ARRAY ee_fixpack_immunities_array BEGIN
+  ~charm~     => ~charm_immunity~
+  ~domin~     => ~charm_immunity~
+  ~conf~      => ~confusion_immunity~
+  ~chaos~     => ~confusion_immunity~
+  ~death~     => ~death_immunity~
+  ~kill~      => ~death_immunity~
+  ~slay~      => ~death_immunity~
+  ~disint~    => ~disintegrate_immunity~
+  ~tangle~    => ~entangle_immunity~
+  ~feebl~     => ~feeblemind_immunity~
+  ~haste~     => ~haste_immunity~
+  ~hold~      => ~hold_immunity~
+  ~paral~     => ~hold_immunity~
+  ~fear~      => ~panic_immunity~
+  ~panic~     => ~panic_immunity~
+  ~petri~     => ~petrify_immunity~
+  ~stone~     => ~petrify_immunity~
+  ~silen~     => ~silence_immunity~
+  ~sleep~     => ~sleep_immunity~
+  ~uncon~     => ~sleep_immunity~
+  ~slow~      => ~slow_immunity~
+  ~stab~      => ~sneak_attack_immunity~
+  ~sneak~     => ~sneak_attack_immunity~
+  ~stun~      => ~stun_immunity~
+  ~web~       => ~web_immunity~
+END
+
+//splstate2 => match
+ACTION_DEFINE_ASSOCIATIVE_ARRAY ee_fixpack_immunities_match BEGIN
+  charm_immunity        => 5
+  confusion_immunity    => 128
+  death_immunity        => 55      // either op55 (slay) or op13 (kill target) should work
+  disintegrate_immunity => 238
+  entangle_immunity     => ~-1~    // op154 is "entangle overlay" (visual only)
+  feeblemind_immunity   => 76
+  haste_immunity        => 16
+  hold_immunity         => 175
+  panic_immunity        => 24
+  petrify_immunity      => 134
+  silence_immunity      => 38
+  sleep_immunity        => 39
+  slow_immunity         => 40
+  sneak_attack_immunity => ~-1~    // the -1 ones are added without needing a match (if called by the function)
+  stun_immunity         => 45
+  web_immunity          => 157
+END
+
+
+//
+//

@@ -1,0 +1,314 @@
+/*
+adds simple script for NPC merchant
+no combat abilities
+*/
+
+
+//floating text
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (~%talk1_outer%~) STR_VAR color=pearl RET newstring END
+  OUTER_SET float_outer = newstring
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (~%talk1_golem%~) STR_VAR color=pearl RET newstring END
+  OUTER_SET float_golem = newstring
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (~%talk1_chicken%~) STR_VAR color=pearl RET newstring END
+  OUTER_SET float_chicken = newstring
+
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (~%invis_outer%~) STR_VAR color=pearl RET newstring END
+  OUTER_SET float_outer2 = newstring
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (~%invis_golem%~) STR_VAR color=pearl RET newstring END
+  OUTER_SET float_golem2 = newstring
+LAF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (~%invis_chicken%~) STR_VAR color=pearl RET newstring END
+  OUTER_SET float_chicken2 = newstring
+
+
+//default tooltip name (replace ??? after initial meeting)
+OUTER_SET outer_name = RESOLVE_STR_REF (@2001)
+OUTER_SET golem_name = RESOLVE_STR_REF (@2005)
+OUTER_SET chicken_name = RESOLVE_STR_REF (@2004)
+
+
+//
+<<<<<<<< .../temp/d2rakst2
+IF
+	OnCreation()
+	!Global("d2rakst2","LOCALS",0)    // gets set to 1 in dialog
+THEN
+	RESPONSE #100
+		SetGlobal("d2rakst2","LOCALS",0)
+		SetGlobalTimer("d2facePC","LOCALS",0)
+		Continue()
+END
+
+IF
+	OnCreation()
+	NearSavedLocation(Myself,"d2StartPoint",0)
+THEN
+	RESPONSE #100
+		SetGlobal("d2savelocation","LOCALS",10)
+		Continue()
+END
+
+IF
+	OnCreation()
+	OR(2)
+		NumTimesTalkedTo(0)
+		!GlobalGT("%rakscim%_activate","GLOBAL",0)
+THEN
+	RESPONSE #100
+		ApplySpellRES("%delaymorph%",Myself)
+		Continue()
+END
+
+IF
+	OnCreation()
+	NumTimesTalkedToGT(0)
+//	GlobalGT("%rakscim%_activate","GLOBAL",0)
+	NearSavedLocation(Myself,"d2StartPoint",0)
+	!Detect([PC])
+	!Detect([FAMILIAR])
+THEN
+	RESPONSE #100
+		ApplySpellRES("%rakmorph%",Myself)
+END
+
+IF
+	NumTimesTalkedTo(0)
+	Global("d2rename_outer","GLOBAL",1)
+	!Global("d2rename_myself","LOCALS",1)
+	General(Myself,HUMANOID)
+THEN
+	RESPONSE #100
+		SetGlobal("d2rename_myself","LOCALS",1)
+		SetName(%outer_name%)    // after initial meeting, use this as default name each time CRE is created
+		Continue()
+END
+
+IF
+	NumTimesTalkedTo(0)
+	Global("d2rename_golem","GLOBAL",1)
+	!Global("d2rename_myself","LOCALS",1)
+	General(Myself,MONSTER)
+THEN
+	RESPONSE #100
+		SetGlobal("d2rename_myself","LOCALS",1)
+		SetName(%golem_name%)
+		Continue()
+END
+
+IF
+	NumTimesTalkedTo(0)
+	Global("d2rename_chicken","GLOBAL",1)
+	!Global("d2rename_myself","LOCALS",1)
+	General(Myself,ANIMAL)
+THEN
+	RESPONSE #100
+		SetGlobal("d2rename_myself","LOCALS",1)
+		SetName(%chicken_name%)
+		Continue()
+END
+
+IF
+	!StateCheck(Myself,STATE_INVISIBLE)
+	General(Myself,HUMANOID)
+	!GlobalTimerNotExpired("d2floattext","LOCALS")
+	!Global("d2rakst2","LOCALS",1)
+//	!See([EVILCUTOFF])
+	!ActuallyInCombat()
+	Range([PC],12)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("d2floattext","LOCALS",50000)
+		DisplayStringHeadNoLog(Myself,"%float_outer%")
+		Continue()
+END
+
+IF
+	!StateCheck(Myself,STATE_INVISIBLE)
+	General(Myself,MONSTER)
+	!GlobalTimerNotExpired("d2floattext","LOCALS")
+	!Global("d2rakst2","LOCALS",1)
+//	!See([EVILCUTOFF])
+	!ActuallyInCombat()
+	Range([PC],12)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("d2floattext","LOCALS",50000)
+		DisplayStringHeadNoLog(Myself,"%float_golem%")
+		Continue()
+END
+
+IF
+	!StateCheck(Myself,STATE_INVISIBLE)
+	General(Myself,ANIMAL)
+	!GlobalTimerNotExpired("d2floattext","LOCALS")
+	!Global("d2rakst2","LOCALS",1)
+//	!See([EVILCUTOFF])
+	!ActuallyInCombat()
+	Range([PC],12)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("d2floattext","LOCALS",50000)
+		DisplayStringHeadNoLog(Myself,"%float_chicken%")
+		Continue()
+END
+
+IF
+	!Global("d2SaveLocation","LOCALS",1)
+	OR(2)
+		NearSavedLocation(Myself,"d2StartPoint",0)
+		Global("d2SaveLocation","LOCALS",0)
+THEN
+	RESPONSE #100
+		SetGlobal("d2SaveLocation","LOCALS",1)
+		SaveObjectLocation("LOCALS","d2StartPoint",Myself)
+END
+
+IF
+	NumTimesTalkedToGT(0)
+	GlobalGT("d2SaveLocation","LOCALS",0)
+	!StateCheck(Myself,STATE_INVISIBLE)
+	!NearSavedLocation(Myself,"d2StartPoint",10)
+	!Detect([PC])
+	!Detect([FAMILIAR])
+THEN
+	RESPONSE #100
+		SetGlobal("d2SaveLocation","LOCALS",20)
+		ApplySpellRES("%rakscim%",Myself)
+END
+
+IF
+	OR(2)
+		StateCheck(Myself,STATE_INVISIBLE)
+		GlobalGT("d2SaveLocation","LOCALS",0)
+	!NearSavedLocation(Myself,"d2StartPoint",0)
+THEN
+	RESPONSE #100
+		SetGlobal("d2SaveLocation","LOCALS",20)
+		MoveToSavedLocation("d2StartPoint","LOCALS")
+END
+
+IF
+	AttackedBy([GOODCUTOFF],DEFAULT)
+	General(Myself,HUMANOID)
+	!StateCheck(Myself,STATE_INVISIBLE)
+	OR(2)
+		Detect([PC])
+		Detect([FAMILIAR])
+THEN
+	RESPONSE #100
+		DisplayStringHead(Myself,"%float_outer2%")
+		Wait(1)
+		ApplySpellRES("%rakscim%",Myself)
+END
+
+IF
+	AttackedBy([GOODCUTOFF],DEFAULT)
+	General(Myself,MONSTER)
+	!StateCheck(Myself,STATE_INVISIBLE)
+	OR(2)
+		Detect([PC])
+		Detect([FAMILIAR])
+THEN
+	RESPONSE #100
+		DisplayStringHead(Myself,"%float_golem2%")
+		Wait(1)
+		ApplySpellRES("%rakscim%",Myself)
+END
+
+IF
+	AttackedBy([GOODCUTOFF],DEFAULT)
+	General(Myself,ANIMAL)
+	!StateCheck(Myself,STATE_INVISIBLE)
+	OR(2)
+		Detect([PC])
+		Detect([FAMILIAR])
+THEN
+	RESPONSE #100
+		DisplayStringHead(Myself,"%float_chicken2%")
+		Wait(1)
+		ApplySpellRES("%rakscim%",Myself)
+END
+
+IF
+	OR(2)
+		ActionListEmpty()
+		Global("d2SaveLocation","LOCALS",1)
+	StateCheck(Myself,STATE_INVISIBLE)
+	!Detect([PC])
+	!Detect([FAMILIAR])
+THEN
+	RESPONSE #100
+		ApplySpellRES("%rakcancel%",Myself)
+END
+
+IF
+	!GlobalTimerNotExpired("d2facePC","LOCALS")
+	!StateCheck(Myself,STATE_INVISIBLE)
+//	!See([EVILCUTOFF])
+	!ActuallyInCombat()
+	Range([PC],12)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("d2facePC","LOCALS",300)
+		FaceObject([PC])
+END
+
+IF
+	!GlobalTimerNotExpired("d2facePC","LOCALS")
+	!StateCheck(Myself,STATE_INVISIBLE)
+//	!See([EVILCUTOFF])
+	!ActuallyInCombat()
+	Range([FAMILIAR],12)
+THEN
+	RESPONSE #100
+		SetGlobalTimer("d2facePC","LOCALS",300)
+		FaceObject([FAMILIAR])
+END
+
+IF
+	NumTimesTalkedToGT(0)
+	!StateCheck(Myself,STATE_INVISIBLE)
+	Global("d2SaveLocation","LOCALS",1)
+	NearSavedLocation(Myself,"d2StartPoint",0)
+	!Detect([PC])
+	!Detect([FAMILIAR])
+THEN
+	RESPONSE #100
+//		Face(%orientation%)
+		Face(1)
+END
+>>>>>>>>
+
+COPY - ~.../temp/d2rakst2~  ~inlined/d2rakst2.BAF~
+  EVALUATE_BUFFER
+  PATCH_IF (GAME_IS ~pstee~) BEGIN
+    REPLACE_TEXTUALLY ~EVILCUTOFF~ ~ENEMY~
+    REPLACE_TEXTUALLY ~GOODCUTOFF~ ~PC~
+
+    // global timers buggy (or work differently)
+    REPLACE_TEXTUALLY EXACT_MATCH ~DisplayStringHead(~ ~DisplayString(~
+    REPLACE_TEXTUALLY EXACT_MATCH ~!GlobalTimerNotExpired("d2facePC","LOCALS")~ ~!Global("d2facePC","LOCALS",1)~
+    REPLACE_TEXTUALLY EXACT_MATCH ~!GlobalTimerNotExpired("d2floattext","LOCALS")~ ~!Global("d2floattext","LOCALS",1)~
+    REPLACE_TEXTUALLY EXACT_MATCH ~SetGlobalTimer("d2facePC","LOCALS",300)~ ~SetGlobal("d2facePC","LOCALS",1)~
+    REPLACE_TEXTUALLY EXACT_MATCH ~SetGlobalTimer("d2facePC","LOCALS",0)~ ~SetGlobal("d2facePC","LOCALS",0)~
+    REPLACE_TEXTUALLY EXACT_MATCH ~SetGlobalTimer("d2floattext","LOCALS",50000)~ ~SetGlobal("d2floattext","LOCALS",1)~
+
+    // use pst style location saving
+    REPLACE_TEXTUALLY ~NearSavedLocation.*~ ~NearSavedLocationPST(0)~
+    REPLACE_TEXTUALLY ~SaveObjectLocation.*~ ~SavePlace()~
+    REPLACE_TEXTUALLY ~MoveToSavedLocation.*~ ~ReturnToSavedPlace()~
+
+/*
+    // remove location saving (doesn't work)
+    REPLACE_TEXTUALLY EXACT_MATCH ~!NearSavedLocation(Myself,"d2StartPoint",0)~ ~False()~
+    REPLACE_TEXTUALLY EXACT_MATCH ~!Global("d2SaveLocation","LOCALS",1)~ ~~
+    REPLACE_TEXTUALLY ~NearSavedLocation.*$~ ~~
+    REPLACE_TEXTUALLY ~OR.*$~ ~False()~
+*/
+
+  END
+
+COMPILE ~inlined/d2rakst2.BAF~
+
+
+//
+//

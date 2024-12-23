@@ -1,5 +1,14 @@
-//
-//
+/*
+install weapons (original v1.0 stuff)
+*/
+
+
+/*
+//Ranged
+//2-handed weapons
+//1-handed weapons
+//Other (non-Souls)
+*/
 
 
 //
@@ -8,127 +17,304 @@
 //Black Bow of Pharis (d2bow01)
 OUTER_TEXT_SPRINT itemid  ~d2bow01~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/blackbowi.BAM~  ~override/%ii%.BAM~
-COPY ~%items%/blackbow.ITM~   ~override/%itemid%.ITM~
-  SAY NAME1 @100
-  SAY NAME2 @100 SAY DESC @200
-  WRITE_ASCII 0x3a ~%ii%~ #8      // icon
-  WRITE_ASCII 0x58 ~CBOW03~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/blackbow.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/blackbow.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%blackbow_name%~
+  SAY NAME2 ~%blackbow_name%~ SAY DESC ~%blackbow_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CBOW03~ #8      // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
 
 
+//
 //Dragonslayer Greatbow (d2bow02)
 OUTER_TEXT_SPRINT itemid  ~d2bow02~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/greatbowi.BAM~  ~override/%ii%.BAM~
-COPY ~%items%/greatbow.ITM~   ~override/%itemid%.ITM~
-  SAY NAME1 @101
-  SAY NAME2 @101 SAY DESC @201
-  WRITE_ASCII 0x3a ~%ii%~ #8      // icon
-  WRITE_ASCII 0x58 ~CBOW12~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/greatbow.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/greatbow.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%greatbow_name%~
+  SAY NAME2 ~%greatbow_name%~ SAY DESC ~%greatbow_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CBOW12~ #8      // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=235 opcode=165 STR_VAR insert=below END    // add "pause" effect (same duration as knockback)
+  LPF ADD_ITEM_EFFECT INT_VAR type=99 opcode=1 target=1 timing=0 duration=4 parameter1=0 parameter2=1 END
 
 
+//
 //White Birch Bow (d2bow03)
 OUTER_TEXT_SPRINT itemid  ~d2bow03~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/whitebirchi.BAM~        ~override/%ii%.BAM~
-COPY ~%items%/whitebirch.ITM~         ~override/%itemid%.ITM~
-  SAY NAME1 @102
-  SAY NAME2 @102 SAY DESC @202
-  WRITE_ASCII 0x3a ~%ii%~ #8      // icon
-  WRITE_ASCII 0x58 ~CBOW15~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/whitebirch.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/whitebirch.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%whitebirch_name%~
+  SAY NAME2 ~%whitebirch_name%~ SAY DESC ~%whitebirch_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CBOW15~ #8      // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%ss%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%ee%~ END
 
-COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
-  WRITE_ASCII 0x30 ~%ee%~
-COPY ~%effects%/whitebirche.SPL~      ~override/%ee%.SPL~
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%ss%.EFF~    // hit effect
+  WRITE_ASCII 0x30 ~%ss%~ #8
+//  WRITE_SHORT 0x2c 25
+COPY ~%abilities%/whitebirchinvis.SPL~      ~override/%ss%.SPL~
+  LPF ALTER_EFFECT INT_VAR probability1=25 END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@300) END    // "Invisible"
+  LPF d2_protect_on_castequip INT_VAR duration=2 END
 
-COPY ~%effects%/castspelltarget.EFF~  ~override/%ss%.EFF~
-  WRITE_ASCII 0x30 ~%ss%~
-COPY ~%effects%/whitebirchs.SPL~      ~override/%ss%.SPL~
+COPY ~%abilities%/applyeffects.EFF~     ~override/%ee%.EFF~    // passive effect
+  WRITE_ASCII 0x30 ~%ee%~ #8
+//  WRITE_SHORT 0x2c 15
+COPY ~%abilities%/whitebirchinvis.SPL~      ~override/%ee%.SPL~
+  LPF ALTER_EFFECT INT_VAR probability1=15 END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@300) END    // "Invisible"
+  LPF d2_protect_on_castequip INT_VAR duration=5 END
 
 
+//
 //Avelyn (d2bow04)
+DEFINE_PATCH_FUNCTION avelyn_update BEGIN
+  LPF DELETE_EFFECT INT_VAR match_opcode=189 END    // remove old stuff
+  LPF DELETE_EFFECT INT_VAR match_opcode=141 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=139 END
+
+  // changes
+  LPF d2_equip_statreq INT_VAR amount=9 STR_VAR stat=~dex int~ END
+  WRITE_LONG 0xd0 THIS | BIT9    // break invis
+  LPF ALTER_ITEM_HEADER INT_VAR header_type=4 damage_bonus=1 END
+  LPF ALTER_ITEM_HEADER INT_VAR header_type=3 charges=9999 END
+
+  // Repeat Fire stuff
+  LPF ALTER_EFFECT INT_VAR match_opcode=111 opcode=326 parameter2=0 duration=0 STR_VAR resource=~%itemid%~ END
+//  LPF CLONE_EFFECT INT_VAR match_opcode=326 STR_VAR resource=~%bb%~ END    // moved to main subspell
+  LPF d2_protect_on_castequip STR_VAR resource=~%bb%~ END    // block subspell B
+  LPF d2_protect_on_castequip STR_VAR resource=~%yy%~ END    // block subspell Y
+END
+
 OUTER_TEXT_SPRINT itemid  ~d2bow04~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/avelyni.BAM~    ~override/%ii%.BAM~
-COPY ~%items%/avelyn.ITM~     ~override/%itemid%.ITM~
-  SAY NAME1 @103
-  SAY NAME2 @103 SAY DESC @203
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@301) END    // "Repeat Fire"
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CXBOW13~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/avelyn.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/avelyn.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%avelyn_name%~
+  SAY NAME2 ~%avelyn_name%~ SAY DESC ~%avelyn_desc%~
+//  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@301) END    // "Repeat Fire"
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CXBOW13~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+  LPF avelyn_update END
 
-COPY ~%effects%/avelyne.ITM~  ~override/%ee%.ITM~
-  SAY NAME1 @103
-  SAY NAME2 @103 SAY DESC @203
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CXBOW13~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+//main subspell (casts A and B)
+COPY ~%abilities%/applyeffects.SPL~  ~override/%itemid%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%aa%~ END
+  LPF CLONE_EFFECT STR_VAR resource=~%bb%~ END
 
+//subspell A (Repeat Fire)
+COPY ~%abilities%/repeatfire.SPL~  ~override/%aa%.SPL~
+  SAY NAME1 @301
+  LPF ALTER_EFFECT INT_VAR target=2 duration=8 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter1=50 END    // 50% movement rate (counter haste bonus)
+  LPF CLONE_EFFECT INT_VAR match_opcode=1 opcode=272 parameter1=1 parameter2=0 duration=7 STR_VAR resource=~%xx%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=174 match_timing=4 STR_VAR resource=EFF_E05 END
+  LPF d2_remove_effects_on_cast END
+  TEXT_SPRINT avelynhaste ~%DEST_RES%~
+
+//subspell B (blocks Repeat Fire)
+COPY ~%abilities%/spellfailed.SPL~  ~override/%bb%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=12 END    // lighting
+  SPRINT item_name ~%avelyn_name%~
+  SPRINT ability_name @301
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@351) STR_VAR color=orange RET newstring END    // spell failed string
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=newstring END
+  LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%aa%~ END
+
+//remove Repeat Fire (if Avelyn unequipped)
+COPY ~%abilities%/applyeffects.EFF~        ~override/%xx%.EFF~
+  WRITE_ASCII 0x30 ~%xx%~ #8
+COPY ~%abilities%/applyeffects.SPL~        ~override/%xx%.SPL~    // subspell X
+  LPF ALTER_EFFECT STR_VAR resource=~%yy%~ END
+  LPF CLONE_EFFECT INT_VAR timing=4 duration=1 END
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%yy%.SPL~    // subspell Y
+  LPF ALTER_EFFECT STR_VAR resource=~%aa%~ END
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@352) STR_VAR color=blue RET newstring END    // spell ended string
+  LPF CLONE_EFFECT INT_VAR opcode=139 parameter1=newstring END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=141 parameter1=0 parameter2=4 END            // lighting
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 timing=1 STR_VAR resource=EFF_E01 END    // cancel sound
+  LPF d2_protect_on_castequip INT_VAR duration=2 END
+
+//tooltip
+OUTER_SET tooltip = RESOLVE_STR_REF (@301)
+LAF d2_2da_row_adder STR_VAR 2da=tooltip string=~%itemid% -1 %tooltip% -1~ END
+
+//for scripting
 LAF d2_elemental_weapon_arrays STR_VAR item=~%itemid%~ element=~electrical~ RET_ARRAY d2electricalweap END
+
+
+/*removed in v2.5 update
+COPY ~%abilities%/avelyne.ITM~  ~override/%ee%.ITM~
+  SAY NAME1 @103
+  SAY NAME2 @103 SAY DESC @203
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CXBOW13~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+  LPF avelyn_update END
+  LPF ALTER_EFFECT INT_VAR match_opcode=176 parameter1=20 END    // 20% movement rate
+
 LAF d2_elemental_weapon_arrays INT_VAR temp=1 STR_VAR item=~%ee%~ element=~electrical~ RET_ARRAY d2electricalweap END
+*/
 
 
 
 //
 //2-handed weapons
 
-//Greatsword (d2swd01)
+//Colossal Sword (d2swd01)
 OUTER_TEXT_SPRINT itemid  ~d2swd01~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/greatswordi.BAM~  ~override/%ii%.BAM~
-COPY ~%items%/greatsword.ITM~   ~override/%itemid%.ITM~
-  SAY NAME1 @104
-  SAY NAME2 @104 SAY DESC @204
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CSW2H09~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/greatsword.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/greatsword.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%colossalsword_name%~
+  SAY NAME2 ~%colossalsword_name%~ SAY DESC ~%colossalsword_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CSW2H09~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=235 opcode=165 STR_VAR insert=below END    // add "pause" effect (same duration as knockback)
+  LPF ADD_ITEM_EFFECT INT_VAR type=99 opcode=1 target=1 timing=0 duration=4 parameter1=0 parameter2=1 END
 
 
+//
 //Fume Ultra Greatsword (d2swd02)
 OUTER_TEXT_SPRINT itemid  ~d2swd02~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/fumeultraGSi.BAM~  ~override/%ii%.BAM~
-COPY ~%items%/fumeultraGS.ITM~   ~override/%itemid%.ITM~
-  SAY NAME1 @105
-  SAY NAME2 @105 SAY DESC @205
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CSW2H08~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/fumeultraGS.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/fumeultraGS.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%fumeultraGS_name%~
+  SAY NAME2 ~%fumeultraGS_name%~ SAY DESC ~%fumeultraGS_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CSW2H08~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=235 opcode=165 STR_VAR insert=below END    // add "pause" effect (same duration as knockback)
+  LPF ADD_ITEM_EFFECT INT_VAR type=99 opcode=1 target=1 timing=0 duration=4 parameter1=0 parameter2=1 END
 
 
+//
 //Stone Greatsword (d2swd06)
 OUTER_TEXT_SPRINT itemid  ~d2swd06~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/stoneGSi.BAM~           ~override/%ii%.BAM~
-COPY ~%items%/stoneGS.ITM~            ~override/%itemid%.ITM~
-  SAY NAME1 @106
-  SAY NAME2 @106 SAY DESC @206
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CSW1H34~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/stoneGS.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/stoneGS.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%stoneGS_name%~
+  SAY NAME2 ~%stoneGS_name%~ SAY DESC ~%stoneGS_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CSW1H34~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
 
-COPY ~%effects%/stoneGSs.SPL~         ~override/%ss%.SPL~
+  // edits
+  LPF d2_equip_statreq INT_VAR amount=9 STR_VAR stat=~int~ END    // min int
+  LPF ALTER_ITEM_HEADER INT_VAR header_type=3 charges=3 END       // 3 charges
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 opcode=326 parameter2=0 STR_VAR resource=~%itemid%~ END    // main subspell
+  LPF d2_protect_on_castequip STR_VAR resource=~%bb%~ END    // block subspell B
+  LPF d2_protect_on_castequip STR_VAR resource=~%yy%~ END    // block subspell Y
+
+//main subspell
+COPY ~%abilities%/stoneGScast.SPL~  ~override/%itemid%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 parameter2=0 STR_VAR resource=~%aa%~ END    // cast spell (normal casting)
+  LPF CLONE_EFFECT INT_VAR match_opcode=146 opcode=326 STR_VAR resource=~%bb%~ END      // block spell
+
+//cast spell
+COPY ~%abilities%/stoneGSaura.SPL~  ~override/%aa%.SPL~
   SAY NAME1 @302
-COPY ~%effects%/stoneGSe.ITM~         ~override/%ee%.ITM~
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 parameter1=1 parameter2=0 STR_VAR resource=~%ss%~ END    // slow aura
+  LPF ALTER_EFFECT INT_VAR match_opcode=155 STR_VAR resource=~%ss%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=174 STR_VAR resource=EFF_M45 END
+  LPF ALTER_EFFECT INT_VAR target=2 duration=12 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=272 duration=11 STR_VAR resource=~%xx%~ END    // remove effects (if unequipped)
+  LPF CLONE_EFFECT INT_VAR match_opcode=174 opcode=141 parameter2=18 END               // lighting
+  TEXT_SPRINT tranquilcast ~%DEST_RES%~
+
+//block spell
+COPY ~%abilities%/spellfailed.SPL~  ~override/%bb%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=4 END    // lighting
+  SPRINT item_name ~%stoneGS_name%~
+  SPRINT ability_name @302
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@351) STR_VAR color=mana RET newstring END    // spell failed string
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=newstring END
+  LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%aa%~ END
+
+//remove effects (if unequipped)
+COPY ~%abilities%/applyeffects.EFF~        ~override/%xx%.EFF~
+  WRITE_ASCII 0x30 ~%xx%~ #8
+COPY ~%abilities%/applyeffects.SPL~        ~override/%xx%.SPL~    // subspell X
+  LPF ALTER_EFFECT STR_VAR resource=~%yy%~ END
+  LPF CLONE_EFFECT INT_VAR timing=4 duration=1 END
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%yy%.SPL~    // subspell Y
+  LPF ALTER_EFFECT STR_VAR resource=~%aa%~ END
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@352) STR_VAR color=blue RET newstring END    // spell ended string
+  LPF CLONE_EFFECT INT_VAR opcode=139 parameter1=newstring END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=141 parameter1=0 parameter2=16 END    // lighting
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 STR_VAR resource=EFF_M52 END      // cancel sound
+  LPF d2_protect_on_castequip INT_VAR duration=2 END
+
+//caster visual
+COPY ~%abilities%/stoneGSvisual2.BAM~  ~override/%ss%.BAM~
+COPY ~%abilities%/stoneGSvisual2.VVC~  ~override/%ss%.VVC~
+  WRITE_ASCII 0x8 ~%ss%~ #8
+  WRITE_ASCII 0x78 AFT_M04 #8
+
+//projectile
+COPY - ~%abilities%/stoneGSslow.PRO~  ~%workspace%/%ss%.PRO~
+ADD_PROJECTILE ~%workspace%/%ss%.PRO~
+
+//slow aura
+OUTER_SET slowed  = 14668
+ACTION_IF (GAME_IS ~bgee~) BEGIN  OUTER_SET slowed  = 31772  END
+
+COPY ~%abilities%/applyeffects.EFF~   ~override/%ss%.EFF~
+  WRITE_ASCII 0x30 ~%ss%~ #8
+COPY ~%abilities%/stoneGSslow.SPL~    ~override/%ss%.SPL~
+  WRITE_SHORT 0x98 ~%ss%~    // projectile
+  LPF ALTER_EFFECT INT_VAR match_timing=0 duration=60 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=slowed END    // "Slowed"
+//  LPF ALTER_EFFECT INT_VAR match_opcode=126 parameter1=20 END
+  LPF d2_remove_effects_on_cast END
+
+  // recheck every round if magic resisted
+  LPF d2_protect_on_castequip INT_VAR duration=13 END
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 resist_dispel=3 duration=4 STR_VAR insert=last END
+
+//tooltip
+OUTER_SET tooltip = RESOLVE_STR_REF (@302)
+LAF d2_2da_row_adder STR_VAR 2da=tooltip string=~%itemid% -1 %tooltip% -1~ END
+
+//
+//penalties removed by haste or free action (spellpatching.tph)
+OUTER_TEXT_SPRINT  tranquilslow ~%ss%~
+
+DEFINE_PATCH_FUNCTION remove_tranquil BEGIN
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=163 opcode=321 parameter2=0 STR_VAR resource=~%tranquilslow%~ END
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=16 opcode=321 parameter2=0 STR_VAR resource=~%tranquilslow%~ END
+//  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=317 opcode=321 parameter2=0 STR_VAR resource=~%tranquilslow%~ END
+END
+
+DEFINE_PATCH_FUNCTION block_tranquil BEGIN
+  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=126 opcode=318 parameter2=0 STR_VAR resource=~%tranquilslow%~ END
+END
+
+
+/*removed in v2.5 update
+//weapon
+COPY ~%abilities%/stoneGSe.ITM~  ~override/%ee%.ITM~
   SAY NAME1 @106
   SAY NAME2 @106 SAY DESC @206
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CSW1H34~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
-
-COPY - ~%effects%/stoneGSe.PRO~       ~%workspace%/%ee%.PRO~
-ADD_PROJECTILE ~%workspace%/%ee%.PRO~
-COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
-  WRITE_ASCII 0x30 ~%ee%~
-COPY ~%effects%/stoneGSe.SPL~         ~override/%ee%.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@303) END    // "Slowed"
-  WRITE_SHORT 0x98 ~%ee%~    // projectile
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CSW1H34~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+  LPF DELETE_EFFECT INT_VAR match_opcode=177 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 parameter1=1 parameter2=0 STR_VAR resource=~%aa%~ END    // slow effect
+  LPF ALTER_EFFECT INT_VAR match_opcode=155 STR_VAR resource=~%ee%~ END
+*/
 
 
 
@@ -138,90 +324,154 @@ COPY ~%effects%/stoneGSe.SPL~         ~override/%ee%.SPL~
 //Chaos Rapier (d2swd03)
 OUTER_TEXT_SPRINT itemid  ~d2swd03~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/chaosrapieri.BAM~       ~override/%ii%.BAM~
-COPY ~%items%/chaosrapier.ITM~        ~override/%itemid%.ITM~
-  SAY NAME1 @107
-  SAY NAME2 @107 SAY DESC @207
-  WRITE_ASCII 0x3a ~%ii%~ #8        // icon
+COPY ~%icons%/chaosrapier.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/chaosrapier.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%chaosrapier_name%~
+  SAY NAME2 ~%chaosrapier_name%~ SAY DESC ~%chaosrapier_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
   WRITE_ASCII 0x58 ~BDCSWH08~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
 
-/*
-COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~    // self-damage (removed in v2.2)
-  WRITE_ASCII 0x30 ~%ee%~
-COPY ~%effects%/chaosrapiere.SPL~     ~override/%ee%.SPL~
-*/
+  // v3.0 edits (chaos effects)
+  LPF d2_magic_item_flags INT_VAR enchantment=1 END              // +1 enchantment (chaos effect increases to +5)
+  LPF d2_equip_statreq STR_VAR stat=~int wis~ END                // set stat requirements to 0
+  LPF ALTER_EFFECT INT_VAR match_opcode=332 parameter1=10 END    // 10% fire bonus
+  LPF CLONE_EFFECT INT_VAR match_opcode=332 opcode=272 parameter1=1 parameter2=0 STR_VAR resource=~%aa%~ END
 
+//chaos effects
+COPY ~%abilities%/applyeffects.EFF~  ~override/%aa%.EFF~
+  WRITE_ASCII 0x30 ~%aa%~ #8
+  WRITE_LONG 0x20 d2chaoscheck
+COPY ~%abilities%/applyeffects.SPL~  ~override/%aa%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=326 parameter1=3 parameter2=144 STR_VAR resource=~%bb%~ END       // hp drain
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=0 duration=3 opcode=332 parameter1=20 parameter2=1 END    // +20% fire bonus
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=0 duration=3 opcode=345 parameter1=5 parameter2=0 END     // +5 enchantment
+  LPF d2_remove_effects_on_cast END
+  LPF d2_protect_on_castequip INT_VAR duration=1 END
+
+//hp drain
+COPY ~%abilities%/chaosrapierdrain2.SPL~  ~override/%bb%.SPL~
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%bb%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 STR_VAR resource=~%bb%~ END
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@316) STR_VAR color=cloud RET newstring END
+  LPF CLONE_EFFECT INT_VAR match_opcode=17 opcode=139 parameter1=newstring END    // HP drained text
+  LPF d2_protect_on_castequip INT_VAR duration=18 END
+COPY ~%abilities%/chaosrapierdrain2.VVC~  ~override/%bb%.VVC~
+  WRITE_ASCII 0x8 ~%bb%~ #8
+  WRITE_ASCII 0x78 ~%bb%~ #8
+COPY ~%abilities%/chaosrapierdrain2.BAM~  ~override/%bb%.BAM~
+COPY ~%abilities%/chaosrapierdrain2.WAV~  ~override/%bb%.WAV~
+
+//
 LAF d2_elemental_weapon_arrays STR_VAR item=~%itemid%~ element=~fire~ RET_ARRAY d2fireweap END
+OUTER_TEXT_SPRINT chaosbonus ~%aa%~
+OUTER_TEXT_SPRINT chaosdrain ~%bb%~
 
 
+//
 //Drakeblood Greatsword (d2swd04)
 OUTER_TEXT_SPRINT itemid  ~d2swd04~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/drakebloodi.BAM~  ~override/%ii%.BAM~
-COPY ~%items%/drakeblood.ITM~   ~override/%itemid%.ITM~
-  SAY NAME1 @108
-  SAY NAME2 @108 SAY DESC @208
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CSW2H16~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/drakeblood.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/drakeblood.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%drakeblood_name%~
+  SAY NAME2 ~%drakeblood_name%~ SAY DESC ~%drakeblood_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CSW2H16~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
 
 LAF d2_elemental_weapon_arrays STR_VAR item=~%itemid%~ element=~electrical~ RET_ARRAY d2electricalweap END
 
 
+//
 //Bewitched Alonne Sword (d2swd05)
 OUTER_TEXT_SPRINT itemid  ~d2swd05~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/alonneswordi.BAM~       ~override/%ii%.BAM~
-COPY ~%items%/alonnesword.ITM~        ~override/%itemid%.ITM~
-  SAY NAME1 @109 SAY UNIDENTIFIED_DESC @701
-  SAY NAME2 @109 SAY DESC @209
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@304) END    // "Harakiri"
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CSW1H44~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/alonnesword.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/alonnesword.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%alonnesword_name%~
+  SAY NAME2 ~%alonnesword_name%~ SAY DESC ~%alonnesword_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CSW1H44~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+  LPF ALTER_EFFECT INT_VAR header_type=1 match_opcode=326 STR_VAR resource=~%bb%~ END        // bleed
+  LPF CLONE_EFFECT INT_VAR header_type=1 match_opcode=326 STR_VAR resource=~%aa%~ END        // +5 slashing
+  LPF ALTER_EFFECT INT_VAR header_type=3 match_opcode=326 STR_VAR resource=~%itemid%~ END    // cast Harakiri
+  LPF d2_equip_statreq INT_VAR amount=13 STR_VAR stat=~dex~ END
 
-COPY ~%icons%/bloodloss.BAM~          ~override/%ee%.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@305) STR_VAR bam=~%ee%~ RET icon END
-COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
-  WRITE_ASCII 0x30 ~%ee%~
-COPY ~%effects%/alonnesworde.SPL~     ~override/%ee%.SPL~
+//bleed
+COPY ~inlined/bleed_core.SPL~  ~override/%bb%.SPL~
+  LPF d2_bleed_delay INT_VAR limit=2 delay=3 STR_VAR resource=d2bleed5 END
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@305) END    // "Blood Loss"
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+//  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+  TEXT_SPRINT harakiribleed ~%DEST_RES%~
 
-COPY ~%effects%/castspelltarget.EFF~  ~override/%bb%.EFF~
-  WRITE_ASCII 0x30 ~%bb%~
-COPY ~%effects%/alonneswordb.SPL~     ~override/%bb%.SPL~    // Bleed damage
+LAF d2_bleed_removal STR_VAR resource=~%bb%~ END    // add to d2!bleed.spl
+LAF d2_bleed_effects STR_VAR resource=~%bb%~ END    // blocked by damage immunity (ex. shield of lathander)
 
-COPY ~%effects%/castspelltarget.EFF~  ~override/%hh%.EFF~
-  WRITE_ASCII 0x30 ~%hh%~
-COPY ~%effects%/alonneswordh.SPL~     ~override/%hh%.SPL~    // Harakiri self-damage
+//cast Harakiri
+COPY ~%abilities%/applyeffects.SPL~  ~override/%itemid%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%hh%~ END
 
-COPY ~%icons%/harakiri.BAM~           ~override/%ss%.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@304) STR_VAR bam=~%ss%~ RET icon END
-COPY ~%effects%/castspelltarget.EFF~  ~override/%ss%.EFF~
-  WRITE_ASCII 0x30 ~%ss%~
-COPY ~%effects%/alonneswords.SPL~     ~override/%ss%.SPL~    // Harakiri buff
-  LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=%icon% END
+COPY ~%abilities%/harakiricast.SPL~  ~override/%hh%.SPL~
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@304) STR_VAR color=blood RET newtext END
+  SAY NAME1 ~%newtext%~
+  LPF ALTER_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 STR_VAR resource=~%ee%~ END    // buff
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 STR_VAR resource=~%bb%~ END    // bleed
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=4 STR_VAR resource=~%cc%~ END    // self-damage
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=326 timing=1 STR_VAR resource=~%cc%~ END    // self-damage
+  TEXT_SPRINT harakiricast ~%DEST_RES%~
+
+//buff
+COPY ~%icons%/harakiri.BAM~  ~override/%ee%.BAM~
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@304) STR_VAR bam=~%ee%~ RET icon END
+COPY ~%abilities%/harakiribuff.SPL~  ~override/%ee%.SPL~
+  LPF CLONE_EFFECT INT_VAR match_opcode=142 parameter2=icon END
+  TEXT_SPRINT harakiricrit ~%DEST_RES%~
+
+COPY ~%abilities%/alonnesword5.SPL~  ~override/%aa%.SPL~    // +5 slashing
+COPY ~%abilities%/harakiri36.SPL~    ~override/%cc%.SPL~    // self-damage
+
+//tooltip
+OUTER_SET tooltip = RESOLVE_STR_REF (@304)
+LAF d2_2da_row_adder STR_VAR 2da=tooltip string=~%itemid% -1 %tooltip% -1~ END
 
 
+//
 //Aquamarine Dagger (d2dag01)
 OUTER_TEXT_SPRINT itemid  ~d2dag01~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/aquamarinei.BAM~  ~override/%ii%.BAM~
-COPY ~%items%/aquamarine.ITM~   ~override/%itemid%.ITM~    // main weapon
-  SAY NAME1 @110
-  SAY NAME2 @110 SAY DESC @210
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CDAGG16~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/aquamarine.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/aquamarine.ITM~  ~override/%itemid%.ITM~    // main weapon
+  SAY NAME1 ~%aquamarine_name%~
+  SAY NAME2 ~%aquamarine_name%~ SAY DESC ~%aquamarine_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CDAGG16~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+
+/*moved to subspell
+  // cast crystal blade
   LPF CLONE_EFFECT INT_VAR match_opcode=177 opcode=326 parameter2=0 STR_VAR resource=~%bb%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=177 parameter1=202 STR_VAR resource=~%aa%~ END
-  LPF CLONE_EFFECT INT_VAR match_opcode=177 parameter1=5 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=318 parameter1=202 STR_VAR resource=~%bb%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=177 parameter1=5 STR_VAR resource=~%aa%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%aa%~ END
+*/
+
+  //
+  LPF DELETE_EFFECT INT_VAR match_opcode=177 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=321 opcode=326 STR_VAR resource=~%itemid%~ END    // cast main subspell
+  LPF ALTER_EFFECT INT_VAR match_opcode=318 parameter1=202 STR_VAR resource=~%bb%~ END    // block the block spell
   LPF CLONE_EFFECT INT_VAR match_opcode=318 parameter1=5 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=189 opcode=177 parameter1=0 parameter2=2 STR_VAR resource=~%cc%~ END    // +1 casting speed
+
+//main subspell
+COPY ~%abilities%/aquamarinecast.SPL~  ~override/%itemid%.SPL~
+  LPF CLONE_EFFECT INT_VAR match_opcode=177 opcode=326 parameter2=0 STR_VAR resource=~%bb%~ END    // failed cast
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 parameter1=202 STR_VAR resource=~%aa%~ END             // cast spell
+  LPF CLONE_EFFECT INT_VAR match_opcode=177 parameter1=5 STR_VAR resource=~%aa%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=321 STR_VAR resource=~%aa%~ END
 
+//thac0 scaling
 OUTER_SET thac0 = 20
 OUTER_FOR (n = 1; n <= 20; ++n) BEGIN
   OUTER_SET thac0 -= 1
@@ -230,85 +480,164 @@ OUTER_FOR (n = 1; n <= 20; ++n) BEGIN
   END
 END
 
-COPY ~%effects%/castspelltarget.EFF~  ~override/%aa%.EFF~
-  WRITE_ASCII 0x30 ~%aa%~
+//cast crystal blade
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%aa%.EFF~
+  WRITE_ASCII 0x30 ~%aa%~ #8
   WRITE_LONG  0x20 0    // cast normally (can attract cowled wizards)
-COPY ~%effects%/aquamarinecrystal.SPL~  ~override/%aa%.SPL~
+COPY ~%abilities%/aquamarinecrystal.SPL~  ~override/%aa%.SPL~
   SAY NAME1 @306
   LPF ALTER_EFFECT INT_VAR match_opcode=111 STR_VAR resource=~%aa%~ END
+  LPF d2_remove_effects_on_cast END
 
   LPF CD_LEVEL_SELECT-O-MATIC  INT_VAR step_dur=0 level_cap=21 dur_special=1 min_abil=1 END    // extend spell headers
   PHP_EACH d2aquamarine AS level => thac0 BEGIN
     LPF ALTER_EFFECT INT_VAR header=level match_opcode=54 parameter1=thac0 END                 // set base thac0 effects
   END
 
-COPY ~%effects%/aquamarinecrystal.ITM~  ~override/%aa%.ITM~    // sword form
-  SAY NAME1 @110
-  SAY NAME2 @110 SAY DESC @210
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CDAGG16~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+//magic weapon form
+COPY ~%abilities%/aquamarinecrystal.ITM~  ~override/%aa%.ITM~
+  SAY NAME1 ~%aquamarine_name%~
+  SAY NAME2 ~%aquamarine_name%~ SAY DESC ~%aquamarine_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CDAGG16~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
 
-COPY ~%effects%/aquamarinefail.SPL~  ~override/%bb%.SPL~
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@312) END
+  // edits
+  LPF ALTER_EFFECT INT_VAR match_opcode=189 opcode=177 parameter1=0 parameter2=2 STR_VAR resource=~%cc%~ END    // +1 casting speed
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 STR_VAR resource=~%uu%~ END
+  TEXT_SPRINT crystalblade ~%DEST_RES%~
+
+// +1 casting speed
+COPY ~%abilities%/aquamarinecrystal.EFF~   ~override/%cc%.EFF~
+
+//failed cast (not an arcane caster)
+COPY ~%abilities%/spellfailed.SPL~  ~override/%bb%.SPL~
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@312) STR_VAR color=blue RET newstring END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=newstring END
+  LPF d2_protect_on_castequip INT_VAR cre_type=105 cre_special=5 STR_VAR insert=first END
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 parameter1=202 END
+
+//tooltip
+OUTER_SET tooltip = RESOLVE_STR_REF (@306)
+LAF d2_2da_row_adder STR_VAR 2da=tooltip string=~%itemid% -1 %tooltip% -1~ END
+
+//
+//invisible creature
+COPY ~%abilities%/replaceself.SPL~  ~override/%uu%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%uu%~ END
+COPY ~%abilities%/replaceself.CRE~  ~override/%uu%.CRE~
+  REPLACE_CRE_ITEM ~minhp1~ #0 #0 #0 ~unstealable&undroppable~ ~amulet~
+  REPLACE_CRE_ITEM ~immune2~ #0 #0 #0 ~unstealable&undroppable~ ~rring~
+  WRITE_ASCII 0x248 ~%itemid%~ #8     // set script
+  WRITE_ASCII 0x280 ~%itemid%~ #32    // set script name
+
+COPY ~%abilities%/applyeffects.SPL~  ~override/%xx%.SPL~
+  LPF ALTER_EFFECT INT_VAR opcode=321 STR_VAR resource=~%aa%~ END
+  LPF CLONE_EFFECT INT_VAR opcode=112 STR_VAR resource=~%aa%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=141 parameter2=22 END    // lighting (6 or 22)
+  LPF d2_protect_on_castequip END
+
+  // text
+  SPRINT item_name ~%aquamarine_name%~
+  SPRINT ability_name @306
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@352) STR_VAR color=blue RET newstring END    // spell ended string
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=139 parameter1=newstring END
+
+//make script
+OUTER_TEXT_SPRINT magicitem  ~%aa%~
+OUTER_TEXT_SPRINT endspell   ~%xx%~
+OUTER_TEXT_SPRINT duration   ~18~
+INCLUDE ~%install%/trickweaponscript.tph~
 
 
 
 //
-//Other (non-Souls) weapons
+//Other (non-Souls)
 
 //Unbalanced Halberd (d2hal01)
 OUTER_TEXT_SPRINT itemid  ~d2hal01~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/uhalberdi.BAM~          ~override/%ii%.BAM~
-COPY ~%items%/uhalberd.ITM~           ~override/%itemid%.ITM~
-  SAY NAME1 @111
-  SAY NAME2 @111 SAY DESC @211
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CHALB01~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/uhalberd.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/uhalberd.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%uhalberd_name%~
+  SAY NAME2 ~%uhalberd_name%~ SAY DESC ~%uhalberd_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CHALB01~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 parameter1=3 END
 
-COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
-  WRITE_ASCII 0x30 ~%ee%~
-COPY ~%effects%/uhalberde.SPL~        ~override/%ee%.SPL~
+COPY ~%abilities%/applyeffects.EFF~  ~override/%ee%.EFF~
+  WRITE_ASCII 0x30 ~%ee%~ #8
+COPY ~%abilities%/uhalberdeffects.SPL~     ~override/%ee%.SPL~
+  LPF d2_protect_on_castequip INT_VAR duration=5 END
 
 
+//
 //Club +4: Frenzy (d2ham01)
+OUTER_SET confused  = 14782
+ACTION_IF (GAME_IS ~bgee~)  BEGIN  OUTER_SET confused  = 25807 END
+ACTION_IF (GAME_IS ~iwdee~) BEGIN  OUTER_SET confused  = 37604 END
+
 OUTER_TEXT_SPRINT itemid  ~d2ham01~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/clubfrenzyi.BAM~    ~override/%ii%.BAM~
-COPY ~%items%/clubfrenzy.ITM~     ~override/%itemid%.ITM~
-  SAY NAME1 @112
-  SAY NAME2 @112 SAY DESC @212
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CBLUN01~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
-  LPF ALTER_EFFECT INT_VAR header_type=1 match_opcode=139 parameter1=RESOLVE_STR_REF (@310) END    // "Confused"
+COPY ~%icons%/clubfrenzy.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/clubfrenzy.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%clubfrenzy_name%~
+  SAY NAME2 ~%clubfrenzy_name%~ SAY DESC ~%clubfrenzy_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CBLUN01~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=confused END    // "Confused" text
+  LPF ALTER_EFFECT INT_VAR match_opcode=146 parameter2=0 STR_VAR resource=~%itemid%~ END    // cast enrage
+//  LPF ALTER_ITEM_HEADER INT_VAR header_type=3 STR_VAR icon=SPCL152 END    // spell icon (alts: SPIN117, SPCL152)
 
-COPY ~%effects%/clubfrenzys.SPL~  ~override/%ss%.SPL~    // main spell (for all below effects)
-COPY ~%effects%/clubfrenzya.SPL~  ~override/%aa%.SPL~    // Enrage
+//tooltip
+OUTER_SET tooltip = RESOLVE_STR_REF (@307)
+LAF d2_2da_row_adder STR_VAR 2da=tooltip string=~%itemid% -1 %tooltip% -1~ END
+
+//main subspell
+COPY ~%abilities%/applyeffects.SPL~  ~override/%itemid%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%aa%~ END
+
+//add Enrage
+COPY ~%abilities%/clubfrenzycast.SPL~  ~override/%aa%.SPL~
   SAY NAME1 @307
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@309) END    // Berserk state message
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END
-COPY ~%effects%/clubfrenzyc.SPL~  ~override/%cc%.SPL~    // winded
+  LPF DELETE_EFFECT INT_VAR match_opcode=321 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=146 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%bb%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 parameter2=0 timing=1 STR_VAR resource=d2rageb END    // cast Enrage
+  LPF d2_remove_effects_on_cast END
+  TEXT_SPRINT frenzycast ~%DEST_RES%~
 
-COPY ~%effects%/clubfrenzye.EFF~  ~override/%ee%.EFF~    // 0-15 probability
-COPY ~%effects%/clubfrenzye.SPL~  ~override/%ee%.SPL~    // Frenzy
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@308) END    // "FRENZY!!!"
-COPY ~%effects%/clubfrenzyb.SPL~  ~override/%bb%.SPL~    // Enrage (no text)
-  PATCH_IF (GAME_IS ~bgee iwdee~) BEGIN
-    LPF DELETE_EFFECT INT_VAR match_opcode=267 END
-    LPF d2_string_immunities END
-  END
-COPY ~%effects%/clubfrenzyg.EFF~  ~override/%gg%.EFF~    // Color pulse
+  // extra patches
+  LPF CLONE_EFFECT INT_VAR multi_match=1 timing=4 duration=60 STR_VAR insert=below END    // fix Frenzy after resting
+  LPF d2_protect_on_castequip INT_VAR duration=12 STR_VAR resource=~%bb%~ END             // block frenzy for 2 rounds
 
+//add Frenzy
+COPY ~%abilities%/clubfrenzypulse.EFF~   ~override/%cc%.EFF~    // Color pulse
+COPY ~%abilities%/applyeffects.EFF~  ~override/%bb%.EFF~    // 0-15 probability
+  WRITE_SHORT 0x2c 15
+  WRITE_ASCII 0x30 ~%bb%~ #8
+COPY ~%abilities%/clubfrenzyberserk.SPL~  ~override/%bb%.SPL~
+  LPF DELETE_EFFECT INT_VAR match_opcode=321 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=146 END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 parameter2=0 timing=1 STR_VAR resource=d2ragef END
+  LPF d2_remove_effects_on_cast END
+  LPF d2_remove_effects_on_cast STR_VAR resource=~%aa%~ END
 
-//Function for later patching
-OUTER_TEXT_SPRINT  frenzyberserk ~%ee%~
-OUTER_TEXT_SPRINT  frenzyenrage  ~%bb%~
+  // "Frenzy" string
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@308) STR_VAR color=green RET newstring END
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 opcode=330 parameter1=newstring END
+
+  // duration 8 rounds
+  LPF ALTER_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%cc%~ END
+  LPF enrage_rounds INT_VAR rounds=8 END
+  LPF enrage_block INT_VAR rounds=8 STR_VAR block=winded END
+
+//
+//frenzy removed by berserk cures (spellpatching.tph)
+OUTER_TEXT_SPRINT  frenzyberserk ~%bb%~
+OUTER_TEXT_SPRINT  frenzyenrage  ~d2ragef~
 
 DEFINE_PATCH_FUNCTION remove_frenzy BEGIN
   LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=4 opcode=321 parameter2=0 STR_VAR resource=~%frenzyberserk%~ END
@@ -320,44 +649,65 @@ DEFINE_PATCH_FUNCTION block_frenzy BEGIN
 END
 
 
+//
 //Scimitar +2: Accelerator (d2swd07)
 OUTER_TEXT_SPRINT itemid  ~d2swd07~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/acceleratori.BAM~  ~override/%ii%.BAM~
-COPY ~%items%/accelerator.ITM~   ~override/%itemid%.ITM~
-  SAY NAME1 @113
-  SAY NAME2 @113 SAY DESC @213
-  WRITE_ASCII 0x3a ~%ii%~ #8        // icon
-  WRITE_ASCII 0x58 ~CSW1H30~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/accelerator.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/accelerator.ITM~  ~override/%itemid%.ITM~
+//  SAY NAME1 @113
+//  SAY NAME2 @113 SAY DESC @213
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CSW1H30~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
 
-COPY ~%effects%/castspelltarget.EFF~  ~override/%ee%.EFF~
-  WRITE_ASCII 0x30 ~%ee%~
-COPY ~%effects%/acceleratore.SPL~     ~override/%ee%.SPL~
+COPY ~%abilities%/castspelltarget.EFF~  ~override/%ee%.EFF~
+  WRITE_ASCII 0x30 ~%ee%~ #8
+COPY ~%abilities%/acceleratore.SPL~     ~override/%ee%.SPL~
 
 OUTER_TEXT_SPRINT  accel_effects ~%ee%~    // for sling variant
 
 
 //
-//Sling +2: Accelerator (d2eff01b)
-OUTER_TEXT_SPRINT itemid  ~d2eff01b~
+//Sling +2: Accelerator (d2eff01)
+OUTER_TEXT_SPRINT itemid  ~d2eff01~
 INCLUDE ~%install%/variables.tph~
-COPY ~%icons%/slingacceli.BAM~  ~override/%itemid%.BAM~
-COPY ~%items%/slingaccel.ITM~   ~override/%itemid%.ITM~
-  SAY NAME1 @114
-  SAY NAME2 @114 SAY DESC @214
-  WRITE_ASCII 0x3a ~%ii%~ #8       // icon
-  WRITE_ASCII 0x58 ~CSLNG07~ #8    // description image
-  LPF ALTER_ITEM_HEADER STR_VAR icon=~%ii%~ END
+COPY ~%icons%/slingaccel.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/slingaccel.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%slingaccel_name%~
+  SAY NAME2 ~%slingaccel_name%~ SAY DESC ~%slingaccel_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CSLNG07~ #8     // description image
+  LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=177 match_parameter2=2 STR_VAR resource=~%accel_effects%~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=177 match_parameter2=4 STR_VAR resource=~d2eff01e~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 match_parameter2=4 STR_VAR resource=~%ee%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=318 STR_VAR resource=~%accel_effects%~ END
 
-COPY_EXISTING ~%accel_effects%.EFF~  ~override/d2eff01e.EFF~    //Halflings: no THAC0 penalty
-  WRITE_ASCII 0x30 ~d2eff01e~
-COPY_EXISTING ~%accel_effects%.SPL~  ~override/d2eff01e.SPL~
+//Halflings - no THAC0 penalty
+COPY_EXISTING ~%accel_effects%.EFF~  ~override/%ee%.EFF~
+  WRITE_ASCII 0x30 ~%ee%~ #8
+COPY_EXISTING ~%accel_effects%.SPL~  ~override/%ee%.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=278 END
 
 
-/*
-*/
+//
+//Maul +3: Accelerator (d2ham02)
+OUTER_TEXT_SPRINT itemid  ~d2ham02~
+INCLUDE ~%install%/variables.tph~
+COPY ~%icons%/workhammer.BAM~  ~override/%itemid%.BAM~
+COPY ~%files%/accelerator.ITM~  ~override/%itemid%.ITM~
+  SAY NAME1 ~%workhammer_name%~
+  SAY NAME2 ~%workhammer_name%~ SAY DESC ~%workhammer_desc%~
+  WRITE_ASCII 0x3a ~%itemid%~ #8    // icon
+  WRITE_ASCII 0x58 ~CHAMM07~ #8     // description image
+  LPF d2_magic_item_flags INT_VAR enchantment=3 END
+
+  // edits
+  LPF ALTER_ITEM_HEADER INT_VAR thac0_bonus=3 damage_bonus=3 damage_type=2 animation_overhand=50 animation_backhand=40 animation_thrust=10 STR_VAR icon=~%itemid%~ END
+  LPF d2_equip_statreq INT_VAR amount=9 STR_VAR stat=~str~ END
+  LPF DELETE_EFFECT INT_VAR match_opcode=319 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%accel_effects%~ END
+
+
+//
+//

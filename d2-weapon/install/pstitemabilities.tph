@@ -1,0 +1,333 @@
+/*
+fix issues with effects
+convert item abilities to cast from dialog (this file runs pstitemdialog.tph)
+*/
+
+
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+
+
+//fix avelyn spell (haste doesn't work)
+COPY_EXISTING ~%avelynhaste%.SPL~  ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode=317 END    // remove haste
+  LPF DELETE_EFFECT INT_VAR match_opcode=176 END    // remove half movement (was to counter haste bonus)
+  LPF DELETE_EFFECT INT_VAR match_opcode=8 END      // remove solid glow
+//  LPF DELETE_EFFECT INT_VAR match_opcode=9 END    // remove glow pulse (keep)
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=369 parameter1=0 parameter2=1 timing=1 STR_VAR resource=SP21SAID END   // visual
+
+  // change damage reduction to -40% piercing
+  LPF DELETE_EFFECT INT_VAR match_opcode=332 END    // remove old effect
+  LPF ADD_SPELL_EFFECT INT_VAR opcode=332 target=2 duration=8 parameter1=(0 - 40) parameter2=8 END
+BUT_ONLY
+
+
+//
+//fix aquamarine spell (change to buff - magic weapon doesn't work)
+OUTER_TEXT_SPRINT itemid  ~d2dag01~
+INCLUDE ~%install%/variables.tph~
+
+COPY ~%abilities%/applyeffects.EFF~  ~override/%yy%.EFF~
+  WRITE_ASCII 0x30 ~%yy%~ #8
+COPY ~%abilities%/applyeffects.SPL~  ~override/%yy%.SPL~    // cast xx (removal spell)
+  LPF ALTER_EFFECT STR_VAR resource=~%xx%~ END
+  LPF CLONE_EFFECT INT_VAR timing=4 duration=15 END    // timing 4 uses ticks in PST (1 second = 15 ticks)
+
+COPY_EXISTING ~%xx%.SPL~  ~override~
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=174 timing=1 STR_VAR resource=EFF_M02 END    // cancel sound
+BUT_ONLY
+
+COPY_EXISTING ~%aquamarine%.ITM~  ~override~
+  LPF d2_protect_on_castequip STR_VAR resource=~%vv%~ END    // block failed cast message
+  LPF d2_protect_on_castequip STR_VAR resource=~%xx%~ END    // block removal spell
+  LPF ALTER_EFFECT INT_VAR match_opcode=12 opcode=326 parameter2=0 resist_dispel=2 STR_VAR resource=~%dd%~ END
+BUT_ONLY
+
+COPY_EXISTING ~%aquamarine%.SPL~  ~override~
+  LPF CLONE_EFFECT INT_VAR match_opcode=326 parameter2=0 STR_VAR resource=~%vv%~ END
+BUT_ONLY
+
+COPY_EXISTING ~%crystalblade%.SPL~  ~override~
+  LPF CLONE_EFFECT INT_VAR match_opcode=111 opcode=272 parameter1=1 duration=17 STR_VAR resource=~%yy%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=111 opcode=1 parameter1=3 parameter2=1 END      // 3 apr
+  LPF CLONE_EFFECT INT_VAR match_opcode=54 opcode=278 parameter1=2 parameter2=0 END     // +2 thac0
+//  LPF CLONE_EFFECT INT_VAR match_opcode=54 opcode=73 parameter1=2 parameter2=0 END    // +2 damage
+  LPF CLONE_EFFECT INT_VAR match_opcode=54 opcode=345 parameter1=4 parameter2=0 END     // +4 enchantment
+  LPF CLONE_EFFECT INT_VAR match_opcode=54 opcode=345 parameter1=0 parameter2=3 END     // silver
+  LPF CLONE_EFFECT INT_VAR match_opcode=54 opcode=345 parameter1=0 parameter2=10 END    // cold iron
+  LPF CLONE_EFFECT INT_VAR match_opcode=54 opcode=248 parameter2=0 STR_VAR resource=~%hh%~ END    // hit effect
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=373 parameter1=12966656 parameter2=3280912 STR_VAR resource=S045FCST END   // visual
+BUT_ONLY
+
+COPY ~%abilities%/spellfailed.SPL~  ~override/%vv%.SPL~
+  SPRINT item_name ~%aquamarine_name%~
+  SPRINT ability_name @306
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@351) STR_VAR color=blue RET newstring END    // spell failed string
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=newstring END
+  LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%aa%~ END
+  LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%bb%~ END
+
+//convert magic damage to work with buff (3 => 3d6)
+COPY ~%abilities%/applyeffects.EFF~  ~override/%hh%.EFF~    // hit effect
+  WRITE_LONG 0x10 318
+  WRITE_ASCII 0x30 ~%ff%~ #8    // immune to +3 damage spell
+  WRITE_LONG 0x24 0    // timing=0
+  WRITE_LONG 0x28 1    // duration=1
+
+/*above works, don't need spl
+COPY ~%abilities%/applyeffects.EFF~  ~override/%hh%.EFF~    // hit effect
+  WRITE_ASCII 0x30 ~%hh%~ #8
+COPY ~%abilities%/opcode318.SPL~  ~override/%hh%.SPL~
+  LPF ALTER_EFFECT INT_VAR duration=1 STR_VAR resource=~%ff%~ END    // immune to +3 damage spell
+*/
+
+COPY ~%abilities%/applyeffects.SPL~  ~override/%dd%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%ee%~ END
+  LPF CLONE_EFFECT STR_VAR resource=~%ff%~ END
+
+COPY ~%abilities%/magicdamage2.SPL~  ~override/%ee%.SPL~    // 3d6 damage spell
+  LPF ALTER_EFFECT INT_VAR parameter1=0 dicenumber=3 dicesize=6 END
+COPY ~%abilities%/magicdamage2.SPL~  ~override/%ff%.SPL~    // +3 damage spell
+  LPF ALTER_EFFECT INT_VAR parameter1=3 END
+  LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%ee%~ END    // immune to 3d6 damage spell
+
+
+//
+//fix chaos self-damage (can't get hp check with splprot to work)
+COPY_EXISTING ~%chaosbonus%.spl~  ~override~
+  LPF ALTER_EFFECT INT_VAR match_parameter2=144 parameter2=0 END    // remove hp check
+BUT_ONLY
+
+COPY_EXISTING ~%chaosdrain%.spl~  ~override~
+  LPF DELETE_EFFECT INT_VAR match_parameter2=145 END    // remove hp check
+//  LPF DELETE_EFFECT INT_VAR match_opcode=139 END        // remove display string (keep for now)
+
+  // magic fire damage (minus healing doesn't work)
+  LPF CLONE_EFFECT INT_VAR match_opcode=17 opcode=84 parameter1=0 parameter2=1 timing=0 END    // bypass resist
+  LPF ALTER_EFFECT INT_VAR match_opcode=17 opcode=12 parameter1=2 parameter2=0x02000000 savingthrow=16777216 special=1056 END
+
+  // change vvc to use op369 (play sticky BAM)
+  LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 timing=1 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 opcode=369 parameter1=0 parameter2=0 duration=1 STR_VAR resource=S006CMBO END
+
+/*old version
+  // change vvc to use op373 (play BAM file)
+  LPF CLONE_EFFECT INT_VAR match_opcode=215 opcode=174 timing=1 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=215 opcode=373 parameter2=3276801 END
+*/
+
+BUT_ONLY
+
+
+/*using above instead
+ACTION_IF !(RESOURCE_CONTAINS ~splprot.2da~ ~144_CURRENTHP~) BEGIN
+  OUTER_TEXT_SPRINT d2hpcheck  ~d2hpcheck 0x000 -1 4~    // HP >= value
+  OUTER_TEXT_SPRINT d2hpunder  ~d2hpunder 0x000 -1 2~    // HP < value
+
+  COPY_EXISTING ~splprot.2da~  ~override~
+    LPF d2_splprot_adder STR_VAR match=d2hpcheck string=~%d2hpcheck%~ RET stat END
+    SET d2hpcheck = stat
+
+    LPF d2_splprot_adder STR_VAR match=d2hpunder string=~%d2hpunder%~ RET stat END
+    SET d2hpunder = stat
+  BUT_ONLY
+
+  COPY_EXISTING ~%chaosbonus%.spl~  ~override~
+    LPF ALTER_EFFECT INT_VAR match_parameter2=144 parameter2=d2hpcheck END
+  BUT_ONLY
+
+  COPY_EXISTING ~%chaosdrain%.spl~  ~override~
+    LPF ALTER_EFFECT INT_VAR match_parameter2=145 parameter2=d2hpunder END
+  BUT_ONLY
+END
+*/
+
+
+//
+//fix Frenzy (change delayed effects to repeating effect)
+COPY_EXISTING ~%frenzycast%.spl~  ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode=321 match_timing=4 END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 match_opcode=177 opcode=272 parameter1=3 parameter2=3 timing=0 duration=60 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=177 END
+BUT_ONLY
+
+COPY_EXISTING ~%frenzyberserk%.EFF~  ~override~    // op272 ignores EFF probability (unlike op177)
+  WRITE_SHORT 0x2c 100
+BUT_ONLY
+
+COPY_EXISTING ~%frenzyberserk%.spl~  ~override~
+  LPF ALTER_EFFECT INT_VAR probability1=15 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=330 opcode=139 END    // normal display string (all pst strings are floating)
+  LPF d2_protect_on_castequip INT_VAR duration=4 probability=100 END    // fix double cast
+BUT_ONLY
+
+
+//change club confusion visual to pst style pulsing
+COPY_EXISTING ~%clubfrenzy%.itm~  ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode=215 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=128 opcode=326 duration=0 STR_VAR resource=~%clubfrenzy%e~ END
+BUT_ONLY
+
+COPY ~%abilities%/pstconfusion.SPL~  ~override/%clubfrenzy%e.SPL~
+  LPF ALTER_EFFECT INT_VAR duration=7 probability1=100 END
+  LPF ALTER_EFFECT INT_VAR match_opcode=174 timing=1 STR_VAR resource=EFF_M16 END    // EFF_M16 (bg2) or CONFU03 (pst)
+
+
+//
+//fix Harakiri timing
+COPY_EXISTING ~%harakiricast%.spl~  ~override~
+  LPF ALTER_EFFECT INT_VAR match_timing=4 match_duration=1 duration=15 END    // timing 4 uses ticks in PST (1 second = 15 ticks)
+BUT_ONLY
+
+OUTER_TEXT_SPRINT bleed ~%harakiribleed%~
+OUTER_TEXT_SPRINT damage ~d2bleed5~
+LAF d2_bleed_delay_pst INT_VAR limit=2 STR_VAR bleed=~%bleed%~ damage=~%damage%~ END
+
+/*old version (used repeating EFF)
+OUTER_TEXT_SPRINT bleed ~%harakiribleed%~
+OUTER_TEXT_SPRINT damage ~d2bleed5~
+OUTER_TEXT_SPRINT shell ~%alonnesword%s~
+LAF d2_bleed_delay_pst INT_VAR limit=2 STR_VAR bleed=~%bleed%~ shell=~%shell%~ damage=~%damage%~ END
+*/
+
+
+//
+//fix Tranquil Walk of Peace display string
+COPY_EXISTING ~%tranquilslow%.spl~  ~override~
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@303) END
+BUT_ONLY
+
+
+//
+//change racial bonuses for Sling +2 Accelerator
+COPY_EXISTING ~%slingaccel%.itm~  ~override~
+  // accelerator effects
+  LPF ALTER_EFFECT INT_VAR match_parameter1=5 parameter1=52 END     // rogue modrons
+  LPF CLONE_EFFECT INT_VAR match_parameter1=52 parameter1=44 END    // modrons
+
+  // club proficiency
+  LPF d2_get_weapontype_fields STR_VAR type=club RET item_prof END
+  LPF CLONE_EFFECT INT_VAR match_opcode=318 opcode=177 parameter2=4 STR_VAR resource=~%slingaccel%t~ insert=last END
+BUT_ONLY
+
+COPY ~%abilities%/applyeffects.EFF~  ~override/%slingaccel%t.EFF~
+  WRITE_LONG 0x10 233           // opcode 233 (modify prof)
+  WRITE_LONG 0x1c 2             // set to 2
+  WRITE_SHORT 0x20 item_prof    // club prof
+  WRITE_LONG 0x24 0             // timing 0 (don't think this is needed, but just in case)
+
+
+//
+//fix delayed sounds (change to repeating EFF method)
+//note: made this before I figured out that timing mode 4 uses ticks (too lazy to change now, this way works)
+
+DEFINE_PATCH_FUNCTION pst_delayed_sounds INT_VAR duration=6 opcode=~-1~ timing=4 silent=1 BEGIN
+  SET duration *= 15
+  PATCH_IF (timing<3 OR timing>4) BEGIN SET timing=4 END
+  LPF ALTER_EFFECT INT_VAR silent=silent match_opcode=opcode match_timing=timing duration=duration END
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_pstendsounds BEGIN
+  ~%avelynhaste%~   => 8
+  ~%crystalblade%~  => 18
+  ~%frenzyberserk%~ => 48
+  ~%harakiricrit%~  => 36
+  ~%tranquilcast%~  => 12
+END
+
+ACTION_PHP_EACH d2weapon_pstendsounds AS spell => duration BEGIN
+  COPY_EXISTING ~%spell%.spl~  ~override~
+    LPF pst_delayed_sounds INT_VAR duration=duration END
+    LPF pst_delayed_sounds INT_VAR duration=duration END
+    LPF pst_delayed_sounds INT_VAR duration=duration END
+    LPF pst_delayed_sounds INT_VAR duration=duration END
+    LPF pst_delayed_sounds INT_VAR duration=duration END
+  BUT_ONLY
+END
+
+
+/*old version (change to repeating EFF)
+DEFINE_PATCH_FUNCTION pst_delayed_sounds INT_VAR duration=6 STR_VAR resource=~~ BEGIN
+  SET delay = duration - 1
+  SET duration += 1
+  LPF CLONE_EFFECT INT_VAR match_opcode=174 match_timing=4 opcode=272 parameter1=2 parameter2=3 timing=0 duration=duration STR_VAR resource=~%resource%~ END
+  LPF DELETE_EFFECT INT_VAR match_opcode=174 match_timing=4 END    // delete delayed sound
+  LPF DELETE_EFFECT INT_VAR match_opcode=141 match_timing=4 END    // delete delayed lighting
+  LPF d2_protect_on_castequip INT_VAR duration=delay match_opcode=272 STR_VAR resource=~%resource%~ insert=above END    // delay sound
+END
+
+DEFINE_ACTION_FUNCTION pst_delayed_sounds INT_VAR duration=6 lighting=~-1~ STR_VAR resource=~~ newspell=~~ sound=~~ BEGIN
+  COPY_EXISTING ~%resource%.spl~  ~override~
+    LPF pst_delayed_sounds INT_VAR duration=duration STR_VAR resource=~%newspell%~ END
+  BUT_ONLY
+  COPY ~%abilities%/applyeffects.EFF~  ~override/%newspell%.EFF~
+    WRITE_ASCII 0x30 ~%newspell%~ #8
+  COPY ~%abilities%/applyeffects.SPL~  ~override/%newspell%.SPL~
+    LPF ALTER_EFFECT INT_VAR opcode=174 STR_VAR resource=~%sound%~ END
+    LPF d2_protect_on_castequip END
+    PATCH_IF (lighting>=0 AND lighting<40) BEGIN
+      LPF CLONE_EFFECT INT_VAR opcode=141 parameter2=lighting END
+    END
+END
+
+LAF pst_delayed_sounds INT_VAR duration=8 STR_VAR resource=~%avelynhaste%~ newspell=~%avelyn%t~ sound=EFF_E05 END
+LAF pst_delayed_sounds INT_VAR duration=18 STR_VAR resource=~%crystalblade%~ newspell=~%aquamarine%t~ sound=EFF_E04 END
+LAF pst_delayed_sounds INT_VAR duration=48 STR_VAR resource=~%frenzyberserk%~ newspell=~%clubfrenzy%t~ sound=EFF_E04 END
+LAF pst_delayed_sounds INT_VAR duration=36 STR_VAR resource=~%harakiricrit%~ newspell=~%alonnesword%t~ sound=EFF_E04 END
+LAF pst_delayed_sounds INT_VAR duration=12 lighting=18 STR_VAR resource=~%tranquilcast%~ newspell=~%stoneGS%t~ sound=EFF_M45 END
+*/
+
+
+//
+//add item dialogue
+
+//avelyn
+OUTER_TEXT_SPRINT resource ~%avelyn%~
+OUTER_SPRINT item_name ~%avelyn_name%~
+OUTER_SPRINT ability_name @301
+OUTER_TEXT_SPRINT button ~use~
+OUTER_TEXT_SPRINT style ~activate~
+OUTER_SET item_uses = 9999
+INCLUDE ~%install%/pstitemdialog.tph~
+
+//tranquil walk
+OUTER_TEXT_SPRINT resource ~%stoneGS%~
+OUTER_SPRINT item_name ~%stoneGS_name%~
+OUTER_SPRINT ability_name @302
+OUTER_TEXT_SPRINT button ~use~
+OUTER_TEXT_SPRINT style ~cast~
+OUTER_SET item_uses = 3
+INCLUDE ~%install%/pstitemdialog.tph~
+
+//harakiri
+OUTER_TEXT_SPRINT resource ~%alonnesword%~
+OUTER_SPRINT item_name ~%alonnesword_name%~
+OUTER_SPRINT ability_name @304
+OUTER_TEXT_SPRINT button ~use~
+OUTER_TEXT_SPRINT style ~use~
+OUTER_SET item_uses = 1
+INCLUDE ~%install%/pstitemdialog.tph~
+
+//aquamarine
+OUTER_TEXT_SPRINT resource ~%aquamarine%~
+OUTER_SPRINT item_name ~%aquamarine_name%~
+OUTER_SPRINT ability_name @306
+OUTER_TEXT_SPRINT button ~use~
+OUTER_TEXT_SPRINT style ~activate~
+OUTER_SET item_uses = 3
+INCLUDE ~%install%/pstitemdialog.tph~
+
+//frenzy
+OUTER_TEXT_SPRINT resource ~%clubfrenzy%~
+OUTER_SPRINT item_name ~%clubfrenzy_name%~
+OUTER_SPRINT ability_name @307
+OUTER_TEXT_SPRINT button ~use~
+OUTER_TEXT_SPRINT style ~use~
+OUTER_SET item_uses = 3
+INCLUDE ~%install%/pstitemdialog.tph~
+
+
+END
+
+
+//
+//

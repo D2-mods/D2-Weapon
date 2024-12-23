@@ -1,6 +1,6 @@
 BACKUP ~weidu_external/backup/d2-weapon~
 AUTHOR ~Dan_P~
-VERSION ~2.3~
+VERSION ~3.0~
 AUTO_EVAL_STRINGS
 
 ALWAYS
@@ -16,10 +16,10 @@ ALWAYS
   END
 
   OUTER_TEXT_SPRINT install    ~%MOD_FOLDER%/install~    // folder variables
-  OUTER_TEXT_SPRINT effects    ~%MOD_FOLDER%/effects~
+  OUTER_TEXT_SPRINT abilities  ~%MOD_FOLDER%/abilities~
   OUTER_TEXT_SPRINT files      ~%MOD_FOLDER%/files~
   OUTER_TEXT_SPRINT icons      ~%MOD_FOLDER%/icons~
-  OUTER_TEXT_SPRINT items      ~%MOD_FOLDER%/items~
+  OUTER_TEXT_SPRINT wbag       ~%MOD_FOLDER%/wbag~
   OUTER_TEXT_SPRINT resource   ~%MOD_FOLDER%/resource~
   OUTER_TEXT_SPRINT workspace  ~weidu_external/Workspace~
 
@@ -31,54 +31,60 @@ LANGUAGE ~English~
          ~d2-weapon/tra/english/main.tra~
 
 
-/*
-D2-Weapon - A Souls-inspired Weapon Pack
-*/
+//
+//Main component (install items)
 
 BEGIN @1
-REQUIRE_PREDICATE (GAME_IS ~bgee bg2ee iwdee eet~) ~Game not supported~
+REQUIRE_PREDICATE (GAME_IS ~bgee bg2ee eet iwdee pstee~) ~Game not supported~
 SUBCOMPONENT @9999
 LABEL ~D2-WEAPON-SOULS~
-OUTER_SET  adjust = 10
-INCLUDE ~%install%/install.tph~
-
-BEGIN @2
-SUBCOMPONENT @9999
-LABEL ~D2-WEAPON-SOULS80~
 OUTER_SET  adjust = 8
 INCLUDE ~%install%/install.tph~
 
+BEGIN @2
+REQUIRE_PREDICATE !(GAME_IS ~pstee~) ~~
+SUBCOMPONENT @9999
+LABEL ~D2-WEAPON-SOULS80~
+OUTER_SET  adjust = 10
+INCLUDE ~%install%/install.tph~
+
 BEGIN @3
+REQUIRE_PREDICATE !(GAME_IS ~pstee~) ~~
 SUBCOMPONENT @9999
 LABEL ~D2-WEAPON-SOULS50~
 OUTER_SET  adjust = 5
 INCLUDE ~%install%/install.tph~
 
+BEGIN @4
+//REQUIRE_PREDICATE !(GAME_IS ~pstee~) ~~
+SUBCOMPONENT @9999
+LABEL ~D2-WEAPON-DEVMODE~
+OUTER_SET  devmode = 8
+INCLUDE ~%install%/install.tph~
 
 
-/*
-Add damage to bows (recommended for IWD:EE)
-*/
+//
+//Add damage to bows (recommended for IWD:EE)
 
 BEGIN @20
 DESIGNATED 20
-REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~d2-weapon.tp2~ 0) OR 
-                   (MOD_IS_INSTALLED ~d2-weapon.tp2~ 1) OR
-                   (MOD_IS_INSTALLED ~d2-weapon.tp2~ 2)) ~~
+REQUIRE_PREDICATE !(GAME_IS ~pstee~) ~~
+REQUIRE_PREDICATE ((FILE_EXISTS ~override/d2bow01.itm~) AND
+                   (FILE_EXISTS ~override/d2bow03.itm~) AND
+                   (FILE_EXISTS ~override/d2bow04.itm~)) ~~
 LABEL ~D2-WEAPON-BOWDAMAGE~
 INCLUDE ~%install%/bowdamage.tph~
 
 
-/*
-Add NPC merchant to Throne of Bhaal or Heart of Winter?
-*/
+//
+//Add NPC merchant to Throne of Bhaal or Heart of Winter
 
 BEGIN @50
 DESIGNATED 50
+//REQUIRE_PREDICATE !(GAME_IS ~pstee~) ~~
+REQUIRE_PREDICATE (GAME_IS ~bgee bg2ee eet iwdee pstee~) ~Game not supported~
 LABEL ~D2-WEAPON-NPCSTORE~
-INCLUDE ~%install%/npcpatch.tph~
 INCLUDE ~%install%/npcstore.tph~
-
 
 
 ////////////////////////////////////////////////////////////

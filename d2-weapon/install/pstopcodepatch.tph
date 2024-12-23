@@ -1,0 +1,61 @@
+/*
+more edits for pstee
+*/
+
+
+//buggy or not working opcodes
+DEFINE_PATCH_FUNCTION pst_clean_opcodes BEGIN
+  PATCH_FOR_EACH opcode IN
+    ~142~    // portrait icon
+    ~169~    // prevent portrait icon
+    ~240~    // remove portrait icon
+    ~16~     // haste
+    ~317~    // haste 2
+    ~141~    // lighting
+//    ~111~    // magic weapon (better to edit file directly)
+//    ~188~    // alacrity
+//    ~288~    // fist thac0
+//    ~289~    // fist damage
+//    ~150~    // find traps
+//    ~262~    // visual range
+  BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=opcode END
+  END
+END
+
+DEFINE_PATCH_FUNCTION pst_check_opcodes BEGIN
+  LPF ALTER_EFFECT INT_VAR silent=1 match_timing=4 match_duration=1 duration=15 END    // uses ticks for timing mode 4
+  LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=278 opcode=54 END                     // change thac0 bonus to base thac0
+END
+
+//for timing mode 4 anything bigger than 1 second, edit file directly
+
+
+//
+ACTION_IF (GAME_IS ~pstee~) BEGIN
+
+  ACTION_BASH_FOR ~override~ ~d2.*\.spl~ BEGIN
+    COPY ~%BASH_FOR_FILESPEC%~ ~override~
+      LPF pst_clean_opcodes END
+      LPF pst_check_opcodes END
+    BUT_ONLY
+  END
+
+  ACTION_BASH_FOR ~override~ ~d2.*\.itm~ BEGIN
+    COPY ~%BASH_FOR_FILESPEC%~ ~override~
+      LPF pst_clean_opcodes END
+      LPF pst_check_opcodes END
+    BUT_ONLY
+  END
+
+  ACTION_BASH_FOR ~override~ ~d2.*\.cre~ BEGIN
+    COPY ~%BASH_FOR_FILESPEC%~ ~override~
+      LPF pst_clean_opcodes END
+    BUT_ONLY
+  END
+
+END
+
+
+//
+//
