@@ -7,6 +7,7 @@ function does nothing if EE fixpack is not installed (skipped silently)
 //set spell states
 //sets to -1 if not installed
 
+ACTION_IF (FILE_EXISTS_IN_GAME ~splstate.ids~) BEGIN
   OUTER_SET charm_immunity        = IDS_OF_SYMBOL (~splstate~ ~CHARM_IMMUNITY~)
   OUTER_SET confusion_immunity    = IDS_OF_SYMBOL (~splstate~ ~CONFUSION_IMMUNITY~)
   OUTER_SET death_immunity        = IDS_OF_SYMBOL (~splstate~ ~DEATH_IMMUNITY~)
@@ -23,6 +24,7 @@ function does nothing if EE fixpack is not installed (skipped silently)
   OUTER_SET sneak_attack_immunity = IDS_OF_SYMBOL (~splstate~ ~SNEAK_ATTACK_IMMUNITY~)
   OUTER_SET stun_immunity         = IDS_OF_SYMBOL (~splstate~ ~STUN_IMMUNITY~)
   OUTER_SET web_immunity          = IDS_OF_SYMBOL (~splstate~ ~WEB_IMMUNITY~)
+END
 
 ////////////////////////////////////////////////////////////
 
@@ -34,7 +36,7 @@ will not make duplicate effects (deletes old effect)
 
 //
 DEFINE_PATCH_FUNCTION ee_fixpack_immunities  STR_VAR status = ~~ BEGIN
-  PATCH_IF (charm_immunity > 0) BEGIN    // skip if no EE fixpack
+  PATCH_IF (IS_AN_INT charm_immunity AND charm_immunity > 0) BEGIN    // skip if no EE fixpack
 
   // check type array
   PHP_EACH ee_fixpack_immunities_array AS type => splstates BEGIN

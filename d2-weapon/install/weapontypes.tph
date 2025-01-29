@@ -1,5 +1,7 @@
-//
-//
+/*
+compatible with BG1, BG2, IWD1, IWD2, PST (classic and EEs)
+still need to finish magic weapon arrays stuff
+*/
 
 
 /*functions
@@ -9,8 +11,8 @@ d2_weapontype_print         ACTION or PATCH
 */
 
 
-//Sets category and unusable fields.
-//Sets proficiency and kit flags (skipped if not in game).
+//Sets category and unusable fields
+//Sets proficiency and kit flags (skipped if not in game)
 //Sets unidentified name/desc if magical = 1 (default)
 
 /*
@@ -37,6 +39,16 @@ DEFINE_PATCH_FUNCTION d2_set_weapontype_fields INT_VAR magical=1 visual=1 ground
       TEXT_SPRINT kitflags ~throwinghammer~
     END
 
+    // use axe for greataxe (if not found)
+    TEXT_SPRINT axeflags ~default~
+    PATCH_IF (~%type%~ STR_EQ ~greataxe~) BEGIN
+      PATCH_IF !(VARIABLE_IS_SET greataxe_cat) BEGIN
+        TEXT_SPRINT type ~axe~
+      END
+      TEXT_SPRINT axeflags ~greataxe~
+    END
+
+    //
     PHP_EACH d2_weapontype_res AS type2 => res BEGIN
       PATCH_IF (~%type%~ STR_EQ ~%type2%~) BEGIN
         PATCH_IF (FILE_EXISTS_IN_GAME ~%res%.itm~) BEGIN
@@ -58,10 +70,20 @@ DEFINE_PATCH_FUNCTION d2_set_weapontype_fields INT_VAR magical=1 visual=1 ground
   
           // use throwingdagger for throwinghammer kit flags
           PATCH_IF (~%kitflags%~ STR_EQ ~throwinghammer~) BEGIN
-            SET item_kits1 = throwingdagger_kits1
-            SET item_kits2 = throwingdagger_kits2
-            SET item_kits3 = throwingdagger_kits3
-            SET item_kits4 = throwingdagger_kits4
+            PATCH_IF (IS_AN_INT throwingdagger_kits1) BEGIN
+              SET item_kits1 = throwingdagger_kits1
+              SET item_kits2 = throwingdagger_kits2
+              SET item_kits3 = throwingdagger_kits3
+              SET item_kits4 = throwingdagger_kits4
+            END
+          END
+
+          // use greatsword for greataxe flags (2 handed flag)
+          PATCH_IF (~%axeflags%~ STR_EQ ~greataxe~) BEGIN
+            PATCH_IF (IS_AN_INT greatsword_flags) BEGIN
+              SET item_flags = greatsword_flags
+              SET item_flags2 = greatsword_flags2
+            END
           END
 
           // category and unusable (all games)
@@ -115,7 +137,7 @@ END
 DEFINE_DIMORPHIC_FUNCTION d2_get_weapontype_fields
   STR_VAR type=~~
   RET item_cat item_prof item_unusable item_flags item_flags2
-      item_name item_desc item_visual
+      item_name item_desc item_visual ground_icon
       item_kits1 item_kits2 item_kits3 item_kits4
 BEGIN
 
@@ -146,32 +168,54 @@ BEGIN
       OUTER_TEXT_SPRINT kitflags ~throwinghammer~
     END
 
+    // use axe for throwinghammer (if not found)
+    OUTER_TEXT_SPRINT axeflags ~default~
+    ACTION_IF (~%type%~ STR_EQ ~greataxe~) BEGIN
+      ACTION_IF !(VARIABLE_IS_SET greataxe_cat) BEGIN
+        OUTER_TEXT_SPRINT type ~axe~
+      END
+      OUTER_TEXT_SPRINT axeflags ~greataxe~
+    END
+
+    //
     ACTION_PHP_EACH d2_weapontype_res AS type2 => res BEGIN
       ACTION_IF (~%type%~ STR_EQ ~%type2%~) BEGIN
+        ACTION_IF (FILE_EXISTS_IN_GAME ~%res%.itm~) BEGIN
 
-        // RET variables
-        OUTER_SET item_cat = EVAL ~%%type%_cat%~              // item category
-        OUTER_SET item_prof = EVAL ~%%type%_prof%~            // proficiency number (0 if no weapprof.2da)
-        OUTER_SET item_unusable = EVAL ~%%type%_unusable%~    // unusable flags
-        OUTER_SET item_flags = EVAL ~%%type%_flags%~          // item flags (no magical)
-        OUTER_SET item_flags2 = EVAL ~%%type%_flags2%~        // item flags (has magical)
-        OUTER_SET item_name = EVAL ~%%type%_name%~            // base item name
-        OUTER_SET item_desc = EVAL ~%%type%_desc%~            // base item desc
-        OUTER_SET item_kits1 = EVAL ~%%type%_kits1%~          // kit restrictions (0 if no kitlist.2da)
-        OUTER_SET item_kits2 = EVAL ~%%type%_kits2%~
-        OUTER_SET item_kits3 = EVAL ~%%type%_kits3%~
-        OUTER_SET item_kits4 = EVAL ~%%type%_kits4%~
-        OUTER_TEXT_SPRINT item_visual EVAL ~%%type%_visual%~    // visual (avatar/paperdoll)
-        OUTER_TEXT_SPRINT ground_icon EVAL ~%%type%_ground%~    // ground icon
+          // RET variables
+          OUTER_SET item_cat = EVAL ~%%type%_cat%~              // item category
+          OUTER_SET item_prof = EVAL ~%%type%_prof%~            // proficiency number (0 if no weapprof.2da)
+          OUTER_SET item_unusable = EVAL ~%%type%_unusable%~    // unusable flags
+          OUTER_SET item_flags = EVAL ~%%type%_flags%~          // item flags (no magical)
+          OUTER_SET item_flags2 = EVAL ~%%type%_flags2%~        // item flags (has magical)
+          OUTER_SET item_name = EVAL ~%%type%_name%~            // base item name
+          OUTER_SET item_desc = EVAL ~%%type%_desc%~            // base item desc
+          OUTER_SET item_kits1 = EVAL ~%%type%_kits1%~          // kit restrictions (0 if no kitlist.2da)
+          OUTER_SET item_kits2 = EVAL ~%%type%_kits2%~
+          OUTER_SET item_kits3 = EVAL ~%%type%_kits3%~
+          OUTER_SET item_kits4 = EVAL ~%%type%_kits4%~
+          OUTER_TEXT_SPRINT item_visual EVAL ~%%type%_visual%~    // visual (avatar/paperdoll)
+          OUTER_TEXT_SPRINT ground_icon EVAL ~%%type%_ground%~    // ground icon
 
-        // use throwingdagger for throwinghammer kit flags
-        ACTION_IF (~%kitflags%~ STR_EQ ~throwinghammer~) BEGIN
-          OUTER_SET item_kits1 = throwingdagger_kits1
-          OUTER_SET item_kits2 = throwingdagger_kits2
-          OUTER_SET item_kits3 = throwingdagger_kits3
-          OUTER_SET item_kits4 = throwingdagger_kits4
+          // use throwingdagger for throwinghammer kit flags
+          ACTION_IF (~%kitflags%~ STR_EQ ~throwinghammer~) BEGIN
+            ACTION_IF (IS_AN_INT throwingdagger_kits1) BEGIN
+              OUTER_SET item_kits1 = throwingdagger_kits1
+              OUTER_SET item_kits2 = throwingdagger_kits2
+              OUTER_SET item_kits3 = throwingdagger_kits3
+              OUTER_SET item_kits4 = throwingdagger_kits4
+            END
+          END
+
+          // use greatsword for greataxe flags (2 handed flag)
+          ACTION_IF (~%axeflags%~ STR_EQ ~greataxe~) BEGIN
+            ACTION_IF (IS_AN_INT greatsword_flags) BEGIN
+              OUTER_SET item_flags = greatsword_flags
+              OUTER_SET item_flags2 = greatsword_flags2
+            END
+          END
+
         END
-
       END
     END
 
@@ -184,66 +228,49 @@ END
 DEFINE_DIMORPHIC_FUNCTION d2_check_weapontype STR_VAR type=~~ RET type BEGIN
 
   OUTER_TEXT_SPRINT type ~%type%~
-  ACTION_IF (~%type%~ STR_EQ ~battleaxe~) BEGIN  OUTER_TEXT_SPRINT type ~axe~  END
-  ACTION_IF (~%type%~ STR_EQ ~battle_axe~) BEGIN  OUTER_TEXT_SPRINT type ~axe~  END
-  ACTION_IF (~%type%~ STR_EQ ~bastard~) BEGIN  OUTER_TEXT_SPRINT type ~bastardsword~  END
-  ACTION_IF (~%type%~ STR_EQ ~bastard_sword~) BEGIN  OUTER_TEXT_SPRINT type ~bastardsword~  END
-  ACTION_IF (~%type%~ STR_EQ ~composite~) BEGIN  OUTER_TEXT_SPRINT type ~compositebow~  END
-  ACTION_IF (~%type%~ STR_EQ ~composite_bow~) BEGIN  OUTER_TEXT_SPRINT type ~compositebow~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~battle.*axe~) BEGIN  OUTER_TEXT_SPRINT type ~axe~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~bastard~) BEGIN  OUTER_TEXT_SPRINT type ~bastardsword~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~composite~) BEGIN  OUTER_TEXT_SPRINT type ~compositebow~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~knife~) BEGIN  OUTER_TEXT_SPRINT type ~dagger~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~great.*axe~) BEGIN  OUTER_TEXT_SPRINT type ~greataxe~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~handed.*axe~) BEGIN  OUTER_TEXT_SPRINT type ~greataxe~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~great.*sword~) BEGIN  OUTER_TEXT_SPRINT type ~greatsword~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~handed.*sword~) BEGIN  OUTER_TEXT_SPRINT type ~greatsword~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~halb~) BEGIN  OUTER_TEXT_SPRINT type ~halberd~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~pole.*arm~) BEGIN  OUTER_TEXT_SPRINT type ~halberd~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~war.*ham~) BEGIN  OUTER_TEXT_SPRINT type ~hammer~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~heavy.*bow~) BEGIN  OUTER_TEXT_SPRINT type ~heavycrossbow~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~light.*bow~) BEGIN  OUTER_TEXT_SPRINT type ~lightcrossbow~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~long.*bow~) BEGIN  OUTER_TEXT_SPRINT type ~longbow~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~long.*sword~) BEGIN  OUTER_TEXT_SPRINT type ~longsword~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~broad.*sword~) BEGIN  OUTER_TEXT_SPRINT type ~longsword~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~blunt~) BEGIN  OUTER_TEXT_SPRINT type ~mace~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~scepter~) BEGIN  OUTER_TEXT_SPRINT type ~mace~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~morn.*star~) BEGIN  OUTER_TEXT_SPRINT type ~morningstar~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~spiked~) BEGIN  OUTER_TEXT_SPRINT type ~morningstar~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~ninja~) BEGIN  OUTER_TEXT_SPRINT type ~ninjato~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~scim~) BEGIN  OUTER_TEXT_SPRINT type ~scimitar~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~short.*bow~) BEGIN  OUTER_TEXT_SPRINT type ~shortbow~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~short.*sword~) BEGIN  OUTER_TEXT_SPRINT type ~shortsword~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~staff~) BEGIN  OUTER_TEXT_SPRINT type ~staff~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~rod~) BEGIN  OUTER_TEXT_SPRINT type ~staff~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~waki~) BEGIN  OUTER_TEXT_SPRINT type ~wakizashi~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~throw.*dag~) BEGIN  OUTER_TEXT_SPRINT type ~throwingdagger~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~throw.*axe~) BEGIN  OUTER_TEXT_SPRINT type ~throwingaxe~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~throw.*ham~) BEGIN  OUTER_TEXT_SPRINT type ~throwinghammer~  END
+
+  // exact match
   ACTION_IF (~%type%~ STR_EQ ~dagg~) BEGIN  OUTER_TEXT_SPRINT type ~dagger~  END
-  ACTION_IF (~%type%~ STR_EQ ~dag~) BEGIN  OUTER_TEXT_SPRINT type ~dagger~  END
-  ACTION_IF (~%type%~ STR_EQ ~knife~) BEGIN  OUTER_TEXT_SPRINT type ~dagger~  END
-
-  ACTION_IF (~%type%~ STR_EQ ~2handedaxe~) BEGIN  OUTER_TEXT_SPRINT type ~greataxe~  END
-  ACTION_IF (~%type%~ STR_EQ ~2_handed_axe~) BEGIN  OUTER_TEXT_SPRINT type ~greataxe~  END
-  ACTION_IF (~%type%~ STR_EQ ~twohandedaxe~) BEGIN  OUTER_TEXT_SPRINT type ~greataxe~  END
-  ACTION_IF (~%type%~ STR_EQ ~two_handed_axe~) BEGIN  OUTER_TEXT_SPRINT type ~greataxe~  END
-  ACTION_IF (~%type%~ STR_EQ ~2handedsword~) BEGIN  OUTER_TEXT_SPRINT type ~greatsword~  END
-  ACTION_IF (~%type%~ STR_EQ ~2_handed_sword~) BEGIN  OUTER_TEXT_SPRINT type ~greatsword~  END
-  ACTION_IF (~%type%~ STR_EQ ~twohandedsword~) BEGIN  OUTER_TEXT_SPRINT type ~greatsword~  END
-  ACTION_IF (~%type%~ STR_EQ ~two_handed_sword~) BEGIN  OUTER_TEXT_SPRINT type ~greatsword~  END
-
-  ACTION_IF (~%type%~ STR_EQ ~halb~) BEGIN  OUTER_TEXT_SPRINT type ~halberd~  END
-  ACTION_IF (~%type%~ STR_EQ ~polearm~) BEGIN  OUTER_TEXT_SPRINT type ~halberd~  END
-  ACTION_IF (~%type%~ STR_EQ ~warhammer~) BEGIN  OUTER_TEXT_SPRINT type ~hammer~  END
-  ACTION_IF (~%type%~ STR_EQ ~war_hammer~) BEGIN  OUTER_TEXT_SPRINT type ~hammer~  END
-  ACTION_IF (~%type%~ STR_EQ ~heavy~) BEGIN  OUTER_TEXT_SPRINT type ~heavycrossbow~  END
-  ACTION_IF (~%type%~ STR_EQ ~heavy_crossbow~) BEGIN  OUTER_TEXT_SPRINT type ~heavycrossbow~  END
-  ACTION_IF (~%type%~ STR_EQ ~light_crossbow~) BEGIN  OUTER_TEXT_SPRINT type ~lightcrossbow~  END
-
   ACTION_IF (~%type%~ STR_EQ ~xbow~) BEGIN  OUTER_TEXT_SPRINT type ~lightcrossbow~  END
   ACTION_IF (~%type%~ STR_EQ ~crossbow~) BEGIN  OUTER_TEXT_SPRINT type ~lightcrossbow~  END
   ACTION_IF (~%type%~ STR_EQ ~bow~) BEGIN  OUTER_TEXT_SPRINT type ~longbow~  END
-  ACTION_IF (~%type%~ STR_EQ ~long_bow~) BEGIN  OUTER_TEXT_SPRINT type ~longbow~  END
   ACTION_IF (~%type%~ STR_EQ ~sword~) BEGIN  OUTER_TEXT_SPRINT type ~longsword~  END
-  ACTION_IF (~%type%~ STR_EQ ~long_sword~) BEGIN  OUTER_TEXT_SPRINT type ~longsword~  END
-  ACTION_IF (~%type%~ STR_EQ ~star~) BEGIN  OUTER_TEXT_SPRINT type ~morningstar~  END
-  ACTION_IF (~%type%~ STR_EQ ~morning_star~) BEGIN  OUTER_TEXT_SPRINT type ~morningstar~  END
 
-  ACTION_IF (~%type%~ STR_EQ ~ninja-to~) BEGIN  OUTER_TEXT_SPRINT type ~ninjato~  END
-  ACTION_IF (~%type%~ STR_EQ ~ninja_to~) BEGIN  OUTER_TEXT_SPRINT type ~ninjato~  END
-  ACTION_IF (~%type%~ STR_EQ ~ninja~) BEGIN  OUTER_TEXT_SPRINT type ~ninjato~  END
-  ACTION_IF (~%type%~ STR_EQ ~scim~) BEGIN  OUTER_TEXT_SPRINT type ~scimitar~  END
-  ACTION_IF (~%type%~ STR_EQ ~short_bow~) BEGIN  OUTER_TEXT_SPRINT type ~shortbow~  END
-  ACTION_IF (~%type%~ STR_EQ ~short_sword~) BEGIN  OUTER_TEXT_SPRINT type ~shortsword~  END
-  ACTION_IF (~%type%~ STR_EQ ~quarterstaff~) BEGIN  OUTER_TEXT_SPRINT type ~staff~  END
-  ACTION_IF (~%type%~ STR_EQ ~waki~) BEGIN  OUTER_TEXT_SPRINT type ~wakizashi~  END
-
-  ACTION_IF (~%type%~ STR_EQ ~throwing_dagger~) BEGIN  OUTER_TEXT_SPRINT type ~throwingdagger~  END
-  ACTION_IF (~%type%~ STR_EQ ~throwndagger~) BEGIN  OUTER_TEXT_SPRINT type ~throwingdagger~  END
-  ACTION_IF (~%type%~ STR_EQ ~thrown_dagger~) BEGIN  OUTER_TEXT_SPRINT type ~throwingdagger~  END
-  ACTION_IF (~%type%~ STR_EQ ~throwing_axe~) BEGIN  OUTER_TEXT_SPRINT type ~throwingaxe~  END
-  ACTION_IF (~%type%~ STR_EQ ~thrownaxe~) BEGIN  OUTER_TEXT_SPRINT type ~throwingaxe~  END
-  ACTION_IF (~%type%~ STR_EQ ~thrown_axe~) BEGIN  OUTER_TEXT_SPRINT type ~throwingaxe~  END
-  ACTION_IF (~%type%~ STR_EQ ~throwing_hammer~) BEGIN  OUTER_TEXT_SPRINT type ~throwinghammer~  END
-  ACTION_IF (~%type%~ STR_EQ ~thrownhammer~) BEGIN  OUTER_TEXT_SPRINT type ~throwinghammer~  END
-  ACTION_IF (~%type%~ STR_EQ ~thrown_hammer~) BEGIN  OUTER_TEXT_SPRINT type ~throwinghammer~  END
-
-  ACTION_IF (~%type%~ STR_EQ ~punch_dagger~) BEGIN  OUTER_TEXT_SPRINT type ~punchdagger~  END    // pst
-  ACTION_IF (~%type%~ STR_EQ ~punchdaggers~) BEGIN  OUTER_TEXT_SPRINT type ~punchdagger~  END
-  ACTION_IF (~%type%~ STR_EQ ~punch_daggers~) BEGIN  OUTER_TEXT_SPRINT type ~punchdagger~  END
-  ACTION_IF (~%type%~ STR_EQ ~fist~) BEGIN  OUTER_TEXT_SPRINT type ~knuckles~  END
-  ACTION_IF (~%type%~ STR_EQ ~irons~) BEGIN  OUTER_TEXT_SPRINT type ~knuckles~  END
+  // pst
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~punch.*dag~) BEGIN  OUTER_TEXT_SPRINT type ~punchdagger~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~knuckle~) BEGIN  OUTER_TEXT_SPRINT type ~knuckles~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~fist~) BEGIN  OUTER_TEXT_SPRINT type ~knuckles~  END
+  ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~irons~) BEGIN  OUTER_TEXT_SPRINT type ~knuckles~  END
 
 END
 
@@ -589,8 +616,8 @@ END
 
 
 
-//
 //additional base items added to arrays (club, throwing dagger/hammer)
+//no updated text added here (these items aren't for real game use)
 
 //projectiles
 OUTER_SET proj_dagger2 = 30
@@ -667,7 +694,7 @@ DEFINE_PATCH_FUNCTION magic_dagger_edit BEGIN
   LPF ALTER_ITEM_HEADER INT_VAR header_type=1 animation_overhand=0 animation_backhand=20 animation_thrust=80 END
   LPF DELETE_EFFECT INT_VAR match_opcode=319 END
   LPF weapontype_icons STR_VAR type=EVAL ~%type%~ END
-  LPF ADD_ITEM_EQEFFECT INT_VAR opcode=1 target=1 parameter1=2 parameter2=1 timing=2 END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode=1 target=1 parameter1=2 parameter2=1 timing=2 END    // 2 APR
 END
 
 DEFINE_PATCH_FUNCTION magic_club_edit BEGIN
@@ -682,7 +709,7 @@ DEFINE_PATCH_FUNCTION magic_greataxe_edit BEGIN
 END
 
 
-//
+/*test - make normal throwing hammer
 //for d2_weapontype_res array
 ACTION_PHP_EACH d2_weapontype_res AS type => res BEGIN
   ACTION_IF (~%type%~ STR_EQ ~throwinghammer~) BEGIN
@@ -695,6 +722,7 @@ ACTION_PHP_EACH d2_weapontype_res AS type => res BEGIN
     END
   END
 END
+*/
 
 
 //

@@ -75,7 +75,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2rakstore_areas BEGIN
 //pst
   ar0200 => psthivemortuary
   ar0500 => pstlowerward
-  ar1100 => pstoutlands
+  ar1100 => pstoutlands    // this is also IWD final chapter Easthaven
   ar0800 => pstcurstgone
 //activation
   AR0020 => bg2citygates
@@ -126,7 +126,7 @@ END
 //
 //add to dlgs
 
-//npc => dlg
+//dlg => npc
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2rakstore_dlgs BEGIN
 //sod
   bdkazzre => sodkazzrem
@@ -476,6 +476,10 @@ ACTION_IF (GAME_IS ~pstee~) BEGIN
   LAF d2rakstore_npcchecks INT_VAR transition=1 STR_VAR npc=pstcoaxmetal END
   LAF d2rakstore_npcchecks INT_VAR transition=2 STR_VAR npc=pstkeldor END
 END
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  LAF d2rakstore_npcchecks INT_VAR transition=0 STR_VAR npc=bg2deidre END
+  LAF d2rakstore_npcchecks INT_VAR transition=1 STR_VAR npc=bg2joluv END
+END
 
 
 
@@ -503,7 +507,7 @@ END
 
 END
 
-//
+/*not required for SOD stores
 ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
   OUTER_TEXT_SPRINT npcstore1 ~%bdkazzre%~
   OUTER_TEXT_SPRINT npcstore2 ~%bdwaizah%~
@@ -512,12 +516,13 @@ ACTION_IF (GAME_INCLUDES ~sod~) BEGIN
     LAF d2rakstore_expansion STR_VAR area=~%area%~ END
   END
 END
+*/
 
 ACTION_IF (GAME_INCLUDES ~bg2~) BEGIN
   OUTER_TEXT_SPRINT npcstore1 ~%bg2deidre%~
   OUTER_TEXT_SPRINT npcstore2 ~%bg2joluv%~
   OUTER_TEXT_SPRINT npcstore3 ~%bg2ribald%~
-  ACTION_FOR_EACH area IN ~AR4000~ ~AR3020~ ~ohbhub~ BEGIN
+  ACTION_FOR_EACH area IN ~AR4000~ ~AR4500~ ~AR3020~ ~ohbhub~ BEGIN
     LAF d2rakstore_expansion STR_VAR area=~%area%~ END
   END
 END
@@ -526,7 +531,7 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
   OUTER_TEXT_SPRINT npcstore1 ~%iwd1conland%~
   OUTER_TEXT_SPRINT npcstore2 ~%iwd1lehland%~
   OUTER_TEXT_SPRINT npcstore3 ~%iwd1nym%~
-  ACTION_FOR_EACH area IN ~AR9100~ ~AR9700~ BEGIN
+  ACTION_FOR_EACH area IN ~AR9100~ ~AR9711~ ~AR9604~ ~AR1100~ BEGIN
     LAF d2rakstore_expansion STR_VAR area=~%area%~ END
   END
 END

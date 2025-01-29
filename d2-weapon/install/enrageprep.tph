@@ -13,17 +13,11 @@ OUTER_SET winded_warn = RESOLVE_STR_REF (@314)    // 15 damage info (when winded
 OUTER_SET make_d2rage20 = 0    // 2 turns version (test functions)
 OUTER_SET make_d2ragef  = 1    // 8 round no visual (for Frenzy)
 
-ACTION_IF !(FILE_EXISTS ~override/d2rageb.SPL~) BEGIN 
-  OUTER_SET build_d2rage = 1
-END ELSE BEGIN
-  OUTER_SET build_d2rage = 0
-END
+OUTER_SET build_d2rage = 0
+ACTION_IF !(FILE_EXISTS ~override/d2rageb.SPL~) BEGIN OUTER_SET build_d2rage = 1 END
 
-ACTION_IF (RESOURCE_CONTAINS ~action.ids~ ~ZoomLock~) BEGIN
-  OUTER_SET ee_game = 1
-END ELSE BEGIN
-  OUTER_SET ee_game = 0
-END
+OUTER_SET ee_game = 0
+ACTION_IF (RESOURCE_CONTAINS ~action.ids~ ~ZoomLock~) BEGIN OUTER_SET ee_game = 1 END
 
 
 //make core Enrage files
@@ -157,7 +151,7 @@ COPY ~.../temp/d2_enrageprep_array~  ~override~
 
 END
 
-INCLUDE ~override/d2_enrageprep_array~
+REINCLUDE ~override/d2_enrageprep_array~
 
 
 //

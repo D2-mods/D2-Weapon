@@ -1,8 +1,7 @@
 /*
 checks item types and profs for pstee
-most of this is placeholder to load in game without issues
 
-NOTE: All launcher weapons use fist, edge, or axe proficiency. For technical reasons (UI issues with ammo), all launchers use innate ammo (same damage as normal ammo from BG games) + bonuses from the launcher.
+NOTE: For technical reasons (UI issues with ammo), all launchers use innate ammo (same damage as normal ammo from BG games) + bonuses from the launcher.
 */
 
 

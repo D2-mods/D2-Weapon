@@ -216,9 +216,10 @@ COPY ~%abilities%/applyeffects.EFF~  ~override/%slingaccel%t.EFF~
   WRITE_LONG 0x24 0             // timing 0 (don't think this is needed, but just in case)
 
 
+
 //
-//fix delayed sounds (change to repeating EFF method)
-//note: made this before I figured out that timing mode 4 uses ticks (too lazy to change now, this way works)
+//fix delayed sounds
+//new version converts seconds to ticks
 
 DEFINE_PATCH_FUNCTION pst_delayed_sounds INT_VAR duration=6 opcode=~-1~ timing=4 silent=1 BEGIN
   SET duration *= 15

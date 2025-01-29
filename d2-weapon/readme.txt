@@ -110,6 +110,10 @@ Note: Starting with v2.2, this mod no longer uses licensed images, edited or oth
 
 Version info:
 
+v3.1
+- NPC Merchant (EET fix): Fixed BG2 stores appearing as options while still in the BG1 portion of the game. All BG2 stores now require accessing them once for EET games.
+- 
+
 v2.9
 - pstee: Changed any delayed timings to count by ticks (timing mode 4 in PST counts by ticks, not seconds like the other games).
 - pstee: Sling +2 Accelerator's bonus effect now applies to modrons (halflings aren't in the game). Any modron using this weapon is also considered Specialized in clubs.

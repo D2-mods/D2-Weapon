@@ -202,7 +202,7 @@ END
 
 //Include mod items (if already in override)
 ACTION_IF (FILE_EXISTS ~override/d2_elemental_weapon_arrays~) BEGIN
-  INCLUDE ~override/d2_elemental_weapon_arrays~
+  REINCLUDE ~override/d2_elemental_weapon_arrays~
 END
 
 

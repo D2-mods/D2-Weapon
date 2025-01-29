@@ -5,6 +5,15 @@ requires d2_misc_functions.tpa and d2_bleed_removal.tpa
 */
 
 
+//"Bleeding" string
+OUTER_SPRINT bleed_string @313
+
+/*
+d2wk => @302
+d2weapon => @313
+*/
+
+
 //
 //add stoneskin check
 OUTER_TEXT_SPRINT d2stoneskincheck  ~d2stoneskincheck 88 1 4~     // STONESKINS >= 1
@@ -22,12 +31,12 @@ BUT_ONLY
 //
 //make inlined bleed file
 COPY ~%icons%/bleed.BAM~  ~override/d2bleedi.BAM~
-LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (@313) STR_VAR bam=~d2bleedi~ RET icon END
+LAF d2_portrait_icon INT_VAR name=RESOLVE_STR_REF (~%bleed_string%~) STR_VAR bam=~d2bleedi~ RET icon END
 
 COPY - ~%abilities%/bleed_core.SPL~  ~inlined/bleed_core.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=177 END
   LPF DELETE_EFFECT INT_VAR match_opcode=206 END
-  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@313) END    // "Bleeding"
+  LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (~%bleed_string%~) END    // "Bleeding"
   LPF ALTER_EFFECT INT_VAR match_opcode=142 parameter2=icon END
 
   // immunity stuff
@@ -37,14 +46,14 @@ COPY - ~%abilities%/bleed_core.SPL~  ~inlined/bleed_core.SPL~
 
 
 //immune string (uses spellfailed.spl as base)
-OUTER_SPRINT ability_name @313
+OUTER_SPRINT ability_name ~%bleed_string%~
 ACTION_TO_LOWER ability_name    // "bleeding"
 
 COPY ~%abilities%/spellfailed.SPL~  ~override/d2bleedt.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=RESOLVE_STR_REF (@350) END    // "Unaffected by..."
   LPF DELETE_EFFECT INT_VAR match_opcode=141 END
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END
-  LPF d2_protect_on_castequip INT_VAR duration=100 END    // block string for 100 seconds (won't see every hit)
+  LPF d2_protect_on_castequip INT_VAR duration=20 END    // block string for 20 seconds (won't see every hit)
 IF_EXISTS
 
 
@@ -141,7 +150,7 @@ END
 */
 
 
-//make bleed effects blocked by protection spells (from bleed_protection_array)
+//make bleed effect resource get blocked by protections (from bleed_protection_array)
 //resource should be the main bleed subspell (the one created from ~inlined/bleed_core.SPL~)
 //also adds resource to d2_bleedprep_arrays file
 
@@ -162,6 +171,7 @@ ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
       ACTION_IF (RESOURCE_CONTAINS ~spell.ids~ ~[^_]%spell%[^_]~) BEGIN
         LAF RES_NUM_OF_SPELL_NAME STR_VAR spell_name = ~%spell%~ RET spell_res END
         COPY_EXISTING ~%spell_res%.spl~  ~override~
+          LPF DELETE_EFFECT INT_VAR match_opcode=opcode STR_VAR match_resource=~%resource%~ END
           LPF CLONE_EFFECT
             INT_VAR silent=1 multi_match=1 match_opcode=match_opcode opcode=opcode parameter1=0 parameter2=0 special=0
             STR_VAR resource=~%resource%~
@@ -172,6 +182,7 @@ ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
     ACTION_IF (~%type%~ STR_EQ ~res~) BEGIN
       ACTION_FOR_EACH ext IN ~spl~ ~itm~ BEGIN
         COPY_EXISTING ~%spell%.%ext%~  ~override~
+          LPF DELETE_EFFECT INT_VAR match_opcode=opcode STR_VAR match_resource=~%resource%~ END
           LPF CLONE_EFFECT
             INT_VAR silent=1 multi_match=1 match_opcode=match_opcode opcode=opcode parameter1=0 parameter2=0 special=0
             STR_VAR resource=~%resource%~
@@ -221,6 +232,7 @@ ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
     COPY_EXISTING ~%resource%.%ext%~  ~override~
       PHP_EACH bleed_effects_array AS spell => type BEGIN
         PATCH_IF !(~%spell%~ STR_EQ ~bleed~) BEGIN
+          LPF DELETE_EFFECT INT_VAR match_opcode=opcode STR_VAR match_resource=~%spell%~ END
           LPF CLONE_EFFECT
             INT_VAR silent=1 multi_match=1 match_opcode=match_opcode opcode=opcode parameter1=0 parameter2=0 special=0
             STR_VAR resource=~%spell%~
@@ -253,9 +265,11 @@ END
 ACTION_DEFINE_ASSOCIATIVE_ARRAY bleed_protection_array BEGIN
   CLERIC_SHIELD_OF_LATHANDER          => ids
   CLERIC_GREATER_SHIELD_OF_LATHANDER  => ids
+  ~HLA_TG#AEGI~  => ids
   ~_!SP111~  => res
   ~_!SP112~  => res
   ~MEPR653~  => res
+  ~TG#AEGI~  => res
   idsname => ids
   resname => res
 END
@@ -264,7 +278,7 @@ COPY ~.../temp/d2_bleedprep_arrays~  ~override~
 
 END
 
-INCLUDE ~override/d2_bleedprep_arrays~
+REINCLUDE ~override/d2_bleedprep_arrays~
 
 
 //

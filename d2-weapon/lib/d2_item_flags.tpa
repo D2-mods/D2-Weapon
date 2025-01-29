@@ -11,6 +11,7 @@ d2_soddrowitems        - add or remove adamantine flag (only relevant for SoD)
 d2_equip_statreq       - stat requirements for items (Str, Dex, etc.)
 d2_pstitemflags        - common pst flags (steel, conversable, usable in inventory)
 d2_pstitem_npcflags    - remove npc flags for pstee (allows using ability from inventory)
+d2_no_usableflags      - remove usability flags
 */
 
 ////////////////////////////////////////////////////////////
@@ -307,6 +308,30 @@ DEFINE_PATCH_FUNCTION d2_pstitem_npcflags BEGIN
       WRITE_LONG 0x1e (THIS BAND BNOT BIT26)    // Nordom
       WRITE_LONG 0x1e (THIS BAND BNOT BIT28)    // Annah
       WRITE_LONG 0x1e (THIS BAND BNOT BIT30)    // Nameless
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+DEFINE_ACTION_FUNCTION d2_no_usableflags INT_VAR usable=1 kit1=1 kit2=1 kit3=1 kit4=1 STR_VAR item=~~ resource=~~ BEGIN
+  ACTION_FOR_EACH file IN ~%item%~ ~%resource%~ BEGIN
+    COPY_EXISTING ~%file%.ITM~  ~override~
+      PATCH_IF (usable > 0) BEGIN  WRITE_LONG 0x1e  0  END
+      PATCH_IF (kit1 > 0)   BEGIN  WRITE_BYTE 0x29  0  END
+      PATCH_IF (kit2 > 0)   BEGIN  WRITE_BYTE 0x2b  0  END
+      PATCH_IF (kit3 > 0)   BEGIN  WRITE_BYTE 0x2d  0  END
+      PATCH_IF (kit4 > 0)   BEGIN  WRITE_BYTE 0x2f  0  END
+    IF_EXISTS BUT_ONLY
+  END
+END
+
+DEFINE_PATCH_FUNCTION d2_no_usableflags INT_VAR usable=1 kit1=1 kit2=1 kit3=1 kit4=1 BEGIN
+  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+      PATCH_IF (usable > 0) BEGIN  WRITE_LONG 0x1e  0  END
+      PATCH_IF (kit1 > 0)   BEGIN  WRITE_BYTE 0x29  0  END
+      PATCH_IF (kit2 > 0)   BEGIN  WRITE_BYTE 0x2b  0  END
+      PATCH_IF (kit3 > 0)   BEGIN  WRITE_BYTE 0x2d  0  END
+      PATCH_IF (kit4 > 0)   BEGIN  WRITE_BYTE 0x2f  0  END
   END
 END
 
