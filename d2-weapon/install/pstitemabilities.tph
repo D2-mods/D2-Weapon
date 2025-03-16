@@ -47,8 +47,10 @@ COPY_EXISTING ~%aquamarine%.SPL~  ~override~
 BUT_ONLY
 
 COPY_EXISTING ~%crystalblade%.SPL~  ~override~
-  LPF CLONE_EFFECT INT_VAR match_opcode=111 opcode=272 parameter1=1 duration=17 STR_VAR resource=~%yy%~ END
-  LPF ALTER_EFFECT INT_VAR match_opcode=111 opcode=1 parameter1=3 parameter2=1 END      // 3 apr
+  LPF DELETE_EFFECT STR_VAR match_resource=~%ss%~ END
+  LPF DELETE_EFFECT STR_VAR match_resource=~%tt%~ END
+  LPF CLONE_EFFECT INT_VAR match_opcode=111 opcode=272 parameter1=1 timing=0 duration=17 STR_VAR resource=~%yy%~ END
+  LPF ALTER_EFFECT INT_VAR match_opcode=111 opcode=1 parameter1=3 parameter2=1 timing=0 END    // 3 apr
   LPF CLONE_EFFECT INT_VAR match_opcode=54 opcode=278 parameter1=2 parameter2=0 END     // +2 thac0
 //  LPF CLONE_EFFECT INT_VAR match_opcode=54 opcode=73 parameter1=2 parameter2=0 END    // +2 damage
   LPF CLONE_EFFECT INT_VAR match_opcode=54 opcode=345 parameter1=4 parameter2=0 END     // +4 enchantment

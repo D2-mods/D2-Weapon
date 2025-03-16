@@ -1,5 +1,5 @@
 //functions for items specifically
-//all can be used as PATCH or ACTION
+//all can be used as PATCH or ACTION, unless noted otherwise
 
 
 /*functions:
@@ -12,6 +12,7 @@ d2_equip_statreq       - stat requirements for items (Str, Dex, etc.)
 d2_pstitemflags        - common pst flags (steel, conversable, usable in inventory)
 d2_pstitem_npcflags    - remove npc flags for pstee (allows using ability from inventory)
 d2_no_usableflags      - remove usability flags
+d2_item_race_flags     - add/remove race flags (PATCH only)
 */
 
 ////////////////////////////////////////////////////////////
@@ -333,6 +334,77 @@ DEFINE_PATCH_FUNCTION d2_no_usableflags INT_VAR usable=1 kit1=1 kit2=1 kit3=1 ki
       PATCH_IF (kit3 > 0)   BEGIN  WRITE_BYTE 0x2d  0  END
       PATCH_IF (kit4 > 0)   BEGIN  WRITE_BYTE 0x2f  0  END
   END
+END
+
+////////////////////////////////////////////////////////////
+
+//removes all race flags if no variables set (usable by all)
+//0 = item usable by race
+//1 = item not usable by race
+
+/*if any races are set to 0 or 1 (default is -1)
+mode = 0 : other races are not changed
+mode = 1 : other races set to 0 (usable)
+mode = 2 : other races set to 1 (not usable)
+*/
+
+DEFINE_PATCH_FUNCTION d2_item_race_flags
+  INT_VAR
+    mode      = 0
+    human     = ~-1~
+    elf       = ~-1~
+    halfelf   = ~-1~
+    dwarf     = ~-1~
+    halfling  = ~-1~
+    gnome     = ~-1~
+    halforc   = ~-1~
+BEGIN
+  SET no_flags = 1
+  PATCH_IF (human >= 0)    BEGIN SET no_flags = 0 END
+  PATCH_IF (elf >= 0)      BEGIN SET no_flags = 0 END
+  PATCH_IF (halfelf >= 0)  BEGIN SET no_flags = 0 END
+  PATCH_IF (dwarf >= 0)    BEGIN SET no_flags = 0 END
+  PATCH_IF (halfling >= 0) BEGIN SET no_flags = 0 END
+  PATCH_IF (gnome >= 0)    BEGIN SET no_flags = 0 END
+  PATCH_IF (halforc >= 0)  BEGIN SET no_flags = 0 END
+
+  // check "mode" variable
+  PATCH_IF (no_flags=0 AND mode=1) BEGIN
+    PATCH_IF (human < 0)    BEGIN SET human = 0 END
+    PATCH_IF (elf < 0)      BEGIN SET elf = 0 END
+    PATCH_IF (halfelf < 0)  BEGIN SET halfelf = 0 END
+    PATCH_IF (dwarf < 0)    BEGIN SET dwarf = 0 END
+    PATCH_IF (halfling < 0) BEGIN SET halfling = 0 END
+    PATCH_IF (gnome < 0)    BEGIN SET gnome = 0 END
+    PATCH_IF (halforc < 0)  BEGIN SET halforc = 0 END
+  END
+  PATCH_IF (no_flags=0 AND mode=2) BEGIN
+    PATCH_IF (human < 0)    BEGIN SET human = 1 END
+    PATCH_IF (elf < 0)      BEGIN SET elf = 1 END
+    PATCH_IF (halfelf < 0)  BEGIN SET halfelf = 1 END
+    PATCH_IF (dwarf < 0)    BEGIN SET dwarf = 1 END
+    PATCH_IF (halfling < 0) BEGIN SET halfling = 1 END
+    PATCH_IF (gnome < 0)    BEGIN SET gnome = 1 END
+    PATCH_IF (halforc < 0)  BEGIN SET halforc = 1 END
+  END
+
+  // remove restrictions
+  PATCH_IF (no_flags>0 OR human=0)    BEGIN WRITE_LONG 0x1e (THIS BAND BNOT BIT27) END
+  PATCH_IF (no_flags>0 OR elf=0)      BEGIN WRITE_LONG 0x1e (THIS BAND BNOT BIT23) END
+  PATCH_IF (no_flags>0 OR halfelf=0)  BEGIN WRITE_LONG 0x1e (THIS BAND BNOT BIT25) END
+  PATCH_IF (no_flags>0 OR dwarf=0)    BEGIN WRITE_LONG 0x1e (THIS BAND BNOT BIT24) END
+  PATCH_IF (no_flags>0 OR halfling=0) BEGIN WRITE_LONG 0x1e (THIS BAND BNOT BIT26) END
+  PATCH_IF (no_flags>0 OR gnome=0)    BEGIN WRITE_LONG 0x1e (THIS BAND BNOT BIT28) END
+  PATCH_IF (no_flags>0 OR halforc=0)  BEGIN WRITE_LONG 0x1e (THIS BAND BNOT BIT31) END
+
+  // add restrictions
+  PATCH_IF (human > 0)    BEGIN WRITE_LONG 0x1e THIS | BIT27 END
+  PATCH_IF (elf > 0)      BEGIN WRITE_LONG 0x1e THIS | BIT23 END
+  PATCH_IF (halfelf > 0)  BEGIN WRITE_LONG 0x1e THIS | BIT25 END
+  PATCH_IF (dwarf > 0)    BEGIN WRITE_LONG 0x1e THIS | BIT24 END
+  PATCH_IF (halfling > 0) BEGIN WRITE_LONG 0x1e THIS | BIT26 END
+  PATCH_IF (gnome > 0)    BEGIN WRITE_LONG 0x1e THIS | BIT28 END
+  PATCH_IF (halforc > 0)  BEGIN WRITE_LONG 0x1e THIS | BIT31 END
 END
 
 ////////////////////////////////////////////////////////////

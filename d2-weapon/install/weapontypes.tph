@@ -409,7 +409,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_magicweapon_base BEGIN
   ninjato        => SW1H49
   scimitar       => SW1H22    // bg games only
   shortbow       => BOW06
-  shortsword     => SW1H07
+  shortsword     => SW1H08
   sling          => SLNG02
   spear          => SPER02
   staff          => STAF02

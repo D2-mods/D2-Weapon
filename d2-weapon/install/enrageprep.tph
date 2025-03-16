@@ -5,19 +5,18 @@ main spell should cast these with op146 or op326
 
 
 //variables
-OUTER_TEXT_SPRINT enrage_base ~d2rageb~
-OUTER_TEXT_SPRINT winded_base ~d2ragew~
+OUTER_SET ee_game = 0
+ACTION_IF (RESOURCE_CONTAINS ~action.ids~ ~ZoomLock~) BEGIN OUTER_SET ee_game = 1 END
+
 OUTER_SET enrage_warn = RESOLVE_STR_REF (@309)    // 15 damage info (when enraged)
 OUTER_SET winded_warn = RESOLVE_STR_REF (@314)    // 15 damage info (when winded)
+OUTER_SET norecast = RESOLVE_STR_REF (@302)    // used for classic BG2
 
 OUTER_SET make_d2rage20 = 0    // 2 turns version (test functions)
 OUTER_SET make_d2ragef  = 1    // 8 round no visual (for Frenzy)
 
 OUTER_SET build_d2rage = 0
 ACTION_IF !(FILE_EXISTS ~override/d2rageb.SPL~) BEGIN OUTER_SET build_d2rage = 1 END
-
-OUTER_SET ee_game = 0
-ACTION_IF (RESOURCE_CONTAINS ~action.ids~ ~ZoomLock~) BEGIN OUTER_SET ee_game = 1 END
 
 
 //make core Enrage files
@@ -57,7 +56,7 @@ ACTION_IF (build_d2rage > 0) BEGIN
     // more patching
     LPF DELETE_EFFECT INT_VAR match_opcode=338 END    // remove no resting (IWDEE)
     LPF d2_string_immunities END
-    LPF ee_fixpack_immunities STR_VAR status=~charm conf fear stun hold feeble sleep~ END   // skipped if no ee fixpack
+    LPF ee_fixpack_immunities STR_VAR status=~charm conf fear stun hold feeble sleep~ END    // skipped if no ee fixpack
 
     PATCH_IF (ee_game > 0) BEGIN
       LPF DELETE_EFFECT INT_VAR match_opcode=206 STR_VAR match_resource=SPCL321 END       // allow recast
@@ -67,6 +66,13 @@ ACTION_IF (build_d2rage > 0) BEGIN
     END ELSE BEGIN
       LPF CLONE_EFFECT INT_VAR silent=1 STR_VAR match_resource=SPCL321 resource=d2rageb insert=last END
       LPF DELETE_EFFECT STR_VAR match_resource=SPCL321 END
+      LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=206 parameter1=norecast STR_VAR match_resource=d2rageb END
+
+      // fix for winded on rest (classic BG2)
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 parameter1=0 timing=3 duration=61 STR_VAR match_resource=d2rageb resource=d2ragew insert=first END
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=12 opcode=146 parameter1=0 parameter2=1 timing=4 STR_VAR resource=d2ragez END
+      LPF DELETE_EFFECT INT_VAR match_opcode=12 END
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 match_duration=61 STR_VAR resource=d2ragez END
     END
 
     PATCH_IF (GAME_IS ~pst pstee~) BEGIN
@@ -89,9 +95,16 @@ ACTION_IF (build_d2rage > 0) BEGIN
       LPF DELETE_EFFECT INT_VAR match_opcode=206 STR_VAR match_resource=SPCL321 END
       LPF d2_remove_effects_on_cast END
     END ELSE BEGIN
-      LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=SPCL321 resource=d2ragew END
+      LPF ALTER_EFFECT INT_VAR silent=1 STR_VAR match_resource=SPCL321 resource=d2rageb END
+      LPF ALTER_EFFECT INT_VAR silent=1 match_opcode=206 parameter1=norecast STR_VAR match_resource=d2rageb END
     END
   BUT_ONLY
+
+  // damage subspell (classic BG2)
+  ACTION_IF (ee_game = 0) BEGIN
+    COPY ~%abilities%/applyeffects.SPL~  ~override/d2ragez.SPL~
+      LPF ALTER_EFFECT INT_VAR opcode=12 parameter1=15 parameter2=0x08000000 END
+  END
 
 END
 

@@ -486,13 +486,24 @@ COPY ~%abilities%/castspelltarget.EFF~  ~override/%aa%.EFF~
   WRITE_LONG  0x20 0    // cast normally (can attract cowled wizards)
 COPY ~%abilities%/aquamarinecrystal.SPL~  ~override/%aa%.SPL~
   SAY NAME1 @306
-  LPF ALTER_EFFECT INT_VAR match_opcode=111 STR_VAR resource=~%aa%~ END
+
+  // edits
+  LPF ALTER_EFFECT INT_VAR match_opcode=111 timing=1 STR_VAR resource=~%aa%~ END
+  LPF d2_protect_on_castequip INT_VAR duration=18 STR_VAR resource=~%tt%~ END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=272 parameter1=1 timing=1 STR_VAR resource=~%ss%~ insert=last END
   LPF d2_remove_effects_on_cast END
 
   LPF CD_LEVEL_SELECT-O-MATIC  INT_VAR step_dur=0 level_cap=21 dur_special=1 min_abil=1 END    // extend spell headers
   PHP_EACH d2aquamarine AS level => thac0 BEGIN
     LPF ALTER_EFFECT INT_VAR header=level match_opcode=54 parameter1=thac0 END                 // set base thac0 effects
   END
+
+//remove after duration
+COPY ~%abilities%/applyeffects.EFF~        ~override/%ss%.EFF~
+  WRITE_ASCII 0x30 ~%tt%~ #8
+COPY ~%abilities%/removespelleffects.SPL~  ~override/%tt%.SPL~
+  LPF ALTER_EFFECT STR_VAR resource=~%aa%~ END
+  LPF CLONE_EFFECT INT_VAR opcode=112 END
 
 //magic weapon form
 COPY ~%abilities%/aquamarinecrystal.ITM~  ~override/%aa%.ITM~
@@ -624,6 +635,10 @@ COPY ~%abilities%/clubfrenzyberserk.SPL~  ~override/%bb%.SPL~
   LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=326 parameter2=0 timing=1 STR_VAR resource=d2ragef END
   LPF d2_remove_effects_on_cast END
   LPF d2_remove_effects_on_cast STR_VAR resource=~%aa%~ END
+
+  // edits
+  LPF ALTER_EFFECT INT_VAR match_opcode=126 opcode=176 END    // bypass bg2 free action
+  LPF d2_mindamageboost INT_VAR amount=3 duration=48 END      // +3 min damage boost
 
   // "Frenzy" string
   LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@308) STR_VAR color=green RET newstring END
