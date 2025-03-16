@@ -143,9 +143,9 @@ END
 
 
 //
-ACTION_IF !(FILE_EXISTS ~override/d2_enrageprep_array~) BEGIN
+ACTION_IF !(FILE_EXISTS ~override/d2_enrageprep_array.txt~) BEGIN
 
-<<<<<<<< .../temp/d2_enrageprep_array
+<<<<<<<< .../temp/newfile
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_enrageprep_array BEGIN
   d2rageb  => enrage
   d2ragef  => enrage
@@ -160,11 +160,11 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2_enrageprep_array BEGIN
   winded => marker
 END
 >>>>>>>>
-COPY ~.../temp/d2_enrageprep_array~  ~override~
+COPY ~.../temp/newfile~  ~override/d2_enrageprep_array.txt~
 
 END
 
-REINCLUDE ~override/d2_enrageprep_array~
+REINCLUDE ~override/d2_enrageprep_array.txt~
 
 
 //
@@ -220,12 +220,12 @@ DEFINE_ACTION_FUNCTION enrage_effects STR_VAR resource=~~ type=enrage BEGIN
     ACTION_IF !(~%type%~ STRING_CONTAINS_REGEXP ~fati~) BEGIN OUTER_SET winded = 1 END
 
     ACTION_IF (enrage > 0) BEGIN
-      COPY_EXISTING ~override/d2_enrageprep_array~  ~override~
+      COPY ~override/d2_enrageprep_array.txt~  ~override~
         REPLACE_TEXTUALLY ~enrage => marker~  ~enrage => marker%WNL%  %resource% => enrage~
       BUT_ONLY UNLESS ~%resource% => enrage~
     END
     ACTION_IF (winded > 0) BEGIN
-      COPY_EXISTING ~override/d2_enrageprep_array~  ~override~
+      COPY ~override/d2_enrageprep_array.txt~  ~override~
         REPLACE_TEXTUALLY ~winded => marker~  ~winded => marker%WNL%  %resource% => winded~
       BUT_ONLY UNLESS ~%resource% => winded~
     END

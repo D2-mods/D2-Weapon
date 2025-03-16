@@ -3,7 +3,7 @@
 
 
 //make file with item array (can be used by other mods)
-<<<<<<<< .../inlined/d2weapon_variable_array
+<<<<<<<< .../inlined/newfile
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_variable_array BEGIN
   blackbow     => d2bow01
   greatbow     => d2bow02
@@ -23,9 +23,9 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY d2weapon_variable_array BEGIN
   slingaccel   => d2eff01
 END
 >>>>>>>>
-COPY ~.../inlined/d2weapon_variable_array~  ~override~
+COPY ~.../inlined/newfile~  ~override/d2weapon_variable_array.txt~
 
-INCLUDE ~override/d2weapon_variable_array~
+INCLUDE ~override/d2weapon_variable_array.txt~
 
 //set variables
 ACTION_PHP_EACH d2weapon_variable_array AS var => res BEGIN

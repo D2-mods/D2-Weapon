@@ -158,7 +158,7 @@ DEFINE_ACTION_FUNCTION d2_bleed_effects INT_VAR opcode=318 match_opcode=142 STR_
 
 ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
 
-  REINCLUDE ~override/d2_bleedprep_arrays~
+  REINCLUDE ~override/d2_bleedprep_arrays.txt~
 
   // prep
   ACTION_IF (opcode!=318 AND opcode!=324 AND opcode!=206) BEGIN
@@ -193,7 +193,7 @@ ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
   END
 
   // add to d2_bleedprep_arrays
-  COPY_EXISTING ~override/d2_bleedprep_arrays~  ~override~
+  COPY ~override/d2_bleedprep_arrays.txt~  ~override~
     REPLACE_TEXTUALLY ~bleed => bleed~  ~bleed => bleed%WNL%  %resource% => bleed~
   BUT_ONLY UNLESS ~%resource% => bleed~
 
@@ -209,7 +209,7 @@ DEFINE_ACTION_FUNCTION d2_bleed_protection INT_VAR opcode=318 match_opcode=142 S
 
 ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
 
-  REINCLUDE ~override/d2_bleedprep_arrays~
+  REINCLUDE ~override/d2_bleedprep_arrays.txt~
 
   // prep
   ACTION_IF (opcode!=318 AND opcode!=324 AND opcode!=206) BEGIN
@@ -243,7 +243,7 @@ ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
   END
 
   // add to d2_bleedprep_arrays
-  COPY_EXISTING ~override/d2_bleedprep_arrays~  ~override~
+  COPY ~override/d2_bleedprep_arrays.txt~  ~override~
     REPLACE_TEXTUALLY ~%mode%name => %mode%~  ~%mode%name => %mode%%WNL%  %resource% => %mode%~
   BUT_ONLY UNLESS ~%resource% => %mode%~
 
@@ -253,9 +253,9 @@ END
 
 //
 //base bleed arrays
-ACTION_IF !(FILE_EXISTS ~override/d2_bleedprep_arrays~) BEGIN
+ACTION_IF !(FILE_EXISTS ~override/d2_bleedprep_arrays.txt~) BEGIN
 
-<<<<<<<< .../temp/d2_bleedprep_arrays
+<<<<<<<< .../temp/newfile
 ACTION_DEFINE_ASSOCIATIVE_ARRAY bleed_effects_array BEGIN
   d2swd05b => bleed
   d2abb03e => bleed
@@ -274,11 +274,11 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY bleed_protection_array BEGIN
   resname => res
 END
 >>>>>>>>
-COPY ~.../temp/d2_bleedprep_arrays~  ~override~
+COPY ~.../temp/newfile~  ~override/d2_bleedprep_arrays.txt~
 
 END
 
-REINCLUDE ~override/d2_bleedprep_arrays~
+REINCLUDE ~override/d2_bleedprep_arrays.txt~
 
 
 //
