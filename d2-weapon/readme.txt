@@ -113,6 +113,7 @@ Version info:
 v3.1
 - NPC Merchant (EET fix): Fixed BG2 stores appearing as options while still in the BG1 portion of the game. All BG2 stores now require accessing them once for EET games.
 - Aquamarine Dagger: For magic weapon variant (BGEE/BG2EE/IWDEE), fixed an issue where if the spell ends prematurely and you recast it within the duration of the first casting, the second casting would end before the full 3 rounds.
+- Fixed possible install error on Mac systems, caused by using text files without extensions.
 
 v2.9
 - pstee: Changed any delayed timings to count by ticks (timing mode 4 in PST counts by ticks, not seconds like the other games).
