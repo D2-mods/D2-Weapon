@@ -1,6 +1,9 @@
 /*
 add correct string immunities for BGEE and IWDEE (only tested with EE v2.6)
 run after anything else than adds string immunities (ex. fixpack batch macros)
+
+this matches an opcode 101 immunity for adding relevant strings
+also adds a few string immunities for bg2
 */
 
 
@@ -30,8 +33,8 @@ d2_string_immunities         PATCH function for IWDEE and BGEE/SoD
 175 - hold
 109 - paralyze
 45 - stun
-39 - sleep
-154 - entangle overlay  - for IWD text
+39 - sleep/unconscious
+154 - entangle overlay  - entangle has string in iwd
 
 (mind)
 24 - panic
@@ -43,7 +46,7 @@ d2_string_immunities         PATCH function for IWDEE and BGEE/SoD
 (ward)
 216 - level drain
 13 - kill target
-55 - slay  - display text seems to mostly be used with op13)
+55 - slay  - display text seems to mostly be used with op13
 134 - petrification
 */
 
@@ -89,136 +92,143 @@ BEGIN
     LPF DELETE_EFFECT INT_VAR match_opcode=267 END
   END
 
+  // bg2 - not in fixpack macros
   PATCH_IF (GAME_IS ~bg2ee eet~) BEGIN
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=16 opcode=267 parameter1=14023 END     // haste
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=16 opcode=267 parameter1=14667 END
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=335 END       // slow
     LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=103077 END    // feeblemind
+    LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=20438 END     // unconscious
+    LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=111518 END
   END
 
+  // bgee + sod
   PATCH_IF (GAME_IS ~bgee~) BEGIN
     PATCH_IF (body > 0) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=25 opcode=267 parameter1=14017 END     // poison
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=25 opcode=267 parameter1=14017 END   // poison
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=25 opcode=267 parameter1=14662 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=25 opcode=267 parameter1=26215 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=25 opcode=267 parameter1=25425 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=78 opcode=267 parameter1=26453 END     // disease
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=78 opcode=267 parameter1=26453 END   // disease
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=78 opcode=267 parameter1=31238 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=80 opcode=267 parameter1=14073 END     // deaf
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=80 opcode=267 parameter1=14073 END   // deaf
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=80 opcode=267 parameter1=25102 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=80 opcode=267 parameter1=26408 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=80 opcode=267 parameter1=30258 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=74 opcode=267 parameter1=31786 END     // blind
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=38 opcode=267 parameter1=14676 END     // silence
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=74 opcode=267 parameter1=31786 END   // blind
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=38 opcode=267 parameter1=14676 END   // silence
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=38 opcode=267 parameter1=14002 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=38 opcode=267 parameter1=31791 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=60 opcode=267 parameter1=14790 END     // miscast
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=60 opcode=267 parameter1=14790 END   // miscast
     END
     PATCH_IF (move > 0) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=16 opcode=267 parameter1=26019 END     // haste
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=16 opcode=267 parameter1=26019 END   // haste
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=16 opcode=267 parameter1=26018 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=16 opcode=267 parameter1=14023 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=31772 END     // slow
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=31772 END   // slow
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=26103 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=14668 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=14000 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=175 opcode=267 parameter1=25866 END    // hold
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=175 opcode=267 parameter1=25866 END  // hold
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=175 opcode=267 parameter1=31799 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=175 opcode=267 parameter1=14102 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=109 opcode=267 parameter1=14650 END    // paralyze
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=25862 END     // stun
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=109 opcode=267 parameter1=14650 END  // paralyze
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=25862 END   // stun
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=26050 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=14043 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=26371 END     // sleep
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=26371 END   // sleep
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=14001 END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=20438 END   // unconscious
     END
     PATCH_IF (mind > 0) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=24 opcode=267 parameter1=25818 END     // panic
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=24 opcode=267 parameter1=25818 END   // panic
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=24 opcode=267 parameter1=20568 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=26206 END      // dominate
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=26206 END    // dominate
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=14672 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=14780 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=26184 END    // confuse
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=26184 END  // confuse
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=25807 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=14782 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=3 opcode=267 parameter1=10381 END      // berserk
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=23744 END     // feeblemind
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=3 opcode=267 parameter1=10381 END    // berserk
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=23744 END   // feeblemind
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=32367 END
     END
     PATCH_IF (ward > 0) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=25806 END    // level drain
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=25806 END  // level drain
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=25805 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=25804 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=25803 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=25802 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=13 opcode=267 parameter1=14026 END     // kill target
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=134 opcode=267 parameter1=25863 END    // petrify
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=13 opcode=267 parameter1=14026 END   // kill target
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=134 opcode=267 parameter1=25863 END  // petrify
     END
   END
 
+  // iwdee
   PATCH_IF (GAME_IS ~iwdee~) BEGIN
     PATCH_IF (body > 0) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=25 opcode=267 parameter1=14017 END     // poison
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=25 opcode=267 parameter1=14017 END   // poison
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=25 opcode=267 parameter1=14662 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=25 opcode=267 parameter1=36317 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=25 opcode=267 parameter1=37607 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=78 opcode=267 parameter1=35593 END     // disease
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=78 opcode=267 parameter1=35593 END   // disease
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=78 opcode=267 parameter1=39752 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=80 opcode=267 parameter1=14073 END     // deaf
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=80 opcode=267 parameter1=14073 END   // deaf
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=80 opcode=267 parameter1=35952 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=74 opcode=267 parameter1=37800 END     // blind
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=38 opcode=267 parameter1=14676 END     // silence
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=74 opcode=267 parameter1=37800 END   // blind
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=38 opcode=267 parameter1=14676 END   // silence
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=38 opcode=267 parameter1=14002 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=38 opcode=267 parameter1=37805 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=38 opcode=267 parameter1=37633 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=60 opcode=267 parameter1=14790 END     // miscast
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=60 opcode=267 parameter1=14790 END   // miscast
     END
     PATCH_IF (move > 0) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=16 opcode=267 parameter1=14023 END     // haste
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=16 opcode=267 parameter1=14023 END   // haste
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=16 opcode=267 parameter1=36035 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=14668 END     // slow
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=14668 END   // slow
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=37787 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=37638 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=40 opcode=267 parameter1=14000 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=175 opcode=267 parameter1=14102 END    // hold
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=175 opcode=267 parameter1=14102 END  // hold
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=175 opcode=267 parameter1=35606 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=109 opcode=267 parameter1=35542 END    // paralyze
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=35568 END     // stun
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=109 opcode=267 parameter1=35542 END  // paralyze
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=35568 END   // stun
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=35567 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=14980 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=1280 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=14043 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=37613 END     // sleep
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=37340 END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=45 opcode=267 parameter1=14980 END   // hopelessness
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=37613 END   // sleep
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=14001 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=154 opcode=267 parameter1=37709 END    // entangle
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=37340 END   // unconscious
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=39 opcode=267 parameter1=20438 END
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=154 opcode=267 parameter1=37709 END  // entangled
     END
     PATCH_IF (mind > 0) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=24 opcode=267 parameter1=35484 END     // panic
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=24 opcode=267 parameter1=35484 END   // panic
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=24 opcode=267 parameter1=20568 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=35544 END      // dominate
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=35544 END    // dominate
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=17392 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=37801 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=5 opcode=267 parameter1=35545 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=37603 END    // confuse
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=37603 END  // confuse
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=37604 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=128 opcode=267 parameter1=14782 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=3 opcode=267 parameter1=37605 END      // berserk
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=14407 END     // feeblemind
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=3 opcode=267 parameter1=37605 END    // berserk
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=14407 END   // feeblemind
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=76 opcode=267 parameter1=40903 END
     END
     PATCH_IF (ward > 0) BEGIN
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=35498 END    // level drain
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=35498 END  // level drain
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=35497 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=35496 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=35472 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=216 opcode=267 parameter1=35495 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=13 opcode=267 parameter1=35592 END     // kill target
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=13 opcode=267 parameter1=35592 END   // kill target
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=13 opcode=267 parameter1=35600 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=13 opcode=267 parameter1=40195 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=13 opcode=267 parameter1=35591 END
       LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=13 opcode=267 parameter1=14026 END
-      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=134 opcode=267 parameter1=38043 END    // petrify
+      LPF CLONE_EFFECT INT_VAR multi_match=1 silent=1 match_opcode=101 match_parameter2=134 opcode=267 parameter1=38043 END  // petrify
     END
   END
 

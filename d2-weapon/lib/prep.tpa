@@ -43,6 +43,7 @@ ACTION_IF (GAME_IS ~pstee~) BEGIN
     COUNT_REGEXP_INSTANCES  ~^455 ~  check3
     COUNT_REGEXP_INSTANCES  ~^456 ~  check4
 
+  ACTION_IF (check4 > 0) BEGIN  OUTER_SET check1=1 OUTER_SET check2=1 OUTER_SET check3=1 END
   ACTION_IF (check1 = 0) BEGIN  APPEND ~projectl.ids~ ~299 --       // rune of torment - used by spwi914.spl (hardcoded)~  END
   ACTION_IF (check2 = 0) BEGIN  APPEND ~projectl.ids~ ~300 --       // blacksphere - used by spwi401.spl (hardcoded)~  END
   ACTION_IF (check3 = 0) BEGIN  APPEND ~projectl.ids~ ~455 --       // prayer - used by sppr303.spl (via prayerg.spl)~  END

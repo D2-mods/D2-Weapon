@@ -16,6 +16,10 @@ d2_remove_spelltypes          PATCH
 d2_mindamageboost             PATCH
 d2_addhitstun                 PATCH
 castsound_to_opcode           PATCH
+d2_immunity_spl_block         PATCH
+read_or_set_scriptname        PATCH
+read_or_set_areascript        PATCH
+hla_multiclass_minlevel       PATCH
 */
 
 ////////////////////////////////////////////////////////////
@@ -459,7 +463,7 @@ by default, adds as last effect or below a match
 */
 
 DEFINE_PATCH_FUNCTION d2_addhitstun
-  INT_VAR duration=~-1~ no_saves=0 match_opcode=~-1~ overwrite=1 probability=~-1~
+  INT_VAR duration=~-1~ no_saves=0 match_opcode=~-1~ overwrite=1 probability=~-1~ multi_match=999
   STR_VAR insert=below
 BEGIN
   PATCH_IF (duration < 1) BEGIN SET duration = 1 END
@@ -472,7 +476,7 @@ BEGIN
 
   PATCH_IF (match_opcode >= 0) BEGIN
     LPF CLONE_EFFECT
-      INT_VAR silent=1 check_globals=0 multi_match=1 match_opcode=match_opcode
+      INT_VAR silent=1 check_globals=0 multi_match=multi_match match_opcode=match_opcode
               opcode=45 timing=0 duration=duration parameter1=0 parameter2=0 savingthrow=savingthrow
               probability1=probability probability2=0 dicenumber=0 dicesize=0 special=0
       STR_VAR insert=EVAL ~%insert%~
@@ -511,6 +515,140 @@ DEFINE_PATCH_FUNCTION castsound_to_opcode INT_VAR match_opcode=~-1~ STR_VAR inse
       END
     END
   END
+END
+
+////////////////////////////////////////////////////////////
+
+//matches an op101 (immunity to effect) to block a specific resource
+//"opcode" can be 318, 324, or 206
+
+/*
+"block" is resource to block in patched SPL
+"effect" is the number in parameter2 of op101 to match (default 13 = kill target)
+*/
+
+//silently skipped if resource doesn't exist
+//silently skipped if op101 with "effect" is not in file
+//automatically switches to opcode 206 if game is not EE v2.0+
+
+DEFINE_PATCH_FUNCTION d2_immunity_spl_block INT_VAR opcode=318 effect=13 STR_VAR block=vorpal BEGIN
+//  PATCH_IF (FILE_EXISTS_IN_GAME ~%block%.spl~) BEGIN
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~[^0-9^a-z]%block%[^0-9^a-z]~) BEGIN
+    PATCH_IF (opcode!=324 && opcode!=206) BEGIN  SET opcode=318  END
+    PATCH_IF !(FILE_EXISTS ~engine.lua~) BEGIN  SET opcode=206  END
+    PATCH_IF !(RESOURCE_CONTAINS ~action.ids~ ~zoomlock~) BEGIN  SET opcode=206  END
+
+    PATCH_IF !(GAME_IS ~bg1 totsc pst~) BEGIN
+      LPF CLONE_EFFECT
+        INT_VAR silent=1 match_opcode=101 match_parameter2=effect
+                opcode=opcode parameter1=0 parameter2=0 special=0
+        STR_VAR resource=EVAL ~%block%~
+      END
+    END
+  END
+//  END
+END
+
+////////////////////////////////////////////////////////////
+
+//read or set script name/death variable (all IE games)
+//does not change scriptname if it has one already
+//if "name" variable not set, it automatically uses the CRE resource
+//if "replace" is set to 1, it overwrites existing name
+//scriptname and deathvar are the same thing, you can return either if needed
+
+DEFINE_PATCH_FUNCTION read_or_set_scriptname INT_VAR replace=0 STR_VAR name=~~ RET scriptname deathvar BEGIN
+  PATCH_IF (~%SOURCE_EXT%~ STR_EQ ~cre~) BEGIN
+    PATCH_IF (~%name%~ STR_EQ ~~) BEGIN  TEXT_SPRINT name  ~%DEST_RES%~  END
+    SET offset = 0x280
+    PATCH_IF (GAME_IS ~iwd2~) BEGIN  SET offset = 0x394  END
+    PATCH_IF (GAME_IS ~iwd how totlm~) BEGIN  SET offset = 0x2e8  END
+
+    READ_ASCII offset deathvar (32) NULL
+    SET novar = 0
+    PATCH_IF (~%deathvar%~ STR_EQ ~~) BEGIN  SET novar = 1  END
+    PATCH_IF (~%deathvar%~ STR_EQ ~None~) BEGIN  SET novar = 1  END
+
+    PATCH_IF (novar>0 OR replace>0) BEGIN    // use "name" var if none or if replace=1
+      TEXT_SPRINT deathvar  ~%name%~
+    END
+    WRITE_EVALUATED_ASCII  offset ~%deathvar%~ #32
+    TEXT_SPRINT scriptname  ~%deathvar%~
+  END
+
+  // if not a cre file
+  ELSE BEGIN
+    TEXT_SPRINT deathvar  ~~
+    TEXT_SPRINT scriptname  ~~
+    PATCH_PRINT ~LPF read_or_set_scriptname: not a CRE file~
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+//read or set area script (all IE games)
+//does not change current script if it has one already
+//if "script" variable not set, it automatically uses the ARE resource
+//if "replace" is set to 1, it overwrites existing script
+
+DEFINE_PATCH_FUNCTION read_or_set_areascript INT_VAR replace=0 STR_VAR script=~~ RET areascript script BEGIN
+  PATCH_IF (~%SOURCE_EXT%~ STR_EQ ~are~) BEGIN
+    PATCH_IF (~%script%~ STR_EQ ~~) BEGIN  TEXT_SPRINT script  ~%DEST_RES%~  END
+    SET offset = 0x94
+    PATCH_IF (GAME_IS ~iwd2~) BEGIN  SET offset = 0xa4  END
+
+    READ_ASCII offset bcs (8) NULL
+    SET noscript = 0
+    PATCH_IF (~%bcs%~ STR_EQ ~~) BEGIN  SET noscript = 1  END
+    PATCH_IF (~%bcs%~ STR_EQ ~None~) BEGIN  SET noscript = 1  END
+
+    PATCH_IF (noscript=0 && replace<1) BEGIN    // use current script if it has one, unless replace=1
+      TEXT_SPRINT script  ~%bcs%~
+    END
+    WRITE_EVALUATED_ASCII  offset ~%script%~ #8
+    TEXT_SPRINT areascript  ~%script%~
+  END
+
+  // if not an ARE
+  ELSE BEGIN
+    TEXT_SPRINT script  ~~
+    TEXT_SPRINT areascript  ~~
+    PATCH_PRINT ~LPF read_or_set_areascript: not a ARE file~
+  END
+END
+
+////////////////////////////////////////////////////////////
+
+//use with lu*.2da files for mage or cleric multiclasses
+//sets MIN_LEV column to 1, 32, or 16 (checks SPL info to determine)
+
+DEFINE_PATCH_FUNCTION hla_multiclass_minlevel BEGIN
+  COUNT_2DA_ROWS 3 hla_rows
+  READ_2DA_ENTRIES_NOW ~hla_table~ 3
+
+  FOR (r = 1; r < hla_rows; ++r) BEGIN
+    READ_2DA_ENTRY_FORMER ~hla_table~ r 1 ability
+    PATCH_IF !(~%ability%~ STRING_CONTAINS_REGEXP ~GA_~) BEGIN
+
+      INNER_PATCH_SAVE res ~%ability%~ BEGIN
+        REPLACE_TEXTUALLY ~GA_~  ~~
+      END
+
+      PATCH_IF (FILE_EXISTS_IN_GAME ~%res%.spl~) BEGIN
+        INNER_ACTION BEGIN
+          COPY_EXISTING - ~%res%.spl~  ~~
+            READ_SHORT 0x1c type
+            READ_LONG 0x34 level
+            SET minlev = 1
+            PATCH_IF (type=1 && level=9) BEGIN  SET minlev = 32  END
+            PATCH_IF (type=2 && level=7) BEGIN  SET minlev = 16  END
+        END
+        SET_2DA_ENTRY_LATER ~hla_edits~ r 4 minlev
+      END
+    END
+  END
+  SET_2DA_ENTRIES_NOW ~hla_edits~ 3
+  PRETTY_PRINT_2DA
 END
 
 ////////////////////////////////////////////////////////////

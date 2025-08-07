@@ -110,6 +110,11 @@ Note: Starting with v2.2, this mod no longer uses licensed images, edited or oth
 
 Version info:
 
+v3.2
+- Chaos Rapier: better visual when chaos self-damage applied (bgee, bg2ee, iwdee).
+- Dev mode: fixed harmless NI warning with EET when looking at AR0602.bcs (BG2 starting area).
+- Mod is no longer installable on older EEs that don't support v2.0+ opcodes. (it wasn't compatible anyways)
+
 v3.1
 - NPC Merchant (EET fix): Fixed BG2 stores appearing as options while still in the BG1 portion of the game. All BG2 stores now require accessing them once for EET games.
 - Aquamarine Dagger: For magic weapon variant (BGEE/BG2EE/IWDEE), fixed an issue where if the spell ends prematurely and you recast it within the duration of the first casting, the second casting would end before the full 3 rounds.

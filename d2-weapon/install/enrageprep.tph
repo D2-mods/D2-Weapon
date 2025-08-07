@@ -6,7 +6,8 @@ main spell should cast these with op146 or op326
 
 //variables
 OUTER_SET ee_game = 0
-ACTION_IF (RESOURCE_CONTAINS ~action.ids~ ~ZoomLock~) BEGIN OUTER_SET ee_game = 1 END
+ACTION_IF (RESOURCE_CONTAINS ~action.ids~ ~zoomlock~) BEGIN OUTER_SET ee_game = 1 END
+ACTION_IF !(FILE_EXISTS ~engine.lua~) BEGIN OUTER_SET ee_game = 0 END
 
 OUTER_SET enrage_warn = RESOLVE_STR_REF (@309)    // 15 damage info (when enraged)
 OUTER_SET winded_warn = RESOLVE_STR_REF (@314)    // 15 damage info (when winded)
