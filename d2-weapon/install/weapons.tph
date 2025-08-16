@@ -359,7 +359,7 @@ COPY ~%abilities%/chaosrapierdrain2.SPL~  ~override/%bb%.SPL~
 COPY ~%abilities%/chaosrapierdrain2.VVC~  ~override/%bb%.VVC~
   WRITE_ASCII 0x8 ~%bb%~ #8
   WRITE_ASCII 0x78 ~%bb%~ #8
-COPY ~%abilities%/chaosrapierdrain2.BAM~  ~override/%bb%.BAM~
+COPY ~%abilities%/chaosrapierdrain3.BAM~  ~override/%bb%.BAM~
 COPY ~%abilities%/chaosrapierdrain2.WAV~  ~override/%bb%.WAV~
 
 //
