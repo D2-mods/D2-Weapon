@@ -383,6 +383,16 @@ ACTION_IF (GAME_IS ~pst pstee~) BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~KNUCKLES.itm~) BEGIN OUTER_TEXT_SPRINT $d2_weapontype_res (~knuckles~) ~KNUCKLES~ END
 END
 
+//tutu
+ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
+  ACTION_PHP_EACH d2_weapontype_res AS type => res BEGIN
+    OUTER_SPRINT newres  ~_%res%~
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%newres%.itm~) BEGIN
+      OUTER_TEXT_SPRINT $d2_weapontype_res (~%type%~) ~%newres%~
+    END
+  END
+END
+
 
 
 //
@@ -480,6 +490,16 @@ ACTION_IF (GAME_IS ~pst pstee~) BEGIN
 //pst fist type
   ACTION_IF (FILE_EXISTS_IN_GAME ~EPUNCH.itm~) BEGIN OUTER_TEXT_SPRINT $d2_magicweapon_base (~punchdagger~) ~EPUNCH~ END
   ACTION_IF (FILE_EXISTS_IN_GAME ~IRON1.itm~) BEGIN OUTER_TEXT_SPRINT $d2_magicweapon_base (~knuckles~) ~IRON1~ END
+END
+
+//tutu
+ACTION_IF (GAME_IS ~tutu tutu_totsc~) BEGIN
+  ACTION_PHP_EACH d2_magicweapon_base AS type => res BEGIN
+    OUTER_SPRINT newres  ~_%res%~
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%newres%.itm~) BEGIN
+      OUTER_TEXT_SPRINT $d2_magicweapon_base (~%type%~) ~%newres%~
+    END
+  END
 END
 
 

@@ -55,6 +55,13 @@ COPY ~%files%/whitebirch.ITM~  ~override/%itemid%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=177 STR_VAR resource=~%ss%~ END
   LPF ALTER_EFFECT INT_VAR match_opcode=272 STR_VAR resource=~%ee%~ END
 
+  // extra patching
+  LPF d2_get_weapontype_fields STR_VAR type=shortbow RET item_unusable END
+  PATCH_IF (item_unusable = 0) BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode=319 END
+  END
+  LPF cd_eefp_mkhiin_animation END
+
 COPY ~%abilities%/castspelltarget.EFF~  ~override/%ss%.EFF~    // hit effect
   WRITE_ASCII 0x30 ~%ss%~ #8
 //  WRITE_SHORT 0x2c 25
@@ -601,6 +608,12 @@ COPY ~%files%/clubfrenzy.ITM~  ~override/%itemid%.ITM~
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=confused END    // "Confused" text
   LPF ALTER_EFFECT INT_VAR match_opcode=146 parameter2=0 STR_VAR resource=~%itemid%~ END    // cast enrage
 //  LPF ALTER_ITEM_HEADER INT_VAR header_type=3 STR_VAR icon=SPCL152 END    // spell icon (alts: SPIN117, SPCL152)
+
+  // use staff animation for M'Khiin
+  LPF d2_get_weapontype_fields STR_VAR type=staff RET item_prof item_cat END
+  WRITE_SHORT 0x1c ~%item_cat%~
+  WRITE_BYTE 0x31 ~%item_prof%~    // these are changed back to club in itemtypepatch.tph
+  LPF cd_eefp_mkhiin_animation END
 
 //tooltip
 OUTER_SET tooltip = RESOLVE_STR_REF (@307)

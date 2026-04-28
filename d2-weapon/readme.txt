@@ -84,6 +84,7 @@ Contact: Dan_P (at Beamdog or Gibberlings3)
 
 Functions used (not including my own):
 - CD_LEVEL_SELECT-O-MATIC by Camdawg (https://www.gibberlings3.net/forums/topic/28835-toss-your-semi-useful-weidu-macros-here/page/13/#comment-332943)
+- cd_eefp_mkhiin_animation by Camdawg (https://github.com/Gibberlings3/EE_Fixpack/blob/master/eefixpack/files/lib/modder_mkhiin_animations.tph)
 
 Tools and Resources used:
 - WeiDU (https://github.com/WeiDUorg/weidu)
@@ -109,6 +110,10 @@ Note: Starting with v2.2, this mod no longer uses licensed images, edited or oth
 --
 
 Version info:
+
+v3.3
+- SoD: White Birch Bow now has bow animations for M'Khiin. This is implemented using the cd_eefp_mkhiin_animation function from EE fixpack. (also, Club +4: Frenzy isn't obtainable in SoD but if equipped will use staff animations.)
+- BGEE/BG2EE/IWDEE: Aquamarine Dagger's extended form is now set to 1 range instead of 0.
 
 v3.2
 - Chaos Rapier: better visual when chaos self-damage applied (bgee, bg2ee, iwdee).

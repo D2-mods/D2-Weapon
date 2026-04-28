@@ -17,6 +17,7 @@ ACTION_CLEAR_ARRAY ~d2acidweap~
 
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY d2fireweap BEGIN    // resource => type (weap or temp)
+  godbow => fireweap
   bdblun09 => fireweap
   bddagg01 => fireweap
   bddagg02 => fireweap
