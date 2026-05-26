@@ -9,9 +9,17 @@
 	@4 = ~Dev mode (start with Weapon Sack)~
 
 @20 = ~Add damage to bows (recommended for IWD:EE)~
+	@21 = ~Yes~
+	@22 = ~No~
+
 @50 = ~NPC merchant (does not require main component)~
+	@51 = ~Yes~
+	@52 = ~No~
 
 @6 = ~Additional patching of spells, items, or creatures~
+
+//updater
+@3263423 = ~Recheck heavy weapon damage (can re-run at any time)~
 
 
 /*

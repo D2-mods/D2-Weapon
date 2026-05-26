@@ -43,6 +43,25 @@
 @358 = ~You cannot cast %ability_name% until the cooldown timer has run out.~
 
 
+
+/*
+Used to fix a possible compatibility issue: wrong damage type in text for tweaks that add the "Damage Type" line
+326301 is used for text matching "Damage Type" line
+326302 is line with corrected damage type
+326303 is deleted by only if 326301 line is detected
+*/
+@326301 = ~Damage Type~
+@326302 = ~Damage Type: %damagetype%~
+@326303 = ~(%damagetype%)~
+
+//damagetypes
+@326801 = ~Crushing~
+@326802 = ~Slashing~
+@326803 = ~Piercing~
+@326804 = ~Missile~
+
+
+
 //pst item dialog
 @778010 = ~Choose an action.~
 	@778011 = ~Do nothing.~
@@ -53,6 +72,7 @@
 @778030 = ~You must equip the item to examine it.~
 @778040 = ~You examine the %item_name%~
 @778050 = ~You examine the item... but it was drained!~
+
 
 
 //Store text

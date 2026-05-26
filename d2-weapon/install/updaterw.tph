@@ -1,0 +1,49 @@
+//
+//
+
+
+//
+OUTER_SPRINT match  @326301
+OUTER_SPRINT crushing  @326801
+OUTER_SPRINT slashing  @326802
+OUTER_SPRINT piercing  @326803
+OUTER_SPRINT missile  @326804
+
+DEFINE_PATCH_FUNCTION checktext STR_VAR damagetype=~~ BEGIN
+  READ_LONG 0x54 string
+  GET_STRREF string desc
+  PATCH_IF !(~%desc%~ STRING_CONTAINS_REGEXP ~^%match%~) BEGIN
+    SPRINT newline  @326302
+    SPRINT delete  @326303
+    PATCH_IF (~%desc%~ STRING_CONTAINS_REGEXP ~%newline%~) BEGIN
+      INNER_PATCH_SAVE desc ~%desc%~ BEGIN
+        REPLACE_TEXTUALLY ~^%match%.*$~  ~%newline%~
+        REPLACE_TEXTUALLY ~%delete%~  ~~
+      END
+      INNER_ACTION BEGIN
+        STRING_SET_EVALUATE string  ~%desc%~
+      END
+    END
+  END
+END
+
+
+//
+COPY_EXISTING ~%greatsword%.itm~  ~override~
+  LPF ALTER_ITEM_HEADER INT_VAR damage_type=3 dicenumber=6 dicesize=10 END
+  LPF checktext STR_VAR damagetype=~%slashing%~ END
+BUT_ONLY
+
+COPY_EXISTING ~%fumeultraGS%.itm~  ~override~
+  LPF ALTER_ITEM_HEADER INT_VAR damage_type=2 dicenumber=6 dicesize=10 END
+  LPF checktext STR_VAR damagetype=~%crushing%~ END
+BUT_ONLY
+
+COPY_EXISTING ~%chaosrapier%.itm~  ~override~
+  LPF ALTER_ITEM_HEADER INT_VAR damage_type=1 dicenumber=1 dicesize=6 END
+  LPF checktext STR_VAR damagetype=~%piercing%~ END
+BUT_ONLY
+
+
+/*
+*/

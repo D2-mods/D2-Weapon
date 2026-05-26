@@ -24,8 +24,11 @@ Components:
 2. Add damage to bows (recommended for IWD:EE)
 3. NPC merchant (does not require main component)
 
+Extra patching:
+- Recheck heavy weapon damage (can re-run at any time, fixes damage rolls if changed by a later tweak)
+
 Additional info:
-- This mod is safe to install before or after usability tweaks or proficiency overhauls. (It's still recommended to follow normal install order guidelines. This is just in case you install after tweaks by mistake.)
+- This mod is safe to install before or after usability tweaks or proficiency overhauls. (It's still recommended to follow normal install order guidelines.)
 - PSTEE: Standard install includes damage and price adjustments (no separate installer options).
 - "Dev mode" is just the standard install, but you start with a bag with all items.
 
@@ -80,7 +83,7 @@ PSTEE note: Most have different names and icons for PST. The changed name will s
 
 --
 
-Contact: Dan_P (at Beamdog or Gibberlings3)
+Contact: Dan_P at Beamdog or Gibberlings3 forums
 
 Functions used (not including my own):
 - CD_LEVEL_SELECT-O-MATIC by Camdawg (https://www.gibberlings3.net/forums/topic/28835-toss-your-semi-useful-weidu-macros-here/page/13/#comment-332943)
@@ -110,6 +113,9 @@ Note: Starting with v2.2, this mod no longer uses licensed images, edited or oth
 --
 
 Version info:
+
+v3.4
+- added an Updater component to check damage and text for nonstandard weapons. This is in case a weapon tweak edits damage for all weapons of a type, and makes changes it shouldn't (ex. changing damage of heavy weapons). Can be re-run at any time, skipped on initial mod install.
 
 v3.3
 - SoD: White Birch Bow now has bow animations for M'Khiin. This is implemented using the cd_eefp_mkhiin_animation function from EE fixpack. (also, Club +4: Frenzy isn't obtainable in SoD but if equipped will use staff animations.)
