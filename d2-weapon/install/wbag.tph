@@ -1,6 +1,5 @@
 /*
 add bag of holding
-use same bag as d2-weapon?
 */
 
 
@@ -8,15 +7,19 @@ OUTER_SPRINT bagres  ~d2#wbag~
 
 ACTION_IF !(FILE_EXISTS ~override/%bagres%.ITM~) BEGIN
 
+OUTER_SPRINT descimage  ~d2dbag~
+COPY ~%wbag%/eebagdesc.bam~  ~override/%descimage%.bam~
+
 ACTION_IF (GAME_IS ~bgee bg2ee eet~) BEGIN
   COPY ~%wbag%/d2hbee1.ITM~  ~override/%bagres%.ITM~
     SAY NAME1 ~%weaponsack_name%~ SAY UNIDENTIFIED_DESC ~%weaponsack_desc%~
     SAY NAME2 ~%weaponsack_name%~
     WRITE_ASCII 0x3a ~%bagres%~ #8
+    WRITE_ASCII 0x58 ~%descimage%~ #8
 
   COPY ~%wbag%/d2hbee1.STO~  ~override/%bagres%.STO~
     SAY 0xc ~%weaponsack_name%~
-    LPF cannot_add_items END         // make it so items cannot be placed in the bag
+    LPF cannot_add_items END
 END
 
 ACTION_IF (GAME_IS ~iwdee~) BEGIN
@@ -24,10 +27,11 @@ ACTION_IF (GAME_IS ~iwdee~) BEGIN
     SAY NAME1 ~%weaponsack_name%~
     SAY NAME2 ~%weaponsack_name%~ SAY DESC ~%weaponsack_desc%~
     WRITE_ASCII 0x3a ~%bagres%~ #8
+    WRITE_ASCII 0x58 ~%descimage%~ #8
 
   COPY ~%wbag%/d2hbee0.STO~  ~override/%bagres%.STO~
     SAY 0xc ~%weaponsack_name%~
-    LPF cannot_add_items END         // make it so items cannot be placed in the bag
+    LPF cannot_add_items END
 END
 
 ACTION_IF (GAME_IS ~pstee~) BEGIN
@@ -41,7 +45,7 @@ ACTION_IF (GAME_IS ~pstee~) BEGIN
 
   COPY ~%wbag%/pstbag.STO~  ~override/%bagres%.STO~
     SAY 0xc ~%weaponsack_name%~
-    LPF cannot_add_items END         // make it so items cannot be placed in the bag
+    LPF cannot_add_items END
 END
 
 COPY ~%wbag%/%bagres%.BAM~  ~override~

@@ -154,7 +154,7 @@ STATISTICS:
 
 Equipped abilities:
 – Anchored: -2 penalty to Armor Class
-– Sets Attacks Per Round to 1 (max of 2 with Haste or Whirlwind effects)
+– May not exceed 1 Attack Per Round (2 with Haste or Whirlwind)
 
 Combat abilities:
 – Target is knocked back and stunned for 3 seconds (no save)
@@ -228,15 +228,15 @@ STATISTICS:
 
 Equipped abilities:
 – Heavy: -2 penalty to Dexterity
-– Sets Attacks Per Round to 1 (max of 2 with Haste or Whirlwind effects)
+– May not exceed 1 Attack Per Round (2 with Haste or Whirlwind)
 
 Combat abilities:
-– Heavy: +4d8 (crushing)
+– Colossal: +4d8 crushing damage to enemies in a 2-ft. radius (Save vs. Breath at -4 for half)
 – Reach of 4 feet, rather than 2
 – Target is knocked back or knocked down (50% chance of each, no save)
 
 THAC0: -2
-Damage: 6d10 (slashing)
+Damage: 4d10 (slashing)
 Speed Factor: 10
 Proficiency Type: Two-handed Sword
 Type: Two-handed
@@ -253,15 +253,15 @@ STATISTICS:
 Equipped abilities:
 – +4 bonus to AC vs. crushing, slashing, piercing, and missile
 – Heavy: -2 penalty to Dexterity
-– Sets Attacks Per Round to 1 (max of 2 with Haste or Whirlwind effects)
+– May not exceed 1 Attack Per Round (2 with Haste or Whirlwind)
 
 Combat abilities:
-– Heavy: +4d8 (crushing)
+– Colossal: +4d8 crushing damage to enemies in a 2-ft. radius (Save vs. Breath at -4 for half)
 – Reach of 4 feet, rather than 2
 – Target is knocked back or knocked down (50% chance of each, no save)
 
 THAC0: -2 (strikes as a +4 weapon)
-Damage: 6d10 (crushing)
+Damage: 4d10 (crushing)
 Speed Factor: 10
 Proficiency Type: Two-handed Sword
 Type: Two-handed
@@ -677,9 +677,9 @@ An extremely rare rapid-firing crossbow, shaped like a dagger and surprisingly h
 //Colossal Sword (PSTEE)
 @778104 = ~Colossal Hammer~
 @778204 = ~COLOSSAL HAMMER
-Damage: 6-60 Crushing
+Damage: 4-40 Crushing
 Special:
-   Additional 4-32 Crushing Damage
+   Colossal: Additional 4-32 Crushing Damage to enemies in a 2-ft. radius (Save vs. Breath at -4 for half)
    Target is knocked back or knocked down (50% chance of each, no save)
    Heavy: -2 penalty to Dexterity
    May not exceed 1 attack per 5 seconds
@@ -695,11 +695,11 @@ A coarse iron lump of a great hammer. Highly destructive if intolerably heavy. M
 //Fume Ultra Greatsword (PSTEE)
 @778105 = ~Fume Great Maul~
 @778205 = ~FUME GREAT MAUL
-Damage: 6-60 Crushing
+Damage: 4-40 Crushing
 Enchanted: +4
 Special:
    +4 to AC vs. crushing, slashing, piercing, and missile
-   Additional 4-32 Crushing Damage
+   Colossal: Additional 4-32 Crushing Damage to enemies in a 2-ft. radius (Save vs. Breath at -4 for half)
    Target is knocked back or knocked down (50% chance of each, no save)
    Heavy: -2 penalty to Dexterity
    May not exceed 1 attack per 5 seconds

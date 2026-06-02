@@ -114,8 +114,12 @@ Note: Starting with v2.2, this mod no longer uses licensed images, edited or oth
 
 Version info:
 
+v3.5
+- revised damage numbers for Colossal Sword/Hammer and Fume Ultra Greatsword/Maul. Base damage is now 4d10 (lowered from 6d10). However, the bonus 4d8 crushing damage is now a small area of effect that hits enemies only (As a balance this also allows a save for half now). So single target damage and criticals are weaker (but still strong for a single hit), but against groups it can damage multiple enemies. The other parts of it are unchanged (locked to 1 APR, knocks back/down main target, THAC0 penalty).
+
 v3.4
 - added an Updater component to check damage and text for nonstandard weapons. This is in case a weapon tweak edits damage for all weapons of a type, and makes changes it shouldn't (ex. changing damage of heavy weapons). Can be re-run at any time, skipped on initial mod install.
+- IWDEE: items from this mod will now have description images if using a UI mod that enables them for IWDEE. Mods that do this include Infinity UI++ and the new IWD icons mod from G3. Previously these were removed due to issues with older versions of Infinity UI++.
 
 v3.3
 - SoD: White Birch Bow now has bow animations for M'Khiin. This is implemented using the cd_eefp_mkhiin_animation function from EE fixpack. (also, Club +4: Frenzy isn't obtainable in SoD but if equipped will use staff animations.)

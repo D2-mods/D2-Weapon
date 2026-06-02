@@ -16,6 +16,7 @@ INCLUDE ~%install%/weapontypes.tph~
 INCLUDE ~%install%/enrageprep.tph~
 INCLUDE ~%install%/bleedprep.tph~
 INCLUDE ~%install%/chaosprep.tph~
+INCLUDE ~%install%/colossalprep.tph~
 
 //items
 INCLUDE ~%install%/weapontext.tph~
@@ -31,7 +32,7 @@ INCLUDE ~%install%/itemtypepatch.tph~
 INCLUDE ~%install%/pstitemtypes.tph~
 INCLUDE ~%install%/pstitemabilities.tph~
 INCLUDE ~%install%/silverweapon.tph~
-INCLUDE ~%install%/iwditempatch.tph~
+//INCLUDE ~%install%/iwditempatch.tph~
 INCLUDE ~%install%/pstopcodepatch.tph~
 
 

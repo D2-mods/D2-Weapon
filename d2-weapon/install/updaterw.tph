@@ -30,12 +30,12 @@ END
 
 //
 COPY_EXISTING ~%greatsword%.itm~  ~override~
-  LPF ALTER_ITEM_HEADER INT_VAR damage_type=3 dicenumber=6 dicesize=10 END
+  LPF ALTER_ITEM_HEADER INT_VAR damage_type=3 dicenumber=4 dicesize=10 END
   LPF checktext STR_VAR damagetype=~%slashing%~ END
 BUT_ONLY
 
 COPY_EXISTING ~%fumeultraGS%.itm~  ~override~
-  LPF ALTER_ITEM_HEADER INT_VAR damage_type=2 dicenumber=6 dicesize=10 END
+  LPF ALTER_ITEM_HEADER INT_VAR damage_type=2 dicenumber=4 dicesize=10 END
   LPF checktext STR_VAR damagetype=~%crushing%~ END
 BUT_ONLY
 

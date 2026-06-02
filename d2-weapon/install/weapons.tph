@@ -188,6 +188,7 @@ COPY ~%files%/greatsword.ITM~  ~override/%itemid%.ITM~
   LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=235 opcode=165 STR_VAR insert=below END    // add "pause" effect (same duration as knockback)
   LPF ADD_ITEM_EFFECT INT_VAR type=99 opcode=1 target=1 timing=0 duration=4 parameter1=0 parameter2=1 END
+  LPF colossalupdate END
 
 
 //
@@ -203,6 +204,7 @@ COPY ~%files%/fumeultraGS.ITM~  ~override/%itemid%.ITM~
   LPF ALTER_ITEM_HEADER STR_VAR icon=~%itemid%~ END
   LPF CLONE_EFFECT INT_VAR match_opcode=235 opcode=165 STR_VAR insert=below END    // add "pause" effect (same duration as knockback)
   LPF ADD_ITEM_EFFECT INT_VAR type=99 opcode=1 target=1 timing=0 duration=4 parameter1=0 parameter2=1 END
+  LPF colossalupdate END
 
 
 //
@@ -271,8 +273,8 @@ COPY ~%abilities%/stoneGSvisual2.VVC~  ~override/%ss%.VVC~
   WRITE_ASCII 0x78 AFT_M04 #8
 
 //projectile
-COPY - ~%abilities%/stoneGSslow.PRO~  ~%workspace%/%ss%.PRO~
-ADD_PROJECTILE ~%workspace%/%ss%.PRO~
+COPY - ~%abilities%/stoneGSslow.PRO~  ~inlined/%ss%.PRO~
+ADD_PROJECTILE ~inlined/%ss%.PRO~
 
 //slow aura
 OUTER_SET slowed  = 14668

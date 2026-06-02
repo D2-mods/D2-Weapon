@@ -1,0 +1,24 @@
+//prep for colossal update
+//
+
+
+// colossal update
+OUTER_SPRINT colossal  ~d2ugs~
+
+COPY - ~%abilities%/colossal.pro~  ~inlined/%colossal%.pro~
+ADD_PROJECTILE ~inlined/%colossal%.pro~
+
+COPY ~%abilities%/colossal.spl~  ~override/%colossal%.spl~
+  LPF ALTER_SPELL_HEADER INT_VAR projectile=~%colossal%~ END
+  LPF d2_safe_spell END
+
+DEFINE_PATCH_FUNCTION colossalupdate BEGIN
+  SPRINT colossal  ~d2ugs~
+  LPF ALTER_ITEM_HEADER INT_VAR dicenumber=4 END
+  LPF DELETE_EFFECT INT_VAR match_opcode=12 END
+  LPF d2_remove_effects_on_cast INT_VAR 326override=1 globals=0 headers=1 probability=100 STR_VAR resource=~%colossal%~ END
+END
+
+
+/*
+*/

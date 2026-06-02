@@ -1,6 +1,6 @@
 BACKUP ~weidu_external/backup/d2-weapon~
 AUTHOR ~Dan_P~
-VERSION ~3.4~
+VERSION ~3.5~
 AUTO_EVAL_STRINGS
 
 ALWAYS
@@ -93,11 +93,12 @@ INCLUDE ~%install%/bowdamage.tph~
 
 //this is only here so the updater can skip it (needs 2 subcomponents)
 BEGIN @22
-DEPRECATED ~~
+//DEPRECATED ~~
 REQUIRE_PREDICATE !(~%d2weapon_updater%~ STR_EQ ~skip~) ~~
 REQUIRE_PREDICATE (RESOURCE_CONTAINS ~d2bow01.itm~  ~d2~) ~~
 SUBCOMPONENT @20
 LABEL ~D2-WEAPON-BOWDAMAGE0~
+ABORT ~Skipping ...~
 
 
 //
@@ -115,10 +116,11 @@ INCLUDE ~%install%/npcstore.tph~
 
 //this is only here so the updater can skip it (needs 2 subcomponents)
 BEGIN @52
-DEPRECATED ~~
+//DEPRECATED ~~
 REQUIRE_PREDICATE !(~%d2weapon_updater%~ STR_EQ ~skip~) ~~
 SUBCOMPONENT @50
 LABEL ~D2-WEAPON-NPCSTORE0~
+ABORT ~Skipping ...~
 
 
 ////////////////////////////////////////////////////////////
