@@ -413,7 +413,7 @@ IF ~!GlobalGT("%rakscim%_activate","GLOBAL",0)
     !XPGT(Player1,%xpcheck%)
     General(Myself,HUMANOID)
    ~ BEGIN silent
-  SAY @2060
+  SAY @2080
   IF ~~
   DO ~ApplySpellRES("%delaymorph%",Myself)~
   EXIT

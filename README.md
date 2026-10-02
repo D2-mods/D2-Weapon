@@ -91,7 +91,7 @@ NPC merchant:
 **More info (v3.0+):**
 - Appears in 4-6 areas per game (most are later or difficult areas). There is one earlier location in each game, but you may need to advance the story before they offer store options.
 - Some stores will require you to have accessed the store once before appearing as an option. In expansion areas, all stores are treated as having been visited.
-- There are 3 possible merchants now. They give the same store options, but have different dialog. Every 1-2 days (200 turns), the merchant can change to a different one. It's randomized, so you can get the same one repeatedly.
+- There are 3 possible merchants now. They give the same store options, but have different dialogue. Every 1-2 days (200 turns), the merchant can change to a different one. It's randomized, so you can get the same one repeatedly.
 - If the merchant disappears, it's just invisible (scripting stuff). It should reappear when you're out of visual range, or after a few turns.
 
 --

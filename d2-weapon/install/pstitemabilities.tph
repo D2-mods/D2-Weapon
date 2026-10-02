@@ -104,6 +104,7 @@ COPY_EXISTING ~%chaosdrain%.spl~  ~override~
 //  LPF DELETE_EFFECT INT_VAR match_opcode=139 END        // remove display string (keep for now)
 
   // magic fire damage (minus healing doesn't work)
+  LPF CLONE_EFFECT INT_VAR match_opcode=17 opcode=208 parameter1=1 parameter2=0 timing=0 END    // min hp = 1
   LPF CLONE_EFFECT INT_VAR match_opcode=17 opcode=84 parameter1=0 parameter2=1 timing=0 END    // bypass resist
   LPF ALTER_EFFECT INT_VAR match_opcode=17 opcode=12 parameter1=2 parameter2=0x02000000 savingthrow=16777216 special=1056 END
 

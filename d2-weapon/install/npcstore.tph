@@ -134,6 +134,7 @@ COPY ~%files%/rakscim.ITM~  ~override/%rakscim%.ITM~
 COPY ~%files%/rakscim.SPL~  ~override/%rakscim%.SPL~
   LPF DELETE_EFFECT INT_VAR match_opcode=174 END    // delete sound (annoying)
   LPF DELETE_EFFECT INT_VAR match_opcode=317 END
+  LPF CLONE_EFFECT INT_VAR multi_match=1 opcode=342 parameter1=0 parameter2=4 END    // set personal space to 0
   LPF d2_protect_on_castequip END
 
 //remove invisible (from script)

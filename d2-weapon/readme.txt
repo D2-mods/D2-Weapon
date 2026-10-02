@@ -57,7 +57,7 @@ NPC merchant:
 More info (v3.0+):
 - Appears in 4-6 areas per game (most are later or difficult areas). There is one earlier location in each game, but you may need to advance the story before they offer store options.
 - Some stores will require you to have accessed the store once before appearing as an option. In expansion areas, all stores are treated as having been visited.
-- There are 3 possible merchants now. They give the same store options, but have different dialog. Every 1-2 days (200 turns), the merchant can change to a different one. It's randomized, so you can get the same one repeatedly.
+- There are 3 possible merchants now. They give the same store options, but have different dialogue. Every 1-2 days (200 turns), the merchant can change to a different one. It's randomized, so you can get the same one repeatedly.
 - If the merchant disappears, it's just invisible (scripting stuff). It should reappear when you're out of visual range, or after a few turns.
 
 --
@@ -114,6 +114,10 @@ Note: Starting with v2.2, this mod no longer uses licensed images, edited or oth
 
 Version info:
 
+v3.6
+- pstee: fixed chaos drain from chaos dagger being able to kill you. Now it won't bring you lower than 1 hp.
+- npc merchant: if the merchant turns invisible for scripting reasons, you now won't be able to bump into its invisible body.
+
 v3.5
 - revised damage numbers for Colossal Sword/Hammer and Fume Ultra Greatsword/Maul. Base damage is now 4d10 (lowered from 6d10). However, the bonus 4d8 crushing damage is now a small area of effect that hits enemies only (As a balance this also allows a save for half now). So single target damage and criticals are weaker (but still strong for a single hit), but against groups it can damage multiple enemies. The other parts of it are unchanged (locked to 1 APR, knocks back/down main target, THAC0 penalty).
 
@@ -153,9 +157,9 @@ v2.7
 - Added "Dev mode" option to main component. This just adds a bag with all items from this mod, so you don't have to import it.
 - Rewrote install of NPC merchant (Better scripting + other internal improvements).
 - Merchant can appear in 2-3 areas now (instead of just the ToB/HoW hub areas). It's also added to BG1 somewhere. BG1 merchant gives access to SoD stores with an item from this mod.
-- There are 3 possible merchants now. They give the same store options, but have different dialog. Every 24 hours (120 turns), the merchant can change to a different one (it's randomized, so can get the same one repeatedly).
+- There are 3 possible merchants now. They give the same store options, but have different dialogue. Every 24 hours (120 turns), the merchant can change to a different one (it's randomized, so can get the same one repeatedly).
 - pstee: fixed delayed effects hitting instantly or near-instantly. Added in some missing sound effects. Fixed oversights with some items during conversion to pstee.
-- pstee: successfully implemented daily uses of abilities (restored on sleep or death). This is done by scripting so multiple of the same item will share a limit. An item ability is considered "used" when you click the dialog option to cast it (clicking "Do nothing" does not use the ability).
+- pstee: successfully implemented daily uses of abilities (restored on sleep or death). This is done by scripting so multiple of the same item will share a limit. An item ability is considered "used" when you click the dialogue option to cast it (clicking "Do nothing" does not use the ability).
 - Changed icons for a couple items.
 
 v2.6
@@ -163,7 +167,7 @@ v2.6
 - The super strong/slow weapons (1 APR max ones) now also have a 4 second recovery period (no attacks with any weapon).
 - Changed scimitar Accelerator to a hammer type weapon (Maul +3: Accelerator).
 - Added experimental support for PSTEE. This is incomplete. Text isn't updated to the pst style. Items are NOT obtainable through normal gameplay. This was mainly done to work on a couple item-related functions.
-- more PSTEE: all items use a pst proficiency and animation (or no animation), ranged weapons use innate ammo for technical reasons (UI issues), item abilities are cast from the inventory (click "Use" to open a dialog).
+- more PSTEE: all items use a pst proficiency and animation (or no animation), ranged weapons use innate ammo for technical reasons (UI issues), item abilities are cast from the inventory (click "Use" to open a dialogue).
 - Base item info (proficiency, item type, usability, flags, etc.) is now set at install time for each item (previously was preset in mod folder). This process is automated and will account for mod changes and differences between games.
 - Install order note: This mod is now safe to install before or after usability tweaks or proficiency overhauls. (still recommended to install before any kit/tweak mods, this is just in case you install after by mistake)
 

@@ -85,6 +85,7 @@ Used to fix a possible compatibility issue: wrong damage type in text for tweaks
 @2007 = ~???~
 @2040 = ~We're still setting up. Come again later.~
 @2060 = ~...~
+@2080 = ~... The stranger has nothing to say to you.~
 
 @2011 = ~The stranger watches as you approach...~
 @2012 = ~He motions to the odd sack on the ground.~

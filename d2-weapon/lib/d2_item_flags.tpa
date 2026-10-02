@@ -63,7 +63,7 @@ DEFINE_PATCH_FUNCTION d2_magic_item_flags
   INT_VAR magical=1 cursed=0 critical=0 enchantment=~-1~
           undispellable=~-1~ silver=~-1~ gold=~-1~ coldiron=~-1~
 BEGIN
-  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
       // enchantment level
       PATCH_IF (magical>0 AND enchantment<1) BEGIN
         READ_LONG 0x60 enchant_level
@@ -106,7 +106,7 @@ DEFINE_ACTION_FUNCTION d2_silverweapon INT_VAR silver=1 gold=1 coldiron=1 STR_VA
 END
 
 DEFINE_PATCH_FUNCTION d2_silverweapon INT_VAR silver=1 gold=1 coldiron=1 BEGIN
-  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
       PATCH_IF (silver > 0)            BEGIN  WRITE_LONG 0x18 THIS | BIT8  END
       PATCH_IF (gold>0 AND coldiron>0) BEGIN  WRITE_LONG 0x18 THIS | BIT9  END
   END
@@ -133,7 +133,7 @@ DEFINE_ACTION_FUNCTION d2_silverweapon_buff INT_VAR silver=1 gold=1 coldiron=1 m
 END
 
 DEFINE_PATCH_FUNCTION d2_silverweapon_buff INT_VAR silver=1 gold=1 coldiron=1 mode=3 BEGIN
-  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
     PATCH_IF (silver > 0) BEGIN
         LPF DELETE_EFFECT INT_VAR match_opcode=345 match_parameter2=3 END
         LPF ADD_ITEM_EQEFFECT INT_VAR opcode=345 target=1 timing=2 parameter2=3 special=mode insert_point=~-1~ END
@@ -164,7 +164,7 @@ DEFINE_ACTION_FUNCTION d2_droppableitems STR_VAR item=~~ resource=~~ mode=add BE
 END
 
 DEFINE_PATCH_FUNCTION d2_droppableitems STR_VAR mode=add BEGIN
-  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
       PATCH_IF ((~%mode%~ STR_EQ ~remove~) OR (~%mode%~ STR_EQ ~delete~)) BEGIN
         WRITE_LONG 0x18 (THIS BAND BNOT BIT2)
       END ELSE BEGIN
@@ -192,7 +192,7 @@ DEFINE_ACTION_FUNCTION d2_soddrowitems STR_VAR item=~~ resource=~~ mode=add BEGI
 END
 
 DEFINE_PATCH_FUNCTION d2_soddrowitems STR_VAR mode=add BEGIN
-  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
       PATCH_IF ((~%mode%~ STR_EQ ~remove~) OR (~%mode%~ STR_EQ ~delete~)) BEGIN
         WRITE_LONG 0x18 (THIS BAND BNOT BIT15)
       END ELSE BEGIN
@@ -220,7 +220,7 @@ DEFINE_ACTION_FUNCTION d2_equip_statreq INT_VAR amount=0 STR_VAR item=~~ resourc
 END
 
 DEFINE_PATCH_FUNCTION d2_equip_statreq INT_VAR amount=0 STR_VAR stat=none BEGIN
-  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
       PATCH_IF !(~%stat%~ STRING_CONTAINS_REGEXP ~str~) BEGIN  WRITE_SHORT 0x26 amount  END
       PATCH_IF !(~%stat%~ STRING_CONTAINS_REGEXP ~dex~) BEGIN  WRITE_BYTE 0x2c amount  END
       PATCH_IF !(~%stat%~ STRING_CONTAINS_REGEXP ~con~) BEGIN  WRITE_BYTE 0x30 amount  END
@@ -262,7 +262,7 @@ END
 DEFINE_PATCH_FUNCTION d2_pstitemflags
   INT_VAR silver=~-1~ coldiron=~-1~ steel=~-1~ conversable=~-1~ inventory=~-1~
 BEGIN
-  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
       // set flag
       PATCH_IF (silver > 0)      BEGIN  WRITE_LONG 0x18 THIS | BIT8  END
       PATCH_IF (coldiron > 0)    BEGIN  WRITE_LONG 0x18 THIS | BIT9  END
@@ -300,7 +300,7 @@ DEFINE_ACTION_FUNCTION d2_pstitem_npcflags STR_VAR item=~~ resource=~~ BEGIN
 END
 
 DEFINE_PATCH_FUNCTION d2_pstitem_npcflags BEGIN
-  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
       WRITE_LONG 0x1e (THIS BAND BNOT BIT20)    // Dak'kon
       WRITE_LONG 0x1e (THIS BAND BNOT BIT21)    // Fall-From-Grace
       WRITE_LONG 0x1e (THIS BAND BNOT BIT23)    // Vhailor
@@ -327,7 +327,7 @@ DEFINE_ACTION_FUNCTION d2_no_usableflags INT_VAR usable=1 kit1=1 kit2=1 kit3=1 k
 END
 
 DEFINE_PATCH_FUNCTION d2_no_usableflags INT_VAR usable=1 kit1=1 kit2=1 kit3=1 kit4=1 BEGIN
-  PATCH_IF (~%DEST_EXT%~ STR_EQ ~itm~) BEGIN
+  PATCH_IF ((~%SOURCE_EXT%~ STR_EQ ~itm~) OR (~%DEST_EXT%~ STR_EQ ~itm~)) BEGIN
       PATCH_IF (usable > 0) BEGIN  WRITE_LONG 0x1e  0  END
       PATCH_IF (kit1 > 0)   BEGIN  WRITE_BYTE 0x29  0  END
       PATCH_IF (kit2 > 0)   BEGIN  WRITE_BYTE 0x2b  0  END

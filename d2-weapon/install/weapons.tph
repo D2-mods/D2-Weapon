@@ -132,7 +132,7 @@ COPY ~%abilities%/spellfailed.SPL~  ~override/%bb%.SPL~
   LPF ALTER_EFFECT INT_VAR match_opcode=141 parameter2=12 END    // lighting
   SPRINT item_name ~%avelyn_name%~
   SPRINT ability_name @301
-  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@351) STR_VAR color=orange RET newstring END    // spell failed string
+  LPF d2_color_string INT_VAR stringref=RESOLVE_STR_REF (@351) STR_VAR color=light RET newstring END    // spell failed string
   LPF ALTER_EFFECT INT_VAR match_opcode=139 parameter1=newstring END
   LPF d2_protect_on_castequip INT_VAR duration=1 STR_VAR resource=~%aa%~ END
 
