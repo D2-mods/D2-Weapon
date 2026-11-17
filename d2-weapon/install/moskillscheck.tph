@@ -1,0 +1,76 @@
+/*
+for skills & abilities profs
+- INCLUDE this file to check Conditioning effects (run from main component and updater)
+- INCLUDE this file to check Swiftness effects on haste and improved haste
+- can optionally use functions separately in other files
+
+functions:
+mo_conditioning_patch - make Conditioning block a winded/fatigue effect
+mo_swiftness_patch - add Swiftness effects to a spell/item/creature
+*/
+
+
+//make Conditioning block a winded/fatigue effect
+//set resource to the spell to block
+ACTION_IF (FILE_EXISTS_IN_GAME ~MOCON44.spl~) BEGIN
+
+  DEFINE_ACTION_FUNCTION mo_conditioning_patch STR_VAR resource=~~ BEGIN
+    OUTER_SPRINT match  ~SPCL321D~
+    OUTER_SPRINT winded  ~%resource%~
+
+    OUTER_SET patchit = 0
+    ACTION_IF (FILE_EXISTS_IN_GAME ~%winded%.spl~) BEGIN  OUTER_SET patchit = 1  END
+    ACTION_IF (RESOURCE_CONTAINS ~MOCON44.spl~  ~%winded%~) BEGIN  OUTER_SET patchit = 0  END
+
+    ACTION_IF patchit BEGIN
+      ACTION_FOR_EACH spell IN ~MOCON33~ ~MOCON44~ ~MOCON55~ BEGIN
+        COPY_EXISTING ~%spell%.spl~  ~override~
+          LPF CLONE_EFFECT INT_VAR silent=1 STR_VAR match_resource=~%match%~ resource=~%winded%~ END
+        IF_EXISTS BUT_ONLY
+      END
+    END
+  END
+
+END ELSE BEGIN
+  DEFINE_ACTION_FUNCTION mo_conditioning_patch BEGIN END
+END
+
+LAF mo_conditioning_patch STR_VAR resource=d2ragew END    // my mods (winded effect)
+//LAF mo_conditioning_patch STR_VAR resource=dvwinded END    // sr (restoration fatigue)
+
+
+
+//add Swiftness effects to a spell/item/creature, needs to match an opcode (16 = haste)
+//timing and duration are same as the matched effect
+ACTION_IF (FILE_EXISTS_IN_GAME ~MOHAS02.spl~) BEGIN
+
+  DEFINE_PATCH_FUNCTION mo_swiftness_patch INT_VAR match_opcode=16 BEGIN
+    PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~MOHAS02~) BEGIN
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=match_opcode opcode=177 parameter1=0 parameter2=2 STR_VAR resource=MOHAS01 END
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=match_opcode opcode=177 parameter1=0 parameter2=2 STR_VAR resource=MOHAS02 END
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=match_opcode opcode=177 parameter1=0 parameter2=2 STR_VAR resource=MOHAS03 END
+    END
+  END
+
+  DEFINE_ACTION_FUNCTION mo_swiftness_patch INT_VAR match_opcode=16 STR_VAR resource=~~ BEGIN
+    COPY_EXISTING ~%resource%.spl~  ~override~
+                  ~%resource%.itm~  ~override~
+                  ~%resource%.cre~  ~override~
+                  ~%resource%~  ~override~
+      LPF mo_swiftness_patch INT_VAR match_opcode=match_opcode END
+    IF_EXISTS BUT_ONLY
+  END
+
+END ELSE BEGIN
+  DEFINE_PATCH_FUNCTION mo_swiftness_patch BEGIN END
+  DEFINE_ACTION_FUNCTION mo_swiftness_patch BEGIN END
+END
+
+//check sr haste
+LAF mo_swiftness_patch INT_VAR match_opcode=176 STR_VAR resource=SPWI305 END    // haste
+LAF mo_swiftness_patch INT_VAR match_opcode=176 STR_VAR resource=SPWI613 END    // improved haste
+LAF mo_swiftness_patch INT_VAR match_opcode=176 STR_VAR resource=SPIN828 END    // mazzy haste
+
+
+//
+//

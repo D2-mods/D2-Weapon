@@ -1,0 +1,50 @@
+//
+//
+
+
+//Club +4: Frenzy (d2ham01)
+OUTER_TEXT_SPRINT itemid  ~%clubfrenzy%~
+INCLUDE ~%install%/variables.tph~
+OUTER_TEXT_SPRINT  frenzyberserk ~%bb%~
+OUTER_TEXT_SPRINT  frenzyenrage  ~d2ragef~
+
+DEFINE_PATCH_FUNCTION remove_frenzy BEGIN
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~%frenzyberserk%~) BEGIN
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=4 opcode=321 parameter2=0 STR_VAR resource=~%frenzyberserk%~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=4 opcode=321 parameter2=0 STR_VAR resource=~%frenzyenrage%~ END
+  END
+END
+
+DEFINE_PATCH_FUNCTION block_frenzy BEGIN
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~%frenzyberserk%~) BEGIN
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=3 opcode=318 parameter2=0 STR_VAR resource=~%frenzyberserk%~ END
+  END
+END
+
+
+//Stone Greatsword (d2swd06)
+OUTER_TEXT_SPRINT itemid  ~%stoneGS%~
+INCLUDE ~%install%/variables.tph~
+OUTER_TEXT_SPRINT  tranquilslow ~%ss%~
+
+DEFINE_PATCH_FUNCTION remove_tranquil BEGIN
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~%tranquilslow%~) BEGIN
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=163 opcode=321 parameter2=0 STR_VAR resource=~%tranquilslow%~ END
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=16 opcode=321 parameter2=0 STR_VAR resource=~%tranquilslow%~ END
+//  LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=317 opcode=321 parameter2=0 STR_VAR resource=~%tranquilslow%~ END
+  END
+END
+DEFINE_PATCH_FUNCTION block_tranquil BEGIN
+  PATCH_IF !(RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~%tranquilslow%~) BEGIN
+    LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=101 match_parameter2=126 opcode=318 parameter2=0 STR_VAR resource=~%tranquilslow%~ END
+  END
+END
+
+
+//
+OUTER_SET d2weapon_blockeffects = 1
+INCLUDE ~%install%/spellpatching2.tph~
+
+
+/*
+*/

@@ -45,12 +45,12 @@ Components:
 --
 
 **Extra patching:**
-- Recheck heavy weapon damage (can re-run at any time, fixes damage rolls if changed by a later tweak)
+- Recheck heavy weapon damage (can rerun at any time, fixes damage rolls if changed by a later tweak)
 
 #
 
 **Additional info:**
-- This mod is safe to install before or after usability tweaks or proficiency overhauls. (It's still recommended to follow normal install order guidelines. This is just in case you install after tweaks by mistake.)
+- This mod is safe to install before or after usability tweaks or proficiency overhauls. (It's still recommended to follow normal install order guidelines. This is just in case you install after tweaks for whatever reason.)
 - PSTEE: Standard install includes damage and price adjustments (no separate installer options).
 - "Dev mode" is just the standard install, but you start with a bag with all items.
 

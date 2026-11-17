@@ -21,13 +21,14 @@ INCLUDE ~%install%/colossalprep.tph~
 //items
 INCLUDE ~%install%/weapontext.tph~
 INCLUDE ~%install%/weapons.tph~
-INCLUDE ~%install%/spellpatching.tph~
 INCLUDE ~%install%/descimages.tph~
 INCLUDE ~%install%/addtostore.tph~
 INCLUDE ~%install%/priceadjust.tph~
 INCLUDE ~%install%/wbag.tph~
 
 //patches
+OUTER_SET d2weapon_blockeffects = 1
+INCLUDE ~%install%/spellpatching2.tph~
 INCLUDE ~%install%/itemtypepatch.tph~
 INCLUDE ~%install%/pstitemtypes.tph~
 INCLUDE ~%install%/pstitemabilities.tph~

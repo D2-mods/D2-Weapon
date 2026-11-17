@@ -1,0 +1,185 @@
+/*
+Additional patching of spells, items, or creatures.
+Use for mass patching that attempts a CLONE_EFFECT on every file.
+*/
+
+
+ACTION_IF !(IS_AN_INT d2weapon_spellpatching) BEGIN
+
+
+//
+DEFINE_PATCH_FUNCTION d2rage_windedcheck STR_VAR resource=~~ type=~~ BEGIN
+  SET patchit = 0
+  PATCH_IF (FILE_EXISTS_IN_GAME ~%resource%.spl~) BEGIN  SET patchit = 1  END
+  PATCH_IF (RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~%resource%~) BEGIN  SET patchit = 0  END
+
+  PATCH_IF patchit BEGIN
+    // block winded if SPCL321D is blocked
+    PATCH_IF (~%type%~ STR_EQ ~winded~) BEGIN
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=318 STR_VAR match_resource=SPCL321D resource=~%resource%~ END
+      LPF CLONE_EFFECT INT_VAR silent=1 match_opcode=206 STR_VAR match_resource=SPCL321D resource=~%resource%~ END
+    END
+
+    // cure winded if fatigue is cured
+    PATCH_IF (~%type%~ STR_EQ ~fatigue~) BEGIN
+      LPF CLONE_EFFECT
+        INT_VAR silent=1 match_opcode=93 match_parameter1=0 match_parameter2=1 opcode=321 parameter2=0
+        STR_VAR resource~%resource%~
+      END
+    END
+  END
+END
+
+DEFINE_PATCH_FUNCTION d2weapon_spellpatching BEGIN
+  PATCH_IF (IS_AN_INT d2weapon_blockeffects) BEGIN
+    PATCH_IF (~%SOURCE_EXT%~ STR_EQ ~spl~) BEGIN
+      LPF remove_frenzy END
+      LPF remove_tranquil END
+      LPF block_frenzy END
+      LPF block_tranquil END
+    END ELSE BEGIN
+      LPF block_frenzy END
+      LPF block_tranquil END
+    END
+  END
+END
+
+
+
+PRINT @6
+
+//scan spells
+COPY_EXISTING_REGEXP - GLOB ~.*\.spl$~  ~~
+  PATCH_IF (SOURCE_SIZE > 0x99) BEGIN
+    SET patchit = 0
+    LPF d2_validate_spellitem RET is_valid END
+    PATCH_IF is_valid BEGIN  SET patchit = 1  END
+
+    PATCH_IF patchit BEGIN
+      GET_OFFSET_ARRAY spl_headers  SPL_V10_HEADERS
+      PHP_EACH spl_headers AS num => header_off BEGIN        // array of headers
+        PATCH_IF (patchit && num<5) BEGIN
+          GET_OFFSET_ARRAY2 spl_effects header_off SPL_V10_HEAD_EFFECTS
+          PHP_EACH spl_effects AS num => effect_off BEGIN    // array of effects on each header
+            READ_SHORT effect_off opcode
+            PATCH_IF (opcode = 101) BEGIN  SPRINT $d2weapon_spellpatching (~%SOURCE_FILE%~) ~~  END
+            PATCH_IF (opcode = 4) BEGIN  SPRINT $d2weapon_spellpatching (~%SOURCE_FILE%~) ~~  END
+            PATCH_IF (opcode = 163) BEGIN  SPRINT $d2weapon_spellpatching (~%SOURCE_FILE%~) ~~  END
+            PATCH_IF (opcode = 16) BEGIN  SPRINT $d2weapon_spellpatching (~%SOURCE_FILE%~) ~~  END
+            PATCH_IF (opcode=101 OR opcode=4 OR opcode=163 OR opcode=16) BEGIN
+              SET patchit = 1
+            END
+
+            PATCH_IF (opcode = 93) BEGIN
+              SPRINT $d2rage_windedcheck (~%SOURCE_FILE%~) ~fatigue~    // fatigue = check against op93 (parameter1=0)
+              SET patchit = 0
+            END
+          END
+        END
+      END
+    END
+
+    PATCH_IF (RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~SPCL321D~) BEGIN
+      SPRINT $d2rage_windedcheck (~%SOURCE_FILE%~) ~winded~    // winded = check against SPCL321D (op318/206)
+    END
+
+  END
+//
+
+
+//scan items
+COPY_EXISTING_REGEXP - GLOB ~.*\.itm$~  ~~
+  PATCH_IF (SOURCE_SIZE > 0xa0) BEGIN    // skip if no effects
+    SET patchit = 0
+    LPF d2_validate_spellitem RET is_valid END
+    PATCH_IF is_valid BEGIN  SET patchit = 1  END
+
+    PATCH_IF patchit BEGIN
+      GET_OFFSET_ARRAY itm_equip  ITM_V10_GEN_EFFECTS
+      PHP_EACH itm_equip AS num => equip_off BEGIN    // array of equipped effects
+        PATCH_IF patchit BEGIN
+            READ_SHORT equip_off opcode
+            PATCH_IF (opcode = 101) BEGIN
+              SPRINT $d2weapon_spellpatching (~%SOURCE_FILE%~) ~~
+              SET patchit = 0
+            END
+
+            PATCH_IF (opcode = 93) BEGIN
+              SPRINT $d2rage_windedcheck (~%SOURCE_FILE%~) ~fatigue~
+              SET patchit = 0
+            END
+        END
+      END
+    END
+
+    PATCH_IF patchit BEGIN
+      GET_OFFSET_ARRAY itm_headers  ITM_V10_HEADERS
+      PHP_EACH itm_headers AS num => header_off BEGIN      // array of headers
+        PATCH_IF patchit BEGIN
+          GET_OFFSET_ARRAY2 itm_effects header_off ITM_V10_HEAD_EFFECTS
+          PHP_EACH itm_effects AS num => effect_off BEGIN    // array of effects on each header
+            READ_SHORT effect_off opcode
+            PATCH_IF (opcode = 101) BEGIN
+              SPRINT $d2weapon_spellpatching (~%SOURCE_FILE%~) ~~
+              SET patchit = 0
+            END
+
+            PATCH_IF (opcode = 93) BEGIN
+              SPRINT $d2rage_windedcheck (~%SOURCE_FILE%~) ~fatigue~
+              SET patchit = 0
+            END
+          END
+        END
+      END
+    END
+
+    PATCH_IF (RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~SPCL321D~) BEGIN
+      SPRINT $d2rage_windedcheck (~%SOURCE_FILE%~) ~winded~
+    END
+
+  END
+//
+
+
+//scan creatures
+COPY_EXISTING_REGEXP - GLOB ~.*\.cre$~  ~~
+  PATCH_IF (SOURCE_SIZE > 0x2d3) BEGIN    // valid cre file
+    READ_LONG 0x2c8 cre_effects
+    PATCH_IF (cre_effects > 14) BEGIN    // immunities always have many effects
+      SPRINT $d2weapon_spellpatching (~%SOURCE_FILE%~) ~~
+    END
+
+    PATCH_IF (RESOURCE_CONTAINS ~%SOURCE_FILE%~  ~SPCL321D~) BEGIN
+      SPRINT $d2rage_windedcheck (~%SOURCE_FILE%~) ~winded~
+    END
+  END
+//
+
+
+
+//patch files
+ACTION_IF !(IS_AN_INT d2weapon_spellpatching_done) BEGIN
+  ACTION_PHP_EACH d2weapon_spellpatching AS file => patch BEGIN
+    COPY_EXISTING ~%file%~  ~override~
+      LPF d2weapon_spellpatching END
+    BUT_ONLY
+  END
+END
+OUTER_SET d2weapon_spellpatching_done = 1
+
+ACTION_PHP_EACH d2rage_windedcheck AS file => patch BEGIN
+  COPY_EXISTING ~%file%~  ~override~
+    LPF d2rage_windedcheck STR_VAR resource=d2ragew type=~%patch%~ END    // my mods (winded effect)
+//    LPF d2rage_windedcheck STR_VAR resource=dvwinded type=~%patch%~ END    // sr (restoration fatigue)
+    LPF d2rage_windedcheck STR_VAR resource=SPCL321D type=~%patch%~ END    // berserker winded
+  BUT_ONLY
+END
+
+
+OUTER_SET d2weapon_spellpatching = 1
+
+END
+
+
+//
+//

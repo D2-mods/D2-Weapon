@@ -25,7 +25,7 @@ Components:
 3. NPC merchant (does not require main component)
 
 Extra patching:
-- Recheck heavy weapon damage (can re-run at any time, fixes damage rolls if changed by a later tweak)
+- Recheck heavy weapon damage (can rerun at any time, fixes damage rolls if changed by a later tweak)
 
 Additional info:
 - This mod is safe to install before or after usability tweaks or proficiency overhauls. (It's still recommended to follow normal install order guidelines.)
@@ -88,6 +88,7 @@ Contact: Dan_P at Beamdog or Gibberlings3 forums
 Functions used (not including my own):
 - CD_LEVEL_SELECT-O-MATIC by Camdawg (https://www.gibberlings3.net/forums/topic/28835-toss-your-semi-useful-weidu-macros-here/page/13/#comment-332943)
 - cd_eefp_mkhiin_animation by Camdawg (https://github.com/Gibberlings3/EE_Fixpack/blob/master/eefixpack/files/lib/modder_mkhiin_animations.tph)
+- d2_validate_spellitem.tpa uses functions written by Google Gemini
 
 Tools and Resources used:
 - WeiDU (https://github.com/WeiDUorg/weidu)
@@ -114,6 +115,10 @@ Note: Starting with v2.2, this mod no longer uses licensed images, edited or oth
 
 Version info:
 
+v3.7
+- Enrage/Frenzy: items/spells that block fatigue effects will also now block the winded effect. This is checked by both the main component and the updater.
+- Better structure for mass patching related stuff.
+
 v3.6
 - pstee: fixed chaos drain from chaos dagger being able to kill you. Now it won't bring you lower than 1 hp.
 - npc merchant: if the merchant turns invisible for scripting reasons, you now won't be able to bump into its invisible body.
@@ -122,7 +127,7 @@ v3.5
 - revised damage numbers for Colossal Sword/Hammer and Fume Ultra Greatsword/Maul. Base damage is now 4d10 (lowered from 6d10). However, the bonus 4d8 crushing damage is now a small area of effect that hits enemies only (As a balance this also allows a save for half now). So single target damage and criticals are weaker (but still strong for a single hit), but against groups it can damage multiple enemies. The other parts of it are unchanged (locked to 1 APR, knocks back/down main target, THAC0 penalty).
 
 v3.4
-- added an Updater component to check damage and text for nonstandard weapons. This is in case a weapon tweak edits damage for all weapons of a type, and makes changes it shouldn't (ex. changing damage of heavy weapons). Can be re-run at any time, skipped on initial mod install.
+- added an Updater component to check damage and text for nonstandard weapons. This is in case a weapon tweak edits damage for all weapons of a type, and makes changes it shouldn't (ex. changing damage of heavy weapons). Can be rerun at any time, skipped on initial mod install.
 - IWDEE: items from this mod will now have description images if using a UI mod that enables them for IWDEE. Mods that do this include Infinity UI++ and the new IWD icons mod from G3. Previously these were removed due to issues with older versions of Infinity UI++.
 
 v3.3

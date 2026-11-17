@@ -16,10 +16,13 @@
 	@51 = ~Yes~
 	@52 = ~No~
 
-@6 = ~Additional patching of spells, items, or creatures~
+@6 = ~Additional patching of spells, items, or creatures ...~
 
 //updater
-@3263423 = ~Recheck heavy weapon damage (can re-run at any time)~
+@99 = ~Updater component (can rerun at any time)~
+@80 = ~Do all checks~
+@81 = ~Recheck heavy weapon damage (fix if changed by a tweak)~
+@82 = ~Check spells/items installed after this mod (additional patching)~
 
 
 /*

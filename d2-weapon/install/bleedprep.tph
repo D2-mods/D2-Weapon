@@ -193,9 +193,11 @@ ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
   END
 
   // add to d2_bleedprep_arrays
-  COPY ~override/d2_bleedprep_arrays.txt~  ~override~
-    REPLACE_TEXTUALLY ~bleed => bleed~  ~bleed => bleed%WNL%  %resource% => bleed~
-  BUT_ONLY UNLESS ~%resource% => bleed~
+  ACTION_IF (~%resource%~ STRING_CONTAINS_REGEXP ~!~) BEGIN    // skip if name has ! (workaround for install error)
+    COPY ~override/d2_bleedprep_arrays.txt~  ~override~
+      REPLACE_TEXTUALLY ~bleed => bleed~  ~bleed => bleed%WNL%  %resource% => bleed~
+    BUT_ONLY UNLESS ~%resource% => bleed~
+  END
 
 END
 END
@@ -243,9 +245,11 @@ ACTION_IF !(~%resource%~ STR_EQ ~~) BEGIN
   END
 
   // add to d2_bleedprep_arrays
-  COPY ~override/d2_bleedprep_arrays.txt~  ~override~
-    REPLACE_TEXTUALLY ~%mode%name => %mode%~  ~%mode%name => %mode%%WNL%  %resource% => %mode%~
-  BUT_ONLY UNLESS ~%resource% => %mode%~
+  ACTION_IF (~%resource%~ STRING_CONTAINS_REGEXP ~!~) BEGIN    // skip if name has ! (workaround for install error)
+    COPY ~override/d2_bleedprep_arrays.txt~  ~override~
+      REPLACE_TEXTUALLY ~%mode%name => %mode%~  ~%mode%name => %mode%%WNL%  %resource% => %mode%~
+    BUT_ONLY UNLESS ~%resource% => %mode%~
+  END
 
 END
 END
@@ -263,13 +267,11 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY bleed_effects_array BEGIN
 END
 
 ACTION_DEFINE_ASSOCIATIVE_ARRAY bleed_protection_array BEGIN
-  CLERIC_SHIELD_OF_LATHANDER          => ids
-  CLERIC_GREATER_SHIELD_OF_LATHANDER  => ids
-  ~HLA_TG#AEGI~  => ids
-  ~_!SP111~  => res
-  ~_!SP112~  => res
-  ~MEPR653~  => res
-  ~TG#AEGI~  => res
+  CLERIC_SHIELD_OF_LATHANDER => ids
+  CLERIC_GREATER_SHIELD_OF_LATHANDER => ids
+  HLA_TG#AEGI => ids
+  MEPR653 => res
+  TG#AEGI => res
   idsname => ids
   resname => res
 END

@@ -45,5 +45,9 @@ COPY_EXISTING ~%chaosrapier%.itm~  ~override~
 BUT_ONLY
 
 
+//only include quick checks (NOT spellpatching2.tph)
+INCLUDE ~%install%/moskillscheck.tph~
+
+
 /*
 */
